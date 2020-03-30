@@ -4,7 +4,7 @@
 <!--  bootstrap css -->
 <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 <!--  font Awesome Css  -->
-<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 <!--    stylesheet for fonts-->
 <link href="{{asset('assets/fonts/stylesheet.css')}}" rel="stylesheet">
 <!-- Reset css-->
@@ -27,4 +27,4 @@
 <script src="{{asset('assets/js/respond.min.js')}}"></script>
 <![endif]-->
 
-<title>Title here</title>
+<title>@isset($page_title) {{$page_title}} @endisset</title>

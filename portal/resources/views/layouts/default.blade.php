@@ -3,14 +3,15 @@
 <head>
     @include('includes.head')
 </head>
-<body>
+<body class="js @isset($body_class) {{$body_class}} @endisset">
+<div id="preloader"></div>
 <div class="web-wrapper">
     <header>
         @include('includes.header')
     </header>
-    <div id="main" class="row">
+    <main id="main">
         @yield('content')
-    </div>
+    </main>
     <footer class="row">
         @include('includes.footer')
     </footer>

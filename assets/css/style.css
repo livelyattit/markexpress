@@ -53,10 +53,11 @@
 }
 
 .is-sticky #sticker {
-    background: #22313f none repeat scroll 0 0;
+    background: #ffffff none repeat scroll 0 0;
     -webkit-transition: all 0.4s ease 0s;
     transition: all 0.4s ease 0s;
     width: 100% !important;
+    box-shadow: 0 3px 10px #616161e6;
 }
 
 .is-sticky .logo > img {
@@ -88,9 +89,12 @@ nav.navbar {
 .is-sticky .signup ul li:first-child a:hover {
     color: #fff
 }
+.is-sticky .navbar-nav>li>a {
+    color: #016bce;
+}
 
 .is-sticky .signup:before {
-    background: #fff none repeat scroll 0 0;
+    background: #f9bf3b none repeat scroll 0 0;
 }
 
 .logo {
@@ -179,6 +183,10 @@ nav.navbar {
 .signup ul li:last-child a:hover {
     background: #fff none repeat scroll 0 0;
     color: #f9bf3b;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
 }
 
 
@@ -1127,8 +1135,8 @@ video#bgvid {
 
 /*start about us page css*/
 
-.about-us .logo_menu {
-    background: #22313f none repeat scroll 0 0;
+header .logo_menu {
+    background: #016bce none repeat scroll 0 0;
     top: 0;
 }
 
@@ -1283,7 +1291,7 @@ ul.breadcrumbs li {
 /*contact us page css*/
 
 .contact-page-area {
-    padding: 120px 0 80px;
+    padding: 50px 0 80px;
 }
 
 .contact-form input {
@@ -1338,7 +1346,7 @@ ul.breadcrumbs li {
     width: 100%;
     height: 100%;
     overflow: visible;
-    background: #333 url('http://files.mimoymima.com/images/loading.gif') no-repeat center center;
+    background: #fff url(../img/loading.gif) no-repeat center center;
 }
 
 .pricing-area .single-pricing-table.slick-slide:focus, .single_calculate input:focus, .single_calculate select:focus {
@@ -1347,3 +1355,23 @@ ul.breadcrumbs li {
 .single-footer .form-control:focus {
     box-shadow: none;
 }
+
+
+/* General */
+main#main > .portal-wrapper {
+    padding-top: 70px;
+}
+
+/*General End */
+
+/* Login Page */
+
+body.page-login main#main > .portal-wrapper,
+body.page-register main#main > .portal-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Login Page End */

@@ -2,8 +2,6 @@
 
 @section('content')
 
-    <div id="preloader"></div>
-    <!--start header area with background video-->
     <section class="header_area version2-hero">
 
         <!--   start welcome text area     -->

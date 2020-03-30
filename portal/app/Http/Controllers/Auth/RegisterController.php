@@ -70,4 +70,14 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    public function showRegistrationForm()
+    {
+        $body_class = 'page-register';
+        $page_title = 'Register';
+        return view('auth.register', [
+            'body_class'=>$body_class,
+            'page_title'=>$page_title,
+        ]);
+    }
 }
