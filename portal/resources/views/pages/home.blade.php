@@ -39,47 +39,6 @@
     </section>
     <!--end of header area-->
 
-    <!--   start about top area-->
-    <section class="about_top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="about_single_item">
-                        <div class="item_icon">
-                            <img src="{{asset('assets/img/item_icon.png')}}" alt="item">
-                        </div>
-                        <div class="about_single_item_content">
-                            <h4>Fastest Delivery</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="about_single_item">
-                        <div class="item_icon">
-                            <img src="{{asset('assets/img/item_icon.png')}}" alt="item">
-                        </div>
-                        <div class="about_single_item_content">
-                            <h4>Fastest Delivery</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="about_single_item">
-                        <div class="item_icon">
-                            <img src="{{asset('assets/img/item_icon.png')}}" alt="item">
-                        </div>
-                        <div class="about_single_item_content">
-                            <h4>Fastest Delivery</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--    end of about top area-->
     <!--    start about us area-->
     <section class="about_us_area" id="about">
         <div class="container">
@@ -93,7 +52,7 @@
                 </div>
                 <div class="col-md-offset-1 col-sm-6 col-md-5">
                     <div class="about_car">
-                        <img src="{{asset('assets/img/item_icon.png')}}" alt="car">
+                        <img src="{{asset('assets/img/about-us.jpg')}}" alt="delivery bike">
                     </div>
                 </div>
             </div>

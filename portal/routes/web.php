@@ -19,4 +19,9 @@ Route::get('/contact', 'ContactController@index')->name('contact');
 Auth::routes();
 
 
+// Customer Routes
+Route::get('/customer/dashboard', 'CustomerController@index')->name('customer-dashboard');
+Route::get('/customer/create-parcel', 'CustomerController@createParcel')->name('customer-create-parcel');
+Route::get('/customer/edit-profile', 'CustomerController@editProfile')->name('customer-edit-profile');
+
 //Route::get('/home', 'HomeController@index');
