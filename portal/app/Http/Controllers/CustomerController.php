@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 class CustomerController extends UserController
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
 
         $body_class = 'page-dashboard page-dashboard-customer';

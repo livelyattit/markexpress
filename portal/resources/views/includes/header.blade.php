@@ -18,7 +18,7 @@
                 </nav>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-4 col-lg-3 signup">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav transparent-nav">
                     @guest
                     <li><a href="{{route('login')}}">login</a></li>
                     @if(Route::has('register'))

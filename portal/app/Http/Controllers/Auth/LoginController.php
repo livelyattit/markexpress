@@ -38,6 +38,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function username()
+    {
+        return 'cnic';
+    }
+
     public function showLoginForm()
     {
         $body_class = 'page-login';

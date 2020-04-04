@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Rules\CnicNumber;
+use App\Rules\PhoneNumber;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -52,8 +54,13 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', new PhoneNumber],
+            'cnic' => ['required', new CnicNumber, 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ],
+            [
+                'cnic.unique'=>'Cnic is already associated to some other account.'
+            ]);
     }
 
     /**
@@ -67,6 +74,10 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'mobile' => $data['mobile'],
+            'cnic' => $data['cnic'],
+            'role_id'=>3, // 3 is for customer for now
+            'originality_verified'=> 0, // 0 means not verified by the admin
             'password' => Hash::make($data['password']),
         ]);
     }
