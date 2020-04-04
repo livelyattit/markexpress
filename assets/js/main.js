@@ -1,5 +1,10 @@
 jQuery(document).ready(function ($) {
 
+    $(window).load(function () {
+        $('#preloader').fadeOut('slow', function () {
+            //  $(this).remove();
+        });
+    });
 
     $(window).bind('resizeEnd', function () {
         $('.header_area,.singlebgslider').css('height', $(window).height());
@@ -162,13 +167,32 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    /*
+    *
+    * ===================================================
+    *
+    * Logics start from here
+    * */
 
+    //Login Page
+    if($('body').hasClass('page-login')){
+        console.log('working');
 
-    
-    $(window).load(function () {
-        $('#preloader').fadeOut('slow', function () {
-          //  $(this).remove();
-        });
-    });
+        // $('#cnic').on('input ',function () {
+        //
+        //     let val =$(this).val();
+        //
+        //
+        //     if(val.length == 13){
+        //
+        //         let aa = val.substr(0,5) + '-' + val.substr(5, 12) + '-';
+        //         $(this).val(aa);
+        //
+        //     }
+        //
+        //
+        //
+        // });
+    }
 
 });

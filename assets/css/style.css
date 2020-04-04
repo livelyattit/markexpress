@@ -174,16 +174,14 @@ nav.navbar {
 }
 
 .signup ul li:last-child a {
-    background: #06a220 none repeat scroll 0 0;
+    /* background: #06a220 none repeat scroll 0 0; */
     border-radius: 3px;
-    color: #fff;
+    color: #016bce;
     margin-top: 0px;
 }
 
 .signup ul li:first-child a {
     padding-left: 15px;
-    background: #fff;
-    color: #016bce;
 }
 }
 
@@ -207,6 +205,19 @@ nav.navbar {
     line-height: 1;
     display: block;
 }
+
+div#sticker-sticky-wrapper:not(.is-sticky) .navbar-nav.transparent-nav li > a {
+    background: transparent;
+    color: #fff;
+}
+
+div#sticker-sticky-wrapper .navbar-nav.transparent-nav li:last-child
+> a {
+    background: #06a220;
+    color: #fff;
+    padding:15px 40px;
+}
+
 
 
 /*
@@ -1407,6 +1418,14 @@ body.page-register main#main > .portal-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+span.invalid-feedback {
+    color: red;
+}
+
+.form-control.is-invalid {
+    border-color: red;
 }
 
 /* Login Page End */
