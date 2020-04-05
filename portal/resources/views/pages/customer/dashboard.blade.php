@@ -28,6 +28,10 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
+                <pre>
+                    {{print_r($user_details)}}
+                </pre>
+
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

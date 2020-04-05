@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -42,6 +44,12 @@ class LoginController extends Controller
     {
         return 'cnic';
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        //
+    }
+
 
     public function showLoginForm()
     {

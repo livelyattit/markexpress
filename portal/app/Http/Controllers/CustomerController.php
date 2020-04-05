@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class CustomerController extends UserController
@@ -16,9 +17,15 @@ class CustomerController extends UserController
 
         $body_class = 'page-dashboard page-dashboard-customer';
         $page_title = 'Dashboard';
+
+
+
+        $user_details =    User::find(4);
+       // dd($user_details->role->role);
         return view('pages.customer.dashboard', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,
+            'user_details'=>$user_details
         ]);
 
     }
