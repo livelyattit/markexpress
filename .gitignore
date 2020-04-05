@@ -11,7 +11,6 @@ yarn-error.log
 .idea/
 composer.lock
 package-lock.json
-.env
 # Compiled source #
 ###################
 *.com
