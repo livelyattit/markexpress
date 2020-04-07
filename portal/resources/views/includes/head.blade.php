@@ -1,25 +1,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--  bootstrap css -->
-<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-<!--  font Awesome Css  -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-<!--    stylesheet for fonts-->
-<link href="{{asset('assets/fonts/stylesheet.css')}}" rel="stylesheet">
-<!-- Reset css-->
-<link href="{{asset('assets/css/reset.css')}}" rel="stylesheet">
 
-<!--slick css-->
-<link href="{{asset('assets/css/slick.css')}}" rel="stylesheet">
-<!--  owl-carousel css -->
-<link href="{{asset('assets/css/owl.carousel.css')}}" rel="stylesheet">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="{{asset('assets/css/meanmenu.css')}}">
-<!--  style css  -->
-<link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
-<!--  Responsive Css  -->
-<link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="{{asset("assets/css/bootstrap.min.css")}}" />
+    <link rel="stylesheet" href="{{asset("assets/css/owl.carousel.css")}}" />
+    <link rel="stylesheet" href="{{asset("assets/css/fa.css")}}" />
+    <link rel="stylesheet" href="{{asset("assets/css/style.css")}}" />
+    <link rel="stylesheet" href="{{asset("assets/css/responsive.css")}}" />
 
 <!--  browser campatibel css files-->
 <!--[if lt IE 9]>

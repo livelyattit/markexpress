@@ -17,6 +17,7 @@
     </footer>
 </div>
 
+@include('includes.popup-enquire-now')
 @include('includes.libraries')
 </body>
 </html>
