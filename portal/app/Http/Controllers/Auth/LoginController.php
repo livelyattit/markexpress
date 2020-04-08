@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -87,8 +88,38 @@ class LoginController extends Controller
         // }
 
         return $request->wantsJson()
-                    ? response()->json(['data'=>'success'])
+                    ? response()->json([
+                        'data'=>
+                        [
+                            'status'=>'success',
+                             'message'=>'User logged in.'
+                        ]
+                    ])
                     : redirect()->intended($this->redirectPath());
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
+
+        return $request->wantsJson()
+                    ? response()->json(
+                       [ 'data'=>
+                        [
+                            'status'=>'error',
+                             'message'=>'Invalid Credentials',
+                        ]
+                       ]
+                   , 422 ) :  [ 'data'=>
+                    [
+                        'status'=>'error',
+                         'message'=>'Invalid Credentials'
+                    ]
+                   ] ;
+
+
     }
 
 

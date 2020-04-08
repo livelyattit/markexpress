@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="portal-wrapper">
+    <div style="display:none;" class="portal-wrapper">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-centered">
@@ -145,7 +145,7 @@
                                                 </div>
                                             </div>
                                             <div class="col text-right">
-                                                <button type="submit" class="btn btn-success btn-round">Sign in</button>
+                                                <button type="submit" class="btn btn-dark btn-round btn-in-submit">Sign in</button>
                                             </div>
                                         </div>
                                     </form>
