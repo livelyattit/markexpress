@@ -11,8 +11,11 @@
 |
 */
 
+// $app = new Illuminate\Foundation\Application(
+//     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+// );
 $app = new Illuminate\Foundation\Application(
-    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+    realpath(__DIR__.'/../')
 );
 
 /*
@@ -51,5 +54,24 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+
+
+
+if(isset($_SERVER['HTTP_HOST'])){
+
+    switch($_SERVER['HTTP_HOST']){
+    case 'markexpress.local':
+        $app->loadEnvironmentFrom('.env.local');		
+    break;
+    case 'markplan.techygeek.co':
+        $app->loadEnvironmentFrom('.env');
+    break;
+    default:
+	$app->loadEnvironmentFrom('.env');
+	break;
+};
+
+}
+
 
 return $app;
