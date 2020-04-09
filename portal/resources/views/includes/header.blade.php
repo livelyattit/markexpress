@@ -3,8 +3,8 @@
             <div class="container">
               <div class="row">
                 <div class="col-12 text-center">
-                  <a class="logo-header" href="#">
-                    <img src="{{asset("assets/img/logo-header.jpg")}}" />
+                  <a class="logo-header" href="{{route('home')}}">
+                    <img src="{{asset("assets/img/MARK-EXPRESS-LOGO.png")}}" />
                   </a>
                 </div>
               </div>
@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-12">
                         <ul>
-                            <li><i class="fad fa-mobile"></i><a href="tel:03301234567">0330-1234567</a></li>
+                            <li><i class="fad fa-mobile"></i><a href="tel:03303271638">0330-3271638</a></li>
                             <li><i class="fad fa-envelope"></i><a href="mailto:hello@markexpress.pk">Hello@MarkExpress.Pk</a></li>
                         </ul>
                     </div>
@@ -33,7 +33,7 @@
           <div class="header-primary">
             <div class="container">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">Mark Express</a>
+                <a class="navbar-brand" href="{{route('home')}}">Mark Express</a>
                 <button
                   class="navbar-toggler"
                   type="button"
@@ -48,13 +48,13 @@
 
                 <div class="collapse navbar-collapse" id="navbarColor02">
                   <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item  {{Request::route()->getName() == 'home' ? 'active' : '' }}">
                       <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{route('about')}}">About</a>
+                    <li class="nav-item {{Request::route()->getName() == 'about' ? 'active' : '' }}">
+                      <a class="nav-link" href="{{route('home')}}#about-us-section">About</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{Request::route()->getName() == 'contact' ? 'active' : '' }}">
                       <a class="nav-link" href="{{route('contact')}}">Contact</a>
                     </li>
                     <li class="nav-item d-lg-none">
@@ -62,7 +62,7 @@
                       </li>
 
                     @guest
-                    <li class="nav-item">
+                    <li class="nav-item {{Request::route()->getName() == 'login' ? 'active' : '' }}">
                         <a class="nav-link" href="{{route('login')}}">Login | Sign Up</a>
                     </li>
                     @else
@@ -72,9 +72,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('customer-dashboard')}}">Dashboard</a>
-                                <a class="dropdown-item" href="{{route('customer-create-parcel')}}">Create Parcel</a>
-                                <a class="dropdown-item" href="{{route('customer-edit-profile')}}">Edit Profile</a>
+                                <a class="dropdown-item {{Request::route()->getName() == 'customer-dashboard' ? 'active' : '' }}" href="{{route('customer-dashboard')}}">Dashboard</a>
+                                <a class="dropdown-item {{Request::route()->getName() == 'customer-create-parcel' ? 'active' : '' }}" href="{{route('customer-create-parcel')}}">Create Parcel</a>
+                                <a class="dropdown-item {{Request::route()->getName() == 'customer-edit-profile' ? 'active' : '' }}" href="{{route('customer-edit-profile')}}">Edit Profile</a>
                                 <a class="dropdown-item" href="{{route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

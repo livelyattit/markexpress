@@ -10,6 +10,11 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+
 
 class RegisterController extends Controller
 {
@@ -81,6 +86,32 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+
+        // if ($response = $this->registered($request, $user)) {
+        //     return $response;
+        // }
+
+        return $request->wantsJson()
+                    ? response()->json([
+                        'data'=>
+                        [
+                            'status'=>'success',
+                             'message'=>'User Registered.'
+                        ]
+                    ])
+                    : redirect()->intended($this->redirectPath());
+    }
+
+
 
     public function showRegistrationForm()
     {

@@ -6,7 +6,7 @@
                             <div class="single-footer">
                                 <h2>about us</h2>
                                 <a class="logo-footer" href="#">
-                                    <img src="{{asset("assets/img/logo-header.jpg")}}">
+                                    <img src="{{asset("assets/img/MARK-EXPRESS-LOGO.png")}}">
                                 </a>
                                 <p>ABOUT US Lorem ipsum dolor sit amet, consectetuer adipiscing elit,</p>
                             </div>

@@ -55,7 +55,7 @@ $app->singleton(
 |
 */
 
-
+// die($_SERVER['HTTP_HOST']);
 
 if(isset($_SERVER['HTTP_HOST'])){
 

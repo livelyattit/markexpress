@@ -100,9 +100,9 @@ class LoginController extends Controller
 
     protected function sendFailedLoginResponse(Request $request)
     {
-        throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
-        ]);
+        // throw ValidationException::withMessages([
+        //     $this->username() => [trans('auth.failed')],
+        // ]);
 
         return $request->wantsJson()
                     ? response()->json(

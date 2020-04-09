@@ -12,7 +12,6 @@ yarn-error.log
 composer.lock
 package-lock.json
 .env
-.env.local
 # Compiled source #
 ###################
 *.com

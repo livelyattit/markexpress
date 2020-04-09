@@ -9,10 +9,10 @@
 			</div>
 			<div class="modal-body pt-1">
 				<div class="pb-4 pr-4 pl-4 pt-1 text-center">
-					<img class="enquire-img" src="{{asset("assets/img/logo-header.jpg")}}">
+					<img class="enquire-img" src="{{asset("assets/img/MARK-EXPRESS-LOGO.png")}}">
 					<h2 class="heading">Enquire Your Parcel Query</h2>
 					<h6>
-						Call us on <a href="tel:03301234567">0330-1234567</a>
+						Call us on <a href="tel:03303271638">0330-3271638</a>
                     </h6>
                     <h5>Or</h5>
                     <h6>Fill the form below, we will be in touch with you shortly</h6>

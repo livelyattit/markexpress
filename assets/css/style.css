@@ -366,6 +366,10 @@ input[type="radio"] .styled:checked + label::after {
 
 /* Normal Styling */
 
+html {
+  scroll-behavior: smooth;
+}
+
 .sec-btns.text-right {width: 100px;position: absolute;right: 0;top: 0;padding-right: 15px;padding-left: 15px;}
 
 .header-secondary  .row {
@@ -373,7 +377,7 @@ input[type="radio"] .styled:checked + label::after {
 }
 
 a.logo-header img {
-  width: 230px;
+  width: 280px;
 }
 
 *:focus {
@@ -395,6 +399,7 @@ section#intro-section {
 .header-wrapper {
   position: relative;
   z-index: 1;
+  padding-top: 20px;
 }
 
 section#intro-section h1 {
@@ -446,7 +451,7 @@ section#intro-section:before {
 
 .header-secondary .right-side i {
   font-size: 20px;
-  color: #5dba47;
+  color: #0bb300;
   margin-right: 9px;
   width: 40px;
   text-align: center;
@@ -469,7 +474,7 @@ section#intro-section:before {
 .header-secondary .right-side a {
   display: block;
   text-transform: capitalize;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 1px;
 }
 
@@ -482,7 +487,7 @@ section#intro-section:before {
 
 .header-secondary .left-side i {
   font-size: 20px;
-  color: #5dba47;
+  color: #0bb300;
   margin-right: 9px;
   width: 40px;
   text-align: center;
@@ -505,7 +510,7 @@ section#intro-section:before {
 .header-secondary .left-side a {
   display: block;
   text-transform: capitalize;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 1px;
 }
 
@@ -515,10 +520,10 @@ img.enquire-img {
 }
 
 .about_us_content h2 {
-  color: #5dba47;
+  color: #0baf01;
   margin-bottom: 15px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   font-family: "Open Sans", sans-serif;
   font-size: 35px;
 }
@@ -669,7 +674,9 @@ a.logo-footer {
 }
 
 a.logo-footer img {
-  width: 140px;
+  width: 160px;
+  background: #fff;
+  padding: 5px 10px;
 }
 
 a.fbr-logo {
@@ -738,7 +745,7 @@ section#login-section .tab-wrapper {
 .bod-0:focus {
   outline: 0 !important;
   border: 1px solid transparent !important;
-  border-bottom: 1px solid #3e96f1 !important;
+  border-bottom: 1px solid #002cb8 !important;
   box-shadow: unset;
 }
 
@@ -753,7 +760,7 @@ section#login-section button[type=submit] {
 }
 
 section#login-section .container {
-  border: 1px solid #44c553;
+  border: 1px solid #0baf01;
   padding: 30px 20px;
   max-width: 1140px;
 }

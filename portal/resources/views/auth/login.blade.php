@@ -116,7 +116,7 @@
                                             <input type="password" class="form-control bod-0" id="signup-password-1" name="password" placeholder="Password" required="">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control bod-0" id="signup-password-2" name="password" placeholder="Confirm Password" required="">
+                                            <input type="password" class="form-control bod-0" id="signup-password-2" name="password_confirmation" placeholder="Confirm Password" required="">
                                         </div>
                                         <div class="row form-group align-items-center">
                                             <div class="col text-right">

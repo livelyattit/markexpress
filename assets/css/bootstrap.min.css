@@ -110,7 +110,7 @@ sup {
   top: -.5em; }
 
 a {
-  color: #5dba47;
+  color: #0baf01;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
@@ -420,13 +420,13 @@ sup {
   top: -.5em; }
 
 a {
-  color: #5fb846;
+  color: #0baf01;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
   }
   a:hover {
-    color: #5dba47;
+    color: #26dc1f;
     text-decoration: underline;
     }
 
@@ -2167,8 +2167,9 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: #44c553;
-  border-color: #44c553; }
+  background-color: #0baf01;
+  border-color: #0baf01;
+  }
   .btn-success:hover {
     color: #fff;
     background-color: #36ad44;
@@ -3589,7 +3590,9 @@ input[type="button"].btn-block {
   .nav-tabs .nav-link {
     border: 1px solid transparent;
     border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem; }
+    border-top-right-radius: 0.25rem;
+    font-weight: 500;
+    }
     .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
       border-color: #e9ecef #e9ecef #dee2e6; }
     .nav-tabs .nav-link.disabled {
@@ -3891,11 +3894,11 @@ input[type="button"].btn-block {
   font-weight: 500;
   }
   .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
-    color: #5dba47;
+    color: #0baf01;
     }
 
 .navbar-dark .navbar-nav .nav-link {
-  color: rgb(93, 186, 71);
+  color: #0baf01;
   font-size: 16px;
   /* font-family: "Poppins", sans-serif; */
   font-weight: 600;
@@ -9130,7 +9133,7 @@ img {
   left: 50%; }
 
 a {
-  color: #5dba47;
+  color: #0baf01;
   }
 
 .c-pointer:hover {
