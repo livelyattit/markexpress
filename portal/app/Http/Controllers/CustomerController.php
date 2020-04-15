@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends UserController
 {
@@ -20,7 +21,7 @@ class CustomerController extends UserController
 
 
 
-        $user_details =    User::find(4);
+        $user_details =    User::find(Auth::user()->id);
        // dd($user_details->role->role);
         return view('pages.customer.dashboard', [
             'body_class'=>$body_class,

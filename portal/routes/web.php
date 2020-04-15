@@ -31,5 +31,14 @@ Route::middleware(['customer'])->group(function (){
 
 });
 
+Route::middleware(['admin'])->group(function (){
+
+    Route::get('/admin/dashboard', function(){
+
+        return '<h1>Admin Dashboard</h1>';
+    })->name('admin-dashboard');
+
+});
+
 
 //Route::get('/home', 'HomeController@index');

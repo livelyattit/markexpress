@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -53,29 +54,44 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-      //  return $request;
-
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        // if (method_exists($this, 'hasTooManyLoginAttempts') &&
-        //     $this->hasTooManyLoginAttempts($request)) {
-        //     $this->fireLockoutEvent($request);
-
-        //     return $this->sendLockoutResponse($request);
-        // }
+        //  return $request;
 
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-     //   $this->incrementLoginAttempts($request);
+
+        //   $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
     }
+
+
+    public function redirectTo()
+    {
+
+        $redirect_location = route('home');
+
+        if (Auth::check()) {
+
+            $user_details =    User::find(Auth::user()->id);
+            $user_role = $user_details->role->role; // customer or admin
+
+            switch ($user_role) {
+                case 'customer':
+                    $redirect_location = route('customer-dashboard');
+                    break;
+                case 'admin':
+                    $redirect_location = route('admin-dashboard');
+                    break;
+                default:
+                    $redirect_location = route('home');
+            }
+        }
+
+        return $redirect_location;
+    }
+
 
     protected function sendLoginResponse(Request $request)
     {
@@ -83,43 +99,35 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        // if ($response = $this->authenticated($request, $this->guard()->user())) {
-        //     return $response;
-        // }
 
         return $request->wantsJson()
-                    ? response()->json([
-                        'data'=>
-                        [
-                            'status'=>'success',
-                             'message'=>'User logged in.'
-                        ]
-                    ])
-                    : redirect()->intended($this->redirectPath());
+            ? response()->json([
+                'data' =>
+                [
+                    'status' => 'success',
+                    'message' => 'User logged in.',
+                    'redirect_url' => $this->redirectPath()
+
+                ]
+            ])
+            : redirect()->intended($this->redirectPath());
     }
 
     protected function sendFailedLoginResponse(Request $request)
     {
-        // throw ValidationException::withMessages([
-        //     $this->username() => [trans('auth.failed')],
-        // ]);
 
         return $request->wantsJson()
-                    ? response()->json(
-                       [ 'data'=>
-                        [
-                            'status'=>'error',
-                             'message'=>'Invalid Credentials',
-                        ]
-                       ]
-                   , 422 ) :  [ 'data'=>
+            ? response()->json(
+                [
+                    'data' =>
                     [
-                        'status'=>'error',
-                         'message'=>'Invalid Credentials'
+                        'status' => 'error',
+                        'message' => 'Invalid Credentials',
+                        'redirect_url' => $this->redirectPath()
                     ]
-                   ] ;
-
-
+                ],
+                422
+            ) : redirect()->intended($this->redirectPath());
     }
 
 
@@ -128,10 +136,8 @@ class LoginController extends Controller
         $body_class = 'page-login';
         $page_title = 'Login';
         return view('auth.login', [
-            'body_class'=>$body_class,
-            'page_title'=>$page_title,
+            'body_class' => $body_class,
+            'page_title' => $page_title,
         ]);
     }
-
-
 }

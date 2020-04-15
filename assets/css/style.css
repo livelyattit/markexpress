@@ -757,12 +757,51 @@ ul.nav.nav-tabs {
 section#login-section button[type=submit] {
   padding: 8px 40px;
   text-align: center;
+  transition: 0.5s ease;
+}
+
+button[type=submit].btn-containing-loader.enabled {
+    background: #fff;
+    color:#3a3a3a;
+    cursor: no-drop;
+    opacity: 1;
+}
+
+button .loader {
+    margin-right: 11px;
 }
 
 section#login-section .container {
   border: 1px solid #0baf01;
   padding: 30px 20px;
   max-width: 1140px;
+}
+
+button[type=submit].btn-containing-loader {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin: 0 auto; */
+    height: 53px;
+}
+
+form .form-message {
+    text-align: left;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 600;
+    color: #343a40;
+    padding-right: 20px;
+    margin-left: 19px;
+    transition: 0.4s ease;
+}
+
+form .form-message.error {
+    color: #f00;
+}
+form .form-message.success {
+    color: #0baf01;
 }
 
 img.delivery_boy {

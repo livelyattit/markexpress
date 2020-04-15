@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="{{asset("assets/css/bootstrap.min.css")}}" />
     <link rel="stylesheet" href="{{asset("assets/css/owl.carousel.css")}}" />
     <link rel="stylesheet" href="{{asset("assets/css/fa.css")}}" />
-    <link rel="stylesheet" href="{{asset("assets/css/style.css")}}" />
+    <link rel="stylesheet" href="{{asset("assets/css/style.css?ver" . time())}}" />
     <link rel="stylesheet" href="{{asset("assets/css/responsive.css")}}" />
 
 <!--  browser campatibel css files-->
