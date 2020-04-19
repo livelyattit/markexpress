@@ -20,7 +20,7 @@ class HelperController extends Controller
         ];
         
         if(Auth::user()->id == $authid){
-            return response()->download(base_path($dir_locations[$location] . '\\' .$filename), null, [], null);
+            return response()->download(base_path($dir_locations[$location] . '/' .$filename), null, [], null);
         } else {
 
             return response('Error');
