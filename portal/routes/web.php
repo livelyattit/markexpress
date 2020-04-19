@@ -12,12 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/about', 'HomeController@about')->name('about');
 Route::get('/contact', 'ContactController@index')->name('contact');
 Route::get('/test', 'TestController@index')->name('test');
-Auth::routes();
+Route::get('file/{authid}/{location}/{filename}', 'HelperController@getContentFile')->where([
+    'filename'=> '^[^/]+$'
+    ])->name('content');
+
 
 
 // Customer Routes

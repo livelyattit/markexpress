@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFkeyRolesToUsers extends Migration
+class SetNullFieldsUserPersonalData extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddFkeyRolesToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('user_personal_data', function (Blueprint $table) {
+            $table->string('bill_file_name')->nullable()->change();
+            $table->string('cnic_file_name')->nullable()->change();
 
-            $table->foreign('role_id')->references('id')->on('users_roles')->constrained()->cascadeOnDelete();
         });
     }
 
@@ -26,8 +27,6 @@ class AddFkeyRolesToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

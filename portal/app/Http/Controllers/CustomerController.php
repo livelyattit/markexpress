@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\User;
+use App\UserPersonalData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -23,12 +24,14 @@ class CustomerController extends UserController
 
 
 
-        $user_details =    User::find(Auth::user()->id);
+       // $user_details =    User::with('role')->find(Auth::user()->id);
+        //$user_personal_data = UserPersonalData::where('user_id', Auth::user()->id)->first();
        // dd($user_details->role->role);
         return view('pages.customer.dashboard', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,
-            'user_details'=>$user_details
+          //  'user_details'=>$user_details,
+            //'user_personal_data'=>$user_personal_data
         ]);
 
     }
@@ -47,18 +50,36 @@ class CustomerController extends UserController
 
         $user_details = Customer::find(Auth::user()->id);
 
-        $image = $request->file('file_bill');
+        $image = $request->file('file');
    
         $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
+        UserPersonalData::updateOrCreate([
+            'user_id'=>Auth::user()->id,
+        ], [
+            'bill_file_name'=>$imageName,
+            'bill_request_confirmation'=>0
+        ]);
         $image->move(base_path('users_bills'),$imageName);
    
         return response()->json(['success'=>$imageName]);
         
     }
 
-    public function fileUploadCnic(Request $request, Response $response){
+    public function fileUploadCnic(Request $request){
 
-        return $response->json(['data'=>$request->file('file_bill')]) ;
+        $user_details = Customer::find(Auth::user()->id);
+
+        $image = $request->file('file');
+   
+        $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
+        $image->move(base_path('users_cnic'),$imageName);
+        UserPersonalData::updateOrCreate([
+            'user_id'=>Auth::user()->id,
+        ], [
+            'cnic_file_name'=>$imageName,
+            'cnic_request_confirmation'=>0
+        ]);
+        return response()->json(['data'=>$imageName]) ;
     }
 
     

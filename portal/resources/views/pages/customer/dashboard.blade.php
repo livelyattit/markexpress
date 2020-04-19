@@ -11,36 +11,43 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            
-                            <h2 class="first-time-name">Welcome {{ucwords($user_details->name)}}</h2>
+                   
+                        
+                            <h2 class="first-time-name">Welcome {{ucwords(Auth::user()->name)}}</h2>
                             <p>You need to verify your identity by submitting the scanned copies of:</p>
                             <ol>
                                 <li>Cnic front</li>
                                 <li>Recent Bill of (Elecrivity or Sui Gas)</li>
                             </ol>
-                            <p><strong>Note:</strong> The retrievals of above copies retains a purpose to make sure the account is <valid class=""></valid></p>
-
-                            <form  enctype="multipart/form-data" id="form-upload-bill" method="POST" action="{{route('file-upload-bill')}}" class="  form">
-                                @csrf
-                               
-                                  <input name="file_bill" type="file" />
-                                  <input name="submit_img" type="submit" value="submit" />
-                                
-                              </form>
-
+                            <p><strong>Note:</strong> The retrievals of above copies retains a purpose to make sure the account is <valid class=""></valid></p> 
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="verification-uploader">
-                                        
+                                    @isset(Auth::user()->personalData->bill_file_name)
+
+                                <img src="{{route('content',
+                                 ['authid'=>Auth::user()->id,
+                                 'location'=>'JP7gRq00',
+                                    'filename'=>Auth::user()->personalData->bill_file_name
+                                 ])}}">
+                                    @endisset
+                                    <div class="verification-uploader verification-uploader-bill">
+                                        <form  enctype="multipart/form-data"  id="form-upload-bill" method="POST" action="{{route('file-upload-bill')}}" class="dropzone from">
+                                            @csrf
+                                          </form>
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="verification-uploader">
+                                    @isset(Auth::user()->personalData->cnic_file_name)
+
+                                    <img src="{{route('content',
+                                     ['authid'=>Auth::user()->id,
+                                     'location'=>'lL3MgYsS',
+                                        'filename'=>Auth::user()->personalData->cnic_file_name
+                                     ])}}">
+                                        @endisset
+                                    <div class="verification-uploader verification-uploader-cnic">
                                         <form  enctype="multipart/form-data"  id="form-upload-cnic" method="POST" action="{{route('file-upload-cnic')}}" class="dropzone from">
                                             @csrf
-                                            <div class="fallback">
-                                              <input name="file_cnic" type="file" />
-                                            </div>
                                           </form>
                                     </div>
                                 </div>

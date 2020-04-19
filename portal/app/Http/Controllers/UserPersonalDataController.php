@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Test;
+use App\UserPersonalData;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
-class TestController extends Controller
+class UserPersonalDataController extends Controller
 {
-
-    public function __construct()
-	{
-		$this->middleware('auth');
-	}
     /**
      * Display a listing of the resource.
      *
@@ -20,17 +14,8 @@ class TestController extends Controller
      */
     public function index()
     {
-        if(File::isDirectory(base_path('users_bills'))){
-            return base_path('users_bills\\' . 'filename');
-        }
-        
+        //
     }
-
-    public function getFile($filename)
-	{
-		return response()->download(base_path('users_bills\\' . $filename), null, [], null);
-	}
-    
 
     /**
      * Show the form for creating a new resource.
@@ -56,10 +41,10 @@ class TestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Test  $test
+     * @param  \App\UserPersonalData  $userPersonalData
      * @return \Illuminate\Http\Response
      */
-    public function show(Test $test)
+    public function show(UserPersonalData $userPersonalData)
     {
         //
     }
@@ -67,10 +52,10 @@ class TestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Test  $test
+     * @param  \App\UserPersonalData  $userPersonalData
      * @return \Illuminate\Http\Response
      */
-    public function edit(Test $test)
+    public function edit(UserPersonalData $userPersonalData)
     {
         //
     }
@@ -79,10 +64,10 @@ class TestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Test  $test
+     * @param  \App\UserPersonalData  $userPersonalData
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Test $test)
+    public function update(Request $request, UserPersonalData $userPersonalData)
     {
         //
     }
@@ -90,10 +75,10 @@ class TestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Test  $test
+     * @param  \App\UserPersonalData  $userPersonalData
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Test $test)
+    public function destroy(UserPersonalData $userPersonalData)
     {
         //
     }
