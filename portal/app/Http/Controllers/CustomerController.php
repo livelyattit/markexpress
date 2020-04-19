@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends UserController
@@ -40,5 +42,25 @@ class CustomerController extends UserController
 
         return '<h1>Edit Profile Page</h1>';
     }
+
+    public function fileUploadBill(Request $request){
+
+        $user_details = Customer::find(Auth::user()->id);
+
+        $image = $request->file('file_bill');
+   
+        $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
+        $image->move(base_path('users_bills'),$imageName);
+   
+        return response()->json(['success'=>$imageName]);
+        
+    }
+
+    public function fileUploadCnic(Request $request, Response $response){
+
+        return $response->json(['data'=>$request->file('file_bill')]) ;
+    }
+
+    
 
 }

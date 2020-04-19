@@ -87,6 +87,31 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function redirectTo()
+    {
+
+        $redirect_location = route('home');
+
+        if (Auth::check()) {
+
+            $user_details =    User::find(Auth::user()->id);
+            $user_role = $user_details->role->role; // customer or admin
+
+            switch ($user_role) {
+                case 'customer':
+                    $redirect_location = route('customer-dashboard');
+                    break;
+                case 'admin':
+                    $redirect_location = route('admin-dashboard');
+                    break;
+                default:
+                    $redirect_location = route('home');
+            }
+        }
+
+        return $redirect_location;
+    }
+
 
     public function register(Request $request)
     {
@@ -94,7 +119,7 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-        // $this->guard()->login($user);
+         $this->guard()->login($user);
 
         // if ($response = $this->registered($request, $user)) {
         //     return $response;
@@ -105,7 +130,9 @@ class RegisterController extends Controller
                         'data'=>
                         [
                             'status'=>'success',
-                             'message'=>'User Registered.'
+                             'message'=>'User Registered.',
+                             'redirect_url' => $this->redirectPath()
+
                         ]
                     ])
                     : redirect()->intended($this->redirectPath());

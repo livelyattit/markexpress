@@ -54,6 +54,8 @@ jQuery(document).ready(function ($) {
                         .addClass('success')
                         .html('Redirecting You In..');
 
+                    window.location.href = redirect_url;
+
 
                 }, 4000);
             },
@@ -111,6 +113,9 @@ jQuery(document).ready(function ($) {
                 form_message
                         .removeClass('success error')
                         .html('');
+                 form
+                    .find('.form-field-status')
+                    .html('');
 
             },
             success: function (result, status, xhr) {
@@ -129,6 +134,9 @@ jQuery(document).ready(function ($) {
                         .addClass('success')
                         .html('Redirecting You In..');
 
+                    window.location.href = redirect_url;
+
+
 
                 }, 4000);
 
@@ -139,7 +147,8 @@ jQuery(document).ready(function ($) {
                 console.log(status);
                 console.log(error);
 
-                let response = xhr.responseJSON;
+                let response_message = xhr.responseJSON.message;
+                let response_errors =xhr.responseJSON.errors;
 
                 setTimeout(function () {
                     clicked_button
@@ -151,8 +160,19 @@ jQuery(document).ready(function ($) {
 
                     form_message
                         .removeClass('success')
-                        .addClass('error')
-                        .html(response.message);
+                        .addClass('error');
+
+                        console.log(response_errors);
+
+                        $.each(response_errors, function(i, item){
+
+                            form
+                            .find('.form-field-' + i)
+                            .html('<div class="error">' +item + '</div>');
+                            console.log(i);
+                            console.log(item);
+
+                        })
 
                 }, 4000);
             },
@@ -160,6 +180,26 @@ jQuery(document).ready(function ($) {
             }
 
         });
+    });
+
+
+    // jQuery
+$("#form-upload-bill").dropzone({
+     url: "/customer/file-upload-bill" ,
+     acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            timeout: 5000,
+            success: function(file, response) 
+            {
+                console.log(file);
+                console.log(response);
+            },
+            error: function(file, response)
+            {
+                console.log(file);
+                console.log(response);
+               return false;
+            }
     });
 
 });

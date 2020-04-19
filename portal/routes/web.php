@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/about', 'HomeController@about')->name('about');
 Route::get('/contact', 'ContactController@index')->name('contact');
+Route::get('/test', 'TestController@index')->name('test');
 Auth::routes();
 
 
@@ -27,7 +28,9 @@ Route::middleware(['customer'])->group(function (){
     Route::get('/customer/create-parcel', 'CustomerController@createParcel')->name('customer-create-parcel');
     Route::get('/customer/edit-profile', 'CustomerController@editProfile')->name('customer-edit-profile');
 
-
+// Post Routes
+Route::post('/customer/file-upload-bill', 'CustomerController@fileUploadBill')->name('file-upload-bill');
+Route::post('/customer/file-upload-cnic', 'CustomerController@fileUploadCnic')->name('file-upload-cnic');
 
 });
 
