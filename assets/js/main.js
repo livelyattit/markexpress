@@ -187,8 +187,8 @@ jQuery(document).ready(function ($) {
 $("#form-upload-bill").dropzone({
      url: "/customer/file-upload-bill" ,
      acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: true,
-            timeout: 5000,
+            addRemoveLinks: false,
+            //timeout: 5000,
             success: function(file, response) 
             {
                 console.log(file);
@@ -202,4 +202,23 @@ $("#form-upload-bill").dropzone({
             }
     });
 
+    $("#form-upload-cnic").dropzone({
+        url: "/customer/file-upload-cnic" ,
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+               addRemoveLinks: false,
+               //timeout: 5000,
+               success: function(file, response) 
+               {
+                   console.log(file);
+                   console.log(response);
+               },
+               error: function(file, response)
+               {
+                   console.log(file);
+                   console.log(response);
+                  return false;
+               }
+       });
+
 });
+Dropzone.autoDiscover = false;

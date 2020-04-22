@@ -47,3 +47,10 @@ package-lock.json
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+
+
+# Data Storing #
+######################
+users_bills
+users_cnic
