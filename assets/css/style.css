@@ -832,12 +832,33 @@ section#dashboard-verification {
 }
 
 section#dashboard-verification h2 {
-  font-size: 50px;
+  font-size: 38px;
   font-family: 'Open Sans', sans-serif;
-  font-weight: 800;
-  color: #002cb8;
+  font-weight: 300;
+  color: #343a40;
   text-transform: uppercase;
 }
+section#dashboard-verification h2 strong {
+    font-weight: 700;
+}
+
+section#dashboard-verification .verification-note {
+    max-width: 540px;
+    margin: 0 auto;
+    text-align: left;
+    background: #fbfbfb;
+    padding: 20px;
+    border: 1px solid #9de199;
+    border-radius: 6px;
+    margin-bottom: 40px;
+}
+
+section#dashboard-verification .verification-note p,.verification-note li {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+
 
 /* dropzone basic */
 
