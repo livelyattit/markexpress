@@ -298,7 +298,7 @@ font-family: 'Open Sans', sans-serif;
 
 input[type="checkbox"].styled:checked + label:after,
 input[type="radio"].styled:checked + label:after {
- font-family: 'Font Awesome 5 Pro';
+  font-family: 'Font Awesome 5 Pro';
   content: "\f00c";
 }
 input[type="checkbox"] .styled:checked + label::before,
@@ -761,14 +761,14 @@ section#login-section button[type=submit] {
 }
 
 button[type=submit].btn-containing-loader.enabled {
-    background: #fff;
-    color:#3a3a3a;
-    cursor: no-drop;
-    opacity: 1;
+  background: #fff;
+  color:#3a3a3a;
+  cursor: no-drop;
+  opacity: 1;
 }
 
 button .loader {
-    margin-right: 11px;
+  margin-right: 11px;
 }
 
 section#login-section .container {
@@ -778,30 +778,30 @@ section#login-section .container {
 }
 
 button[type=submit].btn-containing-loader {
-    width: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* margin: 0 auto; */
-    height: 53px;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 0 auto; */
+  height: 53px;
 }
 
 form .form-message {
-    text-align: left;
-    font-style: italic;
-    font-size: 18px;
-    font-weight: 600;
-    color: #343a40;
-    padding-right: 20px;
-    margin-left: 19px;
-    transition: 0.4s ease;
+  text-align: left;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 600;
+  color: #343a40;
+  padding-right: 20px;
+  margin-left: 19px;
+  transition: 0.4s ease;
 }
 
 form .form-message.error {
-    color: #f00;
+  color: #f00;
 }
 form .form-message.success {
-    color: #0baf01;
+  color: #0baf01;
 }
 
 img.delivery_boy {
@@ -811,10 +811,10 @@ img.delivery_boy {
 .form-field-status {display: block;}
 
 .form-field-status .error {
-    color: #f00;
-    display: block;
-    font-size: 15px;
-    font-weight: 500;
+  color: #f00;
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 section#dashboard-verification .container {
@@ -832,32 +832,121 @@ section#dashboard-verification {
 }
 
 section#dashboard-verification h2 {
-  font-size: 38px;
+  font-size: 32px;
   font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  color: #343a40;
-  text-transform: uppercase;
-}
-section#dashboard-verification h2 strong {
-    font-weight: 700;
+  font-weight: 500;
+  color: rgb(52, 58, 64);
+  text-transform: capitalize;
+  margin-bottom: 20px;
 }
 
 section#dashboard-verification .verification-note {
-    max-width: 540px;
-    margin: 0 auto;
-    text-align: left;
-    background: #fbfbfb;
-    padding: 20px;
-    border: 1px solid #9de199;
-    border-radius: 6px;
-    margin-bottom: 40px;
+  max-width: 1050px;
+  margin: 0 auto 30px;
+  background: #fff;
+  padding: 20px 15px;
+  border: 1px solid rgb(157, 225, 153);
+  border-radius: 6px;
+  text-align: left;
 }
 
-section#dashboard-verification .verification-note p,.verification-note li {
-    font-weight: 600;
-    font-size: 15px;
+
+
+section#dashboard-verification .verification-note p {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
 }
 
+.verification-uploader {
+  text-align: left;
+}
+
+.verification-uploader h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(28, 60, 130);
+  text-align: left;
+}
+
+.verification-uploader .dropzone .dz-message .dz-button {
+  font-weight: 600;
+}
+
+.verification-uploader .dropzone .dz-message {
+  margin: 4em 0;
+}
+
+.verification-uploader .dropzone {
+  min-height: 100px;
+  border: 1px solid rgb(157, 225, 153);
+  border-radius: 6px;
+  position: relative;
+  background: rgb(220, 220, 220);
+}
+
+section#dashboard-verification .verification-note ol {
+  padding-left: 30px;
+  text-align: left;
+}
+
+section#dashboard-verification .verification-note li {
+  color: rgb(104, 104, 104);
+  font-weight: 600;
+}
+
+.verification-uploaded img {
+  height: auto;
+  width: 100%;
+}
+
+.verification-uploaded {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: auto;
+  width: 100%;
+  padding: 15px 15px;
+  background: #fff;
+  margin-bottom: 30px;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.verification-uploaded h4 {
+  color: rgb(11, 179, 0);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.verification-uploaded-note {
+  margin: 20px auto;
+  max-width: 620px;
+  background: rgb(52, 58, 64);
+  padding: 30px 20px;
+  border: 1px solid rgb(157, 225, 153);
+}
+
+.verification-uploaded-note h4 {
+  font-size: 21px;
+  line-height: 29px;
+  color: rgb(11, 179, 0);
+}
+
+section#dashboard-parcels .container {
+  background: rgba(245, 255, 244, 0.5803921568627451);
+  padding-top: 70px;
+  padding-bottom: 70px;
+  text-align: center;
+  border: 1px solid rgb(157, 225, 153);
+  border-radius: 6px;
+}
+
+section#dashboard-parcels {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 
 
 /* dropzone basic */
@@ -866,3 +955,13 @@ section#dashboard-verification .verification-note p,.verification-note li {
 
 /* dropzone basic end */
 
+
+.dropzone .dz-preview.dz-error .dz-error-message {
+  position: absolute;
+  opacity: 1;
+  width: 290px;
+  background: #fff;
+  box-shadow: 0 2px 10px #f00;
+  max-width: inherit;
+  left: 0;
+}

@@ -1,3 +1,4 @@
+Dropzone.autoDiscover = false;
 jQuery(document).ready(function ($) {
 
     $.ajaxSetup({
@@ -188,6 +189,9 @@ $("#form-upload-bill").dropzone({
      url: "/customer/file-upload-bill" ,
      acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: false,
+            uploadMultiple: false,
+            maxFiles: 1,
+            maxFilesize: 2, // MB
             //timeout: 5000,
             success: function(file, response) 
             {
@@ -196,6 +200,7 @@ $("#form-upload-bill").dropzone({
             },
             error: function(file, response)
             {
+                $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
                 console.log(file);
                 console.log(response);
                return false;
@@ -205,7 +210,10 @@ $("#form-upload-bill").dropzone({
     $("#form-upload-cnic").dropzone({
         url: "/customer/file-upload-cnic" ,
         acceptedFiles: ".jpeg,.jpg,.png,.gif",
-               addRemoveLinks: false,
+        addRemoveLinks: false,
+        uploadMultiple: false,
+        maxFiles: 1,
+        maxFilesize: 2, // MB
                //timeout: 5000,
                success: function(file, response) 
                {
@@ -214,11 +222,11 @@ $("#form-upload-bill").dropzone({
                },
                error: function(file, response)
                {
+                   $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
                    console.log(file);
                    console.log(response);
-                  return false;
+                   return false;
                }
        });
 
 });
-Dropzone.autoDiscover = false;
