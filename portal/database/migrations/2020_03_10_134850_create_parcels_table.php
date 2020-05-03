@@ -15,8 +15,8 @@ class CreateParcelsTable extends Migration
     {
         Schema::create('parcels', function (Blueprint $table) {
             $table->bigIncrements('id');
-           $table->unsignedBigInteger('user_id');
-           $table->unsignedBigInteger('addresslog_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('addresslog_id');
             $table->string('assigned_parcel_number')->nullable();
             $table->string('assigned_tracking_number')->nullable();
             $table->decimal('amount');

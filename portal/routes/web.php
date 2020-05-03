@@ -31,6 +31,9 @@ Route::middleware(['customer'])->group(function (){
     Route::get('/customer/create-parcel', 'CustomerController@createParcel')->name('customer-create-parcel');
     Route::get('/customer/edit-profile', 'CustomerController@editProfile')->name('customer-edit-profile');
 
+//    addresslog
+    Route::resource('address-log', 'AddresslogController');
+
 // Post Routes
 Route::post('/customer/file-upload-bill', 'CustomerController@fileUploadBill')->name('file-upload-bill');
 Route::post('/customer/file-upload-cnic', 'CustomerController@fileUploadCnic')->name('file-upload-cnic');

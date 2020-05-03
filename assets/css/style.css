@@ -948,6 +948,29 @@ section#dashboard-parcels {
   margin-bottom: 50px;
 }
 
+span.logo-green {
+  color: rgb(94, 178, 8);
+  font-weight: 500;
+}
+
+span.logo-blue {
+  color: rgb(33, 78, 183);
+  font-weight: 500;
+}
+
+section#dashboard-addresslog .container {
+  background: rgba(245, 255, 244, 0.5803921568627451);
+  padding-top: 70px;
+  padding-bottom: 70px;
+  text-align: center;
+  border: 1px solid rgb(157, 225, 153);
+  border-radius: 6px;
+}
+
+section#dashboard-addresslog {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 
 /* dropzone basic */
 

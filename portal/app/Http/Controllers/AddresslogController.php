@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Addresslog;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AddresslogController extends Controller
 {
@@ -24,7 +26,16 @@ class AddresslogController extends Controller
      */
     public function create()
     {
-        //
+        $body_class = 'page-dashboard page-dashboard-customer';
+        $page_title = 'Address Log';
+
+        $user_details = BaseController::getUserDetails(Auth::user()->id);
+
+        return view('pages.customer.addresslog-create', [
+            'body_class'=>$body_class,
+            'page_title'=>$page_title,
+            'user_details'=>$user_details,
+        ]);
     }
 
     /**
@@ -35,7 +46,9 @@ class AddresslogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        return response($input);
     }
 
     /**

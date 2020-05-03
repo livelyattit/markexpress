@@ -17,6 +17,7 @@ class CreateAddresslogsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('city_id');
+            $table->string('consignee_alias')->unique();
             $table->string('consignee_name');
             $table->string('consignee_contact');
             $table->string('consignee_address');

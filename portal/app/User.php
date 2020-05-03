@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+
     public function personalData(){
         return $this->hasOne(UserPersonalData::class, 'user_id', 'id');
     }
@@ -47,5 +47,10 @@ class User extends Authenticatable
         return $this->belongsTo(UserRole::class, 'role_id', 'id');
     }
 
-    
+    public function parcel(){
+
+        return $this->hasMany(Parcel::class, 'user_id', 'id');
+    }
+
+
 }
