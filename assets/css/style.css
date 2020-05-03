@@ -950,12 +950,25 @@ section#dashboard-parcels {
 
 span.logo-green {
   color: rgb(94, 178, 8);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 span.logo-blue {
   color: rgb(33, 78, 183);
-  font-weight: 500;
+  font-weight: 700;
+}
+
+.create-parcel-btn-wrapper p {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(151, 151, 151);
+  text-transform: uppercase;
+}
+
+.parcel-welcome-header h4 {
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 section#dashboard-addresslog .container {
@@ -970,6 +983,87 @@ section#dashboard-addresslog .container {
 section#dashboard-addresslog {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.form-addresslog-wrapper {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form-addresslog-wrapper label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+form.addresslog-form .alert.alert-danger {
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  border-bottom: 1px solid #f00;
+  width: 100%;
+  display: block;
+  color: #f00;
+  border-radius: 0;
+  padding: 10px 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.goback-button {
+  text-align: right;
+}
+
+.goback-button a {
+  display: inline-block;
+  background: #fff;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: 1px solid rgb(68, 197, 83);
+  border-radius: 6px;
+  color: rgb(68, 197, 83);
+}
+
+.btn-add-consignee-wrapper a {margin-bottom: 14px;width: 240px;height: 42px;line-height: 30px;font-weight: 700;text-transform: uppercase;font-size: 14px;}
+
+
+.form-addresslog-wrapper h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: rgb(52, 58, 64);
+}
+
+.create-parcel-btn-wrapper {
+  padding: 2em 0;
+  display: block;
+  max-width: 530px;
+  margin: 30px auto  60px;
+  background: #fff;
+  border: 2px dashed rgb(157, 225, 153);
+  border-radius: 6px;
+}
+
+.btn-add-consignee-wrapper h6 {
+  color: rgb(124, 124, 124);
+  font-weight: 700;
+}
+
+.page-item.active .page-link {
+  background-color: rgb(157, 225, 153);
+  border-color: rgb(157, 225, 153);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: rgb(255, 255, 255);
+  border-color: rgb(212, 212, 212);
+}
+
+h2.dashboard-heading {
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  color: rgb(122, 128, 134);
+  text-decoration: underline;
 }
 
 /* dropzone basic */

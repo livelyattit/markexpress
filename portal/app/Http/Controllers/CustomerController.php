@@ -23,10 +23,7 @@ class CustomerController extends UserController
         $body_class = 'page-dashboard page-dashboard-customer';
         $page_title = 'Dashboard';
 
-        $user_details = User::with('parcel.status', 'role', 'personalData')->find(Auth::user()->id)->first();
-       // $user_details =    User::with('role')->find(Auth::user()->id);
-        //$user_personal_data = UserPersonalData::where('user_id', Auth::user()->id)->first();
-       // dd($user_details->role->role);
+        $user_details = User::with('parcel.status', 'addressLog', 'role', 'personalData')->find(Auth::user()->id)->first();
         return view('pages.customer.dashboard', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,

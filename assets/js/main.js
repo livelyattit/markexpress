@@ -229,4 +229,48 @@ $("#form-upload-bill").dropzone({
                }
        });
 
+    $('#addresslog_table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "/address-log",
+        },
+        columns: [
+            {
+                data: 'consignee_alias',
+                name: 'consignee_alias'
+            },
+            {
+                data: 'consignee_name',
+                name: 'consignee_name'
+            },
+            {
+                data: 'consignee_contact',
+                name: 'consignee_contact'
+            },
+            {
+                data: 'consignee_address',
+                name: 'consignee_address',
+            },
+            {
+                data: 'consignee_nearby_address',
+                name: 'consignee_nearby_address',
+            },
+            {
+                data: 'city.city_name',
+                name: 'city.city_name'
+            },
+            {
+                data: 'edit',
+                name: 'edit',
+                orderable: false
+            },
+            {
+                data: 'delete',
+                name: 'delete',
+                orderable: false
+            }
+        ]
+    });
+
 });

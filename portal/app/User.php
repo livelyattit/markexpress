@@ -47,6 +47,10 @@ class User extends Authenticatable
         return $this->belongsTo(UserRole::class, 'role_id', 'id');
     }
 
+    public function addressLog(){
+        return $this->hasMany(Addresslog::class, 'user_id', 'id');
+    }
+
     public function parcel(){
 
         return $this->hasMany(Parcel::class, 'user_id', 'id');
