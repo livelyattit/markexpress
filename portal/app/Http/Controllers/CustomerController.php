@@ -8,6 +8,7 @@ use App\UserPersonalData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends UserController
 {
@@ -49,28 +50,41 @@ class CustomerController extends UserController
     public function fileUploadBill(Request $request){
 
         $user_details = Customer::find(Auth::user()->id);
-
-        $image = $request->file('file');
-   
-        $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
-        UserPersonalData::updateOrCreate([
-            'user_id'=>Auth::user()->id,
-        ], [
-            'bill_file_name'=>$imageName,
-            'bill_request_confirmation'=>0
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'file'=> 'max:2000|mimes:jpeg,png,doc,docs,pdf',
         ]);
-        $image->move(base_path('users_bills'),$imageName);
-   
-        return response()->json(['success'=>$imageName]);
-        
+        if(!$validator->fails()){
+           // return response()->json(['data'=>'Error', 'message'=>$validator->errors()], 400);
+            $image = $request->file('file');
+
+            $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
+            UserPersonalData::updateOrCreate([
+                'user_id'=>Auth::user()->id,
+            ], [
+                'bill_file_name'=>$imageName,
+                'bill_request_confirmation'=>0
+            ]);
+            $image->move(base_path('users_bills'),$imageName);
+
+            return response()->json(['success'=>$imageName]);
+        }
+
+
     }
 
     public function fileUploadCnic(Request $request){
 
         $user_details = Customer::find(Auth::user()->id);
-
+        $input = $request->all();
+        $validator = Validator::make($input, [
+           'file'=> 'max:2000|mimes:jpeg,png,doc,docs,pdf',
+        ]);
+        if($validator->fails()){
+            return response()->json(['data'=>'Error', 'message'=>$validator->errors()], 400);
+        }
         $image = $request->file('file');
-   
+
         $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
         $image->move(base_path('users_cnic'),$imageName);
         UserPersonalData::updateOrCreate([
@@ -82,6 +96,6 @@ class CustomerController extends UserController
         return response()->json(['data'=>$imageName]) ;
     }
 
-    
+
 
 }

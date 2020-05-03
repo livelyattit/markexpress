@@ -20,17 +20,18 @@ class TestController extends Controller
      */
     public function index()
     {
+        return  base_path();
         if(File::isDirectory(base_path('users_bills'))){
             return base_path('users_bills\\' . 'filename');
         }
-        
+
     }
 
     public function getFile($filename)
 	{
 		return response()->download(base_path('users_bills\\' . $filename), null, [], null);
 	}
-    
+
 
     /**
      * Show the form for creating a new resource.

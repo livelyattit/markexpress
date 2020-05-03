@@ -14,7 +14,7 @@ class CreateUserPersonalDataTable extends Migration
     public function up()
     {
         Schema::create('user_personal_data', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->foreignId('user_id')->references('id')->on('users')->constrained()->cascadeOnDelete();
             $table->string('bill_file_name');
             $table->string('cnic_file_name');
