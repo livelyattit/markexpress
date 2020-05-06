@@ -2,8 +2,23 @@
 
 </section>
 <section id="dashboard-verification" class="customer-dashboard">
-
     <div class="container">
+        <div class="customer-account-status-badge">
+            @if(Auth::user()->originality_verified == 0)
+                <div style="background: rgb(255, 0, 0);" class="customer-account-badge">
+                    Account: Waiting for confirmation
+                </div>
+            @elseif(Auth::user()->originality_verified == 1)
+                <div style="background: rgb(255, 212, 0);" class="customer-account-badge">
+                    Account: In proceeding for confirmation
+                </div>
+            @elseif(Auth::user()->originality_verified == 2)
+                <div style="background: rgb(17, 229, 141);" class="customer-account-badge">
+                    Account: Active
+                </div>
+            @endif
+
+        </div>
         <div class="row">
             <div class="col-12">
                 <h2 class="first-time-name">Welcome <strong>{{ucwords(Auth::user()->name)}}</strong></h2>
@@ -11,10 +26,33 @@
                     <p>You need to verify your identity by submitting the scanned copies of:</p>
                     <ol>
                         <li>Cnic front</li>
-                        <li>Recent Bill of (Elecrivity or Sui Gas)</li>
+                        <li>Recent Bill of (Electricity or Sui Gas)</li>
                     </ol>
                     <p><strong>Note:</strong> The retrievals of above copies retains a purpose to make sure the account is valid.</p>
                 </div>
+
+                @if(isset(Auth::user()->personalData->bill_file_name )
+                            && isset(Auth::user()->personalData->cnic_file_name)
+                            && Auth::user()->originality_verified == 1
+                            )
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="verification-uploaded-note">
+                                <h4><strong>ThankYou!</strong> We successfully got your data. </h4>
+                                <ol>
+                                    <li>Mark Express is registered with <strong>FBR</strong>. For security reasons we need to ensure that we are working with valid customers.</li>
+                                    <li>The purpose of the collected data is to retain the originality of our new and existing customers.</li>
+                                    <li>The collected data will not be used anywhere for any reason by Mark Express.</li>
+                                    <li>You can still change the copies you uploaded if you think you entered the ones before we start confirming your account.</li>
+                                    <li>This screen will be disappeared after we process your account.</li>
+                                    <li>If we found anything mismatched, the result will be in account deletion.</li>
+                                    <li>You may receive a call for further confirmations as well.</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                @endisset
                 <div class="row">
                     <div class="col-6">
                         @isset(Auth::user()->personalData->bill_file_name)
@@ -55,16 +93,19 @@
                         </div>
                     </div>
                 </div>
-                @isset(Auth::user()->personalData->bill_file_name , Auth::user()->personalData->cnic_file_name )
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="verification-uploaded-note">
-                                <h4>This screen will be disappeared once your content gets verified by us. You may receive a call for further confirmations as well. </h4>
-                            </div>
-
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-center verification-proceed-button-wrapper">
+                            @if(Auth::user()->originality_verified == 0)
+                                <form id="customer-verification-proceed-form" method="post" action="{{route('customer-verification-proceed')}}">
+                                    @csrf
+                                    <button class="btn btn-info btn-round btn-in-submit" type="submit">Proceed to verify</button>
+                                    <div class="form-message"></div>
+                                </form>
+                            @endif
                         </div>
                     </div>
-                @endisset
+                </div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

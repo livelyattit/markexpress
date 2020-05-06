@@ -22,9 +22,7 @@ class AddresslogController extends Controller
     {
         if($request->ajax()) {
             //$data = Addresslog::where('user_id', Auth::user()->id)->get();
-            $data = Addresslog::with(['city'=>function($q){
-
-            }]);
+            $data = Addresslog::with('city', 'user')->where('user_id', Auth::user()->id);
             return DataTables::of($data)
                 ->addColumn('edit', function($data){
                     $button = '<button type="button" name="edit" data-addresslog-id="'.$data->id.'" class="btn-edit-addresslog btn btn-outline-warning btn-sm">Edit</button>';
@@ -72,7 +70,7 @@ class AddresslogController extends Controller
         $validator = Validator::make($input,[
             'consignee_alias'=>'required|unique:addresslogs,consignee_alias,NULL,id,user_id,'. Auth::user()->id,
             'consignee_name'=>'required|max:190',
-            'consignee_number'=>new PhoneNumber(),
+            'consignee_number'=>['required', new PhoneNumber()],
             'consignee_city'=>'required|not_in:0',
             'consignee_address'=>'required|max:100',
             'consignee_nearby_address'=>'max:100',

@@ -16,7 +16,7 @@ class Customer
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role->role == 'customer'){
+        if(Auth::user()->role->name == 'customer'){
             return $next($request);
         }
 

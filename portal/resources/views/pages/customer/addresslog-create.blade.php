@@ -51,8 +51,8 @@
                                 <div class="form-group">
                                     <label>Consignee Contact</label>
                                     <input name="consignee_number"   type="tel" placeholder="e.g 03111234567"  class="form-control">
-                                    @if($errors->has('consignee_alias'))
-                                        <span class="alert alert-danger">{{$errors->first('consignee_alias')}}</span>
+                                    @if($errors->has('consignee_number'))
+                                        <span class="alert alert-danger">{{$errors->first('consignee_number')}}</span>
                                     @endif
                                 </div>
                                 <div class="form-group">

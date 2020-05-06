@@ -820,10 +820,11 @@ img.delivery_boy {
 section#dashboard-verification .container {
   background: #f5fff494;
   padding-top: 70px;
-  padding-bottom: 70px;
+  padding-bottom: 40px;
   text-align: center;
   border: 1px solid #9de199;
   border-radius: 6px;
+  position: relative;
 }
 
 section#dashboard-verification {
@@ -915,23 +916,32 @@ section#dashboard-verification .verification-note li {
 }
 
 .verification-uploaded h4 {
-  color: rgb(11, 179, 0);
+  color: rgb(75, 181, 67);
   font-size: 18px;
   font-weight: 700;
 }
 
 .verification-uploaded-note {
   margin: 20px auto;
-  max-width: 620px;
-  background: rgb(52, 58, 64);
-  padding: 30px 20px;
+  max-width: 1050px;
+  background: #fff;
+  padding: 25px 15px;
   border: 1px solid rgb(157, 225, 153);
+  border-radius: 6px;
+}
+
+.verification-uploaded-note li {
+  color: rgb(75, 181, 67);
+  font-size: 14px;
+  font-weight: 600;
+  padding-bottom: 5px;
+  text-align: left;
 }
 
 .verification-uploaded-note h4 {
-  font-size: 21px;
+  font-size: 17px;
   line-height: 29px;
-  color: rgb(11, 179, 0);
+  color: rgb(75, 181, 67);
 }
 
 section#dashboard-parcels .container {
@@ -960,8 +970,8 @@ span.logo-blue {
 
 .create-parcel-btn-wrapper p {
   font-size: 22px;
-  font-weight: 700;
-  color: rgb(151, 151, 151);
+  font-weight: 800;
+  color: rgb(52, 58, 64);
   text-transform: uppercase;
 }
 
@@ -1023,7 +1033,7 @@ form.addresslog-form .alert.alert-danger {
   color: rgb(68, 197, 83);
 }
 
-.btn-add-consignee-wrapper a {margin-bottom: 14px;width: 240px;height: 42px;line-height: 30px;font-weight: 700;text-transform: uppercase;font-size: 14px;}
+.btn-add-consignee-wrapper a {margin-bottom: 14px;width: 222px;height: 42px;line-height: 30px;font-weight: 700;text-transform: uppercase;font-size: 14px;}
 
 
 .form-addresslog-wrapper h3 {
@@ -1033,9 +1043,9 @@ form.addresslog-form .alert.alert-danger {
 }
 
 .create-parcel-btn-wrapper {
-  padding: 2em 0;
+  padding: 4em 0 4em;
   display: block;
-  max-width: 530px;
+  max-width: 830px;
   margin: 30px auto  60px;
   background: #fff;
   border: 2px dashed rgb(157, 225, 153);
@@ -1043,8 +1053,8 @@ form.addresslog-form .alert.alert-danger {
 }
 
 .btn-add-consignee-wrapper h6 {
-  color: rgb(124, 124, 124);
-  font-weight: 700;
+  color: rgb(52, 58, 64);
+  font-weight: 800;
 }
 
 .page-item.active .page-link {
@@ -1060,10 +1070,36 @@ form.addresslog-form .alert.alert-danger {
 h2.dashboard-heading {
   text-align: left;
   margin-bottom: 20px;
-  font-size: 28px;
-  font-weight: 700;
-  color: rgb(122, 128, 134);
-  text-decoration: underline;
+  font-size: 20px;
+  font-weight: 800;
+  color: rgb(52, 58, 64);
+}
+
+.verification-proceed-button-wrapper {max-width: 510px;margin: 40px auto 30px;}
+
+.verification-proceed-button-wrapper .form-message {
+  margin: 10px 0 0;
+  padding: 0;
+  text-align: center;
+}
+
+.verification-proceed-button-wrapper .form-message.success {
+  color: rgb(52, 58, 64);
+}
+
+.customer-account-status-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 300px;
+}
+
+.customer-account-badge {
+  padding: 10px;
+  border-radius: 6px;
+  color: rgb(79, 85, 91);
+  font-weight: 500;
+  border: 1px solid #ccc;
 }
 
 /* dropzone basic */

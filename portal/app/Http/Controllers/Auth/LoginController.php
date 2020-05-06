@@ -74,8 +74,8 @@ class LoginController extends Controller
 
         if (Auth::check()) {
 
-            $user_details =    User::find(Auth::user()->id);
-            $user_role = $user_details->role->role; // customer or admin
+            $user_details = User::find(Auth::user()->id);
+            $user_role = $user_details->role->name; // customer or admin
 
             switch ($user_role) {
                 case 'customer':

@@ -7,8 +7,7 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="{{asset("assets/css/bootstrap.min.css")}}" />
-<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/datatables.min.css"/>
     <link rel="stylesheet" href="{{asset("assets/css/owl.carousel.css")}}" />
     <link rel="stylesheet" href="{{asset("assets/css/fa.css")}}" />
     <link rel="stylesheet" href="{{asset("assets/css/dropzone.min.css")}}" />

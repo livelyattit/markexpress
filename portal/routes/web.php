@@ -37,17 +37,20 @@ Route::middleware(['customer'])->group(function (){
 // Post Routes
 Route::post('/customer/file-upload-bill', 'CustomerController@fileUploadBill')->name('file-upload-bill');
 Route::post('/customer/file-upload-cnic', 'CustomerController@fileUploadCnic')->name('file-upload-cnic');
+Route::post('/customer/proceed-verification', 'CustomerController@proceedVerification')->name('customer-verification-proceed');
 
 });
 
-Route::middleware(['admin'])->group(function (){
-
-    Route::get('/admin/dashboard', function(){
-
-        return '<h1>Admin Dashboard</h1>';
-    })->name('admin-dashboard');
-
-});
+//Route::middleware(['admin'])->group(function (){
+//
+//    Route::get('/admin/dashboard', 'AdminController@index')->name('admin-dashboard');
+//
+//});
 
 
 //Route::get('/home', 'HomeController@index');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

@@ -23,7 +23,7 @@ class CustomerController extends UserController
         $body_class = 'page-dashboard page-dashboard-customer';
         $page_title = 'Dashboard';
 
-        $user_details = User::with('parcel.status', 'addressLog', 'role', 'personalData')->find(Auth::user()->id)->first();
+        $user_details = Customer::with('parcel.status', 'addressLog', 'role', 'personalData')->find(Auth::user()->id);
         return view('pages.customer.dashboard', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,
@@ -61,7 +61,7 @@ class CustomerController extends UserController
                 'bill_file_name'=>$imageName,
                 'bill_request_confirmation'=>0
             ]);
-            $image->move(base_path('users_bills'),$imageName);
+            $image->move(storage_path('app/public/users_bills'),$imageName);
 
             return response()->json(['success'=>$imageName]);
         }
@@ -82,7 +82,7 @@ class CustomerController extends UserController
         $image = $request->file('file');
 
         $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
-        $image->move(base_path('users_cnic'),$imageName);
+        $image->move(storage_path('app/public/users_cnic'),$imageName);
         UserPersonalData::updateOrCreate([
             'user_id'=>Auth::user()->id,
         ], [
@@ -92,6 +92,17 @@ class CustomerController extends UserController
         return response()->json(['data'=>$imageName]) ;
     }
 
+    public function proceedVerification(Request $request){
 
+        $user = User::findOrFail(Auth::user()->id)->update([
+            'originality_verified'=>1
+        ]);
+
+        return response()->json(['data'=>[
+            'status'=>'success',
+            'message'=>'Request forwarding for verification.. Please wait!',
+            'redirect_url'=>route('customer-dashboard'),
+        ]], 200);
+    }
 
 }

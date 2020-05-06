@@ -11,7 +11,7 @@ class TestController extends Controller
 
     public function __construct()
 	{
-		$this->middleware('auth');
+		//$this->middleware('auth');
 	}
     /**
      * Display a listing of the resource.
@@ -20,6 +20,10 @@ class TestController extends Controller
      */
     public function index()
     {
+        //return env('APP_URL').'/storage';
+        //return public_path('storage');
+        return storage_path('app/public');
+        return storage_path('app/public');
         return  base_path();
         if(File::isDirectory(base_path('users_bills'))){
             return base_path('users_bills\\' . 'filename');

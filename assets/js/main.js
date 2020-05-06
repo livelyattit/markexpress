@@ -183,6 +183,75 @@ jQuery(document).ready(function ($) {
         });
     });
 
+    $("#customer-verification-proceed-form").submit(function (e) {
+
+        e.preventDefault();
+
+        let form = $(this);
+        let clicked_button = form.find('.btn-in-submit');
+        let form_message = form.find('.form-message');
+
+        $.ajax({
+
+            type: 'POST',
+            dataType: 'JSON',
+            data: form.serialize(),
+            url: '/customer/proceed-verification',
+            async: false,
+            beforeSend: function () {
+
+                clicked_button
+                    .attr('disabled', 'disabled')
+                    .addClass('enabled');
+                clicked_button.text('Please Wait..');
+
+            },
+            success: function (result, status, xhr) {
+
+                console.log(result);
+                setTimeout(function () {
+
+                    let redirect_url = result.data.redirect_url;
+
+                    form_message
+                        .removeClass('error')
+                        .addClass('success')
+                        .text(result.data.message);
+
+                    console.log(redirect_url);
+                    clicked_button
+                        .removeAttr('disabled')
+                        .removeClass('enabled');
+
+                    window.location.href = redirect_url;
+
+
+                }, 4000);
+            },
+            error: function (xhr, status, error) {
+
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+
+                setTimeout(function () {
+                    clicked_button
+                        .removeAttr('disabled')
+                        .removeClass('enabled');
+
+                    clicked_button.text('Proceed to verify');
+
+                }, 4000);
+
+
+            },
+            complete: function () {
+
+            }
+
+        });
+    });
+
 
     // jQuery
 $("#form-upload-bill").dropzone({
@@ -232,6 +301,7 @@ $("#form-upload-bill").dropzone({
     $('#addresslog_table').DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
         ajax: {
             url: "/address-log",
         },

@@ -11,21 +11,21 @@ class HelperController extends Controller
 	{
 		$this->middleware('auth');
     }
-    
+
    public function getContentFile($authid, $location, $filename)
     {
         $dir_locations = [
             'JP7gRq00'=>'users_bills',
             'lL3MgYsS'=>'users_cnic'
         ];
-        
+
         if(Auth::user()->id == $authid){
-            return response()->download(base_path($dir_locations[$location] . '/' .$filename), null, [], null);
+            return response()->download(storage_path('app/public/' . $dir_locations[$location] . '/' .$filename), null, [], null);
         } else {
 
             return response('Error');
         }
 
-		
+
 	}
 }

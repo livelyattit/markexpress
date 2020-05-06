@@ -1,5 +1,6 @@
 <section id="dashboard-header" class="customer-dashboard">
 
+
 </section>
 
 <section id="dashboard-parcels" class="customer-dashboard">
@@ -43,51 +44,56 @@
 
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <h2 class="dashboard-heading">ADDRESS LOG</h2>
-                <div class="table-responsive">
-                    <table id="addresslog_table" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Consignee Alias</th>
-                            <th>Full Name</th>
-                            <th>Contact</th>
-                            <th>Address</th>
-                            <th>Nearby</th>
-                            <th>City</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                    </table>
+        @if(!$user_details->addressLog->isEmpty())
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="dashboard-heading">ADDRESS LOG</h2>
+                    <div class="table-responsive">
+                        <table id="addresslog_table" class="table table-striped display responsive nowrap">
+                            <thead>
+                            <tr>
+                                <th>Consignee Alias</th>
+                                <th>Full Name</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Nearby</th>
+                                <th>City</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
+        @endif
 
-        <div class="row">
-            <div class="col-12">
-                <h2 class="dashboard-heading">PARCELS</h2>
-                <div class="table-responsive">
-                    <table id="addresslog_table" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Consignee Alias</th>
-                            <th>Full Name</th>
-                            <th>Contact</th>
-                            <th>Address</th>
-                            <th>Nearby</th>
-                            <th>City</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                    </table>
+        @if(!$user_details->parcel->isEmpty())
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="dashboard-heading">PARCELS</h2>
+                    <div class="table-responsive">
+                        <table id="parcels_table" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>Consignee Alias</th>
+                                <th>Full Name</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Nearby</th>
+                                <th>City</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
+        @endif
+
 
     </div>
 </section>
