@@ -384,6 +384,9 @@ $("#form-upload-bill").dropzone({
             async: false,
             beforeSend:function(){
                 preloader_loader.toggleClass('show');
+                form
+                    .find('.form-field-status')
+                    .html('');
                 clicked_button
                     .attr('disabled', 'disabled')
                     .addClass('disabled');
@@ -417,6 +420,7 @@ $("#form-upload-bill").dropzone({
                 let response_errors =xhr.responseJSON.errors;
 
                 setTimeout(function () {
+                    preloader_loader.toggleClass('show');
                     clicked_button
                         .removeAttr('disabled')
                         .removeClass('disabled');
@@ -446,6 +450,54 @@ $("#form-upload-bill").dropzone({
             }
         });
     });
+
+    $(document).on('click', '.btn-delete-addresslog', function () {
+
+        let addresslog_id = $(this).data('addresslog-id');
+        let addresslog_alias = $(this).data('addresslog-alias');
+        bootbox.confirm({
+            title: `Confirmation for ${addresslog_alias}`,
+            message: `Do you want to delete ${addresslog_alias} ?`,
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel',
+                    className: 'btn-gray',
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm',
+                    className: 'btn-danger',
+                }
+            },
+            callback: function (result) {
+                if(result == true){
+                    $.ajax({
+                        type: 'DELETE',
+                        dataType: 'json',
+                        url: '/address-log/'+addresslog_id,
+                        async: false,
+                        beforeSend:function(){
+                            preloader_loader.toggleClass('show');
+                        },
+                        success:function(data){
+                            console.log(data);
+                            setTimeout(function () {
+                                preloader_loader.toggleClass('show');
+
+                                addresslog_datatable.ajax.reload();
+                            },1200);
+
+                        },
+                        error:function(){}
+                    });
+                }
+
+            }
+        });
+
+
+    });
+
+
 
 
 });

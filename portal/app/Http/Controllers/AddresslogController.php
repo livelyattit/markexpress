@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
+use Symfony\Component\Console\Input\Input;
+
 class AddresslogController extends Controller
 {
     /**
@@ -30,7 +32,7 @@ class AddresslogController extends Controller
                     return $button;
                 })
                 ->addColumn('delete', function($data){
-                    $button = '<button type="button" name="delete" data-addresslog-id="'.$data->id.'" class="btn-delete-addresslog btn btn-outline-danger btn-sm">Delete</button>';
+                    $button = '<button type="button" name="delete" data-addresslog-id="'.$data->id.'" data-addresslog-alias="'.$data->consignee_alias.'" class="btn-delete-addresslog btn btn-outline-danger btn-sm">Delete</button>';
                     return $button;
                 })
                 ->rawColumns(['edit', 'delete'])
@@ -77,7 +79,12 @@ class AddresslogController extends Controller
             'consignee_nearby_address'=>'max:100',
         ], [
             'consignee_alias.unique'=>'Alias already taken in your address log.',
-        ] )->validate();
+        ] );
+        if($validator->errors()){
+            return back()
+                ->withErrors($validator)
+                ->withInput($input);
+        }
 
         $address_log = Addresslog::create([
             'user_id'=>Auth::user()->id,
@@ -137,10 +144,10 @@ class AddresslogController extends Controller
     {
       //  $request->request->add(['consignee_alias_old'=>$request->input('consignee_alias')]);
         $input = $request->all();
-       // return print_r($input) ;
+        $addresslog_id = $input['addresslog_id'];
 
         $validator = Validator::make($input,[
-            'consignee_alias'=>['required', new ConsigneeAliasRule()],
+            'consignee_alias'=>['required', new ConsigneeAliasRule($addresslog_id)],
             'consignee_name'=>'required|max:190',
             'consignee_number'=>['required', new PhoneNumber()],
             'consignee_city'=>'required|not_in:0',
@@ -157,7 +164,7 @@ class AddresslogController extends Controller
                 'inputs'=>$input,
             ], 400) ;
         }
-        $addresslog_id = $input['addresslog_id'];
+
 
         $address_log = Addresslog::find($addresslog_id)->update([
             'user_id'=>Auth::user()->id,
@@ -182,8 +189,14 @@ class AddresslogController extends Controller
      * @param  \App\Addresslog  $addresslog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Addresslog $addresslog)
+    public function destroy($id)
     {
-        //
+        $addresslog = Addresslog::findOrFail($id);
+
+        if($addresslog->delete()){
+            return response()->json(['data'=>'success'], 200);
+        }
+
+        return response()->json(['data'=>'error'], 400);
     }
 }

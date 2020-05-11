@@ -384,6 +384,11 @@ a.logo-header img {
   outline: 1px solid #5dba47 !important;
 }
 
+header {
+  position: relative;
+  z-index: 2;
+}
+
 section#intro-section {
   background: url(../img/stats-business.jpg) no-repeat center center / cover;
   position: relative;
@@ -996,11 +1001,12 @@ span.logo-blue {
 
 section#dashboard-addresslog .container {
   background: rgba(245, 255, 244, 0.5803921568627451);
-  padding-top: 70px;
+  padding-top: 100px;
   padding-bottom: 70px;
   text-align: center;
   border: 1px solid rgb(157, 225, 153);
   border-radius: 6px;
+  position: relative;
 }
 
 section#dashboard-addresslog {
@@ -1009,9 +1015,13 @@ section#dashboard-addresslog {
 }
 
 .form-addresslog-wrapper {
-  max-width: 520px;
+  max-width: 600px;
   margin: 0 auto;
   text-align: left;
+  background: #fff;
+  padding: 35px 20px;
+  border: 1px solid rgb(157, 225, 153);
+  border-radius: 6px;
 }
 
 .form-addresslog-wrapper label {
@@ -1044,6 +1054,10 @@ form.addresslog-form .alert.alert-danger {
   border: 1px solid rgb(68, 197, 83);
   border-radius: 6px;
   color: rgb(68, 197, 83);
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 1;
 }
 
 .btn-add-consignee-wrapper a {margin-bottom: 14px;width: 222px;height: 42px;line-height: 30px;font-weight: 700;text-transform: uppercase;font-size: 14px;}
@@ -1164,6 +1178,15 @@ div#addresslog_table_wrapper {
 
 div#addresslog_table_wrapper.dataTables_wrapper div.dataTables_filter {
   padding-right: 15px;
+}
+
+form#addresslog-edit-form .form-field-status .error {
+  text-align: left;
+}
+
+div#address-log-modal h3 {
+  font-weight: 700;
+  color: rgb(93, 177, 8);
 }
 
 /* dropzone basic */

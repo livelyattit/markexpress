@@ -13,10 +13,10 @@ class ConsigneeAliasRule implements Rule
      *
      * @return void
      */
-    private $data;
-    public function __construct()
+    private $addresslog_id;
+    public function __construct($addresslog_id)
     {
-       // $this->data = $data;
+        $this->addresslog_id = $addresslog_id;
     }
 
     /**
@@ -29,11 +29,12 @@ class ConsigneeAliasRule implements Rule
     public function passes($attribute, $value)
     {
         $addresslogs = Addresslog::where('user_id', Auth::user()->id)->get();
-        $addresslog_where = Addresslog::where('user_id', Auth::user()->id)->where('consignee_alias', $value)->first();
-        if($addresslog_where){
-            if($addresslog_where->consignee_alias  == $value){
-                return true;
-            }
+        $addresslog_where = Addresslog::find($this->addresslog_id);
+
+        if($addresslog_where && $addresslog_where->consignee_alias  == $value ){
+
+            return true;
+
         } else{
             foreach ($addresslogs as $addresslog)
             {
@@ -55,6 +56,6 @@ class ConsigneeAliasRule implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'Alias is already used in your address log.';
     }
 }

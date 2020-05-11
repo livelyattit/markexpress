@@ -12,12 +12,8 @@
         </section>
         <section id="dashboard-addresslog" class="customer-dashboard">
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="goback-button">
-                            <a href="{{route('customer-dashboard')}}"><i class="far fa-arrow-left"></i> Go to Dashboard</a>
-                        </div>
-                    </div>
+                <div class="goback-button">
+                    <a href="{{route('customer-dashboard')}}"><i class="far fa-arrow-left"></i> Go to Dashboard</a>
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -35,7 +31,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Address Alias</label>
-                                    <input required name="consignee_alias"  type="text" placeholder="e.g Consignee Name"  class="form-control">
+                                    <input required name="consignee_alias" value="{{old('consignee_alias')}}"  type="text" placeholder="e.g Consignee Name"  class="form-control">
                                     @if($errors->has('consignee_alias'))
                                         <span class="alert alert-danger">{{$errors->first('consignee_alias')}}</span>
                                     @endif
@@ -43,14 +39,14 @@
 
                                 <div class="form-group">
                                     <label>Consignee Name</label>
-                                    <input required name="consignee_name"   type="text" placeholder="Full Name"  class="form-control">
+                                    <input required name="consignee_name" value="{{old('consignee_name')}}"   type="text" placeholder="Full Name"  class="form-control">
                                     @if($errors->has('consignee_name'))
                                         <span class="alert alert-danger">{{$errors->first('consignee_name')}}</span>
                                     @endif
                                 </div>
                                 <div class="form-group">
                                     <label>Consignee Contact</label>
-                                    <input required name="consignee_number"   type="tel" placeholder="e.g 03111234567"  class="form-control">
+                                    <input required name="consignee_number" value="{{old('consignee_number')}}"   type="tel" placeholder="e.g 03111234567"  class="form-control">
                                     @if($errors->has('consignee_number'))
                                         <span class="alert alert-danger">{{$errors->first('consignee_number')}}</span>
                                     @endif
@@ -60,7 +56,7 @@
                                     <select required name="consignee_city"   class="form-control">
                                         <option value="" style="display: none">Select City</option>
                                         @foreach($cities as $city)
-                                            <option value="{{$city->id}}">{{$city->city_name}}</option>
+                                            <option @if(old('consignee_city') == $city->id) selected="selected" @endif value="{{$city->id}}">{{$city->city_name}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('consignee_city'))
@@ -69,7 +65,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Consignee Address</label>
-                                    <input required name="consignee_address"   type="text" placeholder="Complete Address"  class="form-control">
+                                    <input required name="consignee_address" value="{{old('consignee_address')}}"   type="text" placeholder="Complete Address"  class="form-control">
                                     @if($errors->has('consignee_address'))
                                         <span class="alert alert-danger">{{$errors->first('consignee_address')}}</span>
                                     @endif
@@ -77,7 +73,7 @@
 
                                 <div class="form-group">
                                     <label>Nearby Location (Optional)</label>
-                                    <input  name="consignee_nearby_address"  type="text" placeholder="Any nearby location if necessary"  class="form-control">
+                                    <input  name="consignee_nearby_address" value="{{old('consignee_nearby_address')}}"  type="text" placeholder="Any nearby location if necessary"  class="form-control">
                                     @if($errors->has('consignee_nearby_address'))
                                         <span class="alert alert-danger">{{$errors->first('consignee_nearby_address')}}</span>
                                     @endif

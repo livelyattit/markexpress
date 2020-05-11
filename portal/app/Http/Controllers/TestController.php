@@ -22,21 +22,26 @@ class TestController extends Controller
      */
     public function index()
     {
-        $value = 'new alias bb';
-        $id = 4;
+      echo   $value = 'kashif aliasa';
+      echo "<br>";
+        $id = 9;
         $addresslogs = Addresslog::where('user_id', Auth::user()->id)->get();
-        $addresslog_where = Addresslog::find($id)->first();
-        if($addresslog_where){
-            if($addresslog_where->consignee_alias  == $value){
-                return "where found true";
-            }
+        $addresslog_where = Addresslog::find($id);
+//        echo "<pre>";
+//        print_r($addresslogs);
+//        echo "</pre>";
+        if($addresslog_where && $addresslog_where->consignee_alias  == $value ){
+            echo "aa";
+            echo "<br>";
+            echo $addresslog_where->consignee_alias;
+            return "where found true";
         } else{
             foreach ($addresslogs as $addresslog)
             {
 
                 echo $addresslog->id . "<br>";
                 if($addresslog->consignee_alias == $value){
-                    return "general found false";
+                    return "general found false " . $addresslog->consignee_alias;
                 }
             }
         }

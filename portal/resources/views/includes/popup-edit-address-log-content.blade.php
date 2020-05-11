@@ -1,5 +1,6 @@
 <div class="pb-4 pr-4 pl-4 pt-1 text-center">
-    <h3>EDIT CONSIGNEE INFORMATION</h3>
+    <h4>Edit Consignee</h4>
+    <h3>{{ucwords($addresslog->consignee_alias)}}</h3>
     <form id="addresslog-edit-form" class="addresslog-form" action="{{route('address-log.update', $addresslog->id)}}" method="post">
         @csrf
         @method('PUT')
