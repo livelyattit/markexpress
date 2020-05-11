@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Addresslog;
 use App\City;
+use App\Rules\ConsigneeAliasRule;
 use App\Rules\PhoneNumber;
 use App\DataTables\AddressLog as DAddressLog;
 use App\User;
@@ -29,7 +30,7 @@ class AddresslogController extends Controller
                     return $button;
                 })
                 ->addColumn('delete', function($data){
-                    $button = '<button type="button" name="edit" data-addresslog-id="'.$data->id.'" class="btn-delete-addresslog btn btn-outline-danger btn-sm">Delete</button>';
+                    $button = '<button type="button" name="delete" data-addresslog-id="'.$data->id.'" class="btn-delete-addresslog btn btn-outline-danger btn-sm">Delete</button>';
                     return $button;
                 })
                 ->rawColumns(['edit', 'delete'])
@@ -75,7 +76,7 @@ class AddresslogController extends Controller
             'consignee_address'=>'required|max:100',
             'consignee_nearby_address'=>'max:100',
         ], [
-            'consignee_alias.unique'=>'Already taken in your address log.',
+            'consignee_alias.unique'=>'Alias already taken in your address log.',
         ] )->validate();
 
         $address_log = Addresslog::create([
@@ -97,9 +98,21 @@ class AddresslogController extends Controller
      * @param  \App\Addresslog  $addresslog
      * @return \Illuminate\Http\Response
      */
-    public function show(Addresslog $addresslog)
+    public function show($id, Request $request)
     {
-        //
+        //dd($id);
+        if($request->ajax()){
+            $addresslog = Addresslog::with('city')->where('id', $id)->firstOrFail();
+            $cities = City::orderBy('city_name')->get();
+
+                return view('includes.popup-edit-address-log-content',[
+                    'addresslog'=>$addresslog,
+                    'cities'=>$cities,
+                ]);
+
+
+        }
+
     }
 
     /**
@@ -110,7 +123,7 @@ class AddresslogController extends Controller
      */
     public function edit(Addresslog $addresslog)
     {
-        //
+        return $addresslog->consignee_alias;
     }
 
     /**
@@ -122,7 +135,45 @@ class AddresslogController extends Controller
      */
     public function update(Request $request, Addresslog $addresslog)
     {
-        //
+      //  $request->request->add(['consignee_alias_old'=>$request->input('consignee_alias')]);
+        $input = $request->all();
+       // return print_r($input) ;
+
+        $validator = Validator::make($input,[
+            'consignee_alias'=>['required', new ConsigneeAliasRule()],
+            'consignee_name'=>'required|max:190',
+            'consignee_number'=>['required', new PhoneNumber()],
+            'consignee_city'=>'required|not_in:0',
+            'consignee_address'=>'required|max:100',
+            'consignee_nearby_address'=>'max:100',
+        ], [
+            'consignee_alias.unique'=>'Alias already taken in your address log.',
+        ] );
+        if($validator->fails()){
+            return response()->json([
+                'status'=>'error',
+                'message'=>'Validation error',
+                'errors'=>$validator->errors(),
+                'inputs'=>$input,
+            ], 400) ;
+        }
+        $addresslog_id = $input['addresslog_id'];
+
+        $address_log = Addresslog::find($addresslog_id)->update([
+            'user_id'=>Auth::user()->id,
+            'city_id'=>$input['consignee_city'],
+            'consignee_alias'=>$input['consignee_alias'],
+            'consignee_name'=>$input['consignee_name'],
+            'consignee_contact'=>$input['consignee_number'],
+            'consignee_address'=>$input['consignee_address'],
+            'consignee_nearby_address'=>$input['consignee_nearby_address'],
+        ]);
+
+        return response()->json([
+            'status'=>'success'
+        ], 200) ;
+       // return back()->with('success', 'Address has been made successfully');
+
     }
 
     /**

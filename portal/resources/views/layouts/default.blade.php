@@ -5,6 +5,9 @@
 </head>
 <body class="js @isset($body_class) {{$body_class}} @endisset">
 <div id="preloader"></div>
+<div id="preloader-loader">
+    <img width="100" height="100" src="{{asset('assets/img/preloader-loader.gif')}}">
+</div>
 <div class="web-wrapper">
     <header>
         @include('includes.header')

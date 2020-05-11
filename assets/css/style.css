@@ -804,6 +804,19 @@ form .form-message.success {
   color: #0baf01;
 }
 
+body.page-dashboard .form-message {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-style: normal;
+  font-size: 15px;
+  padding: 3px 15px;
+}
+
+body.page-dashboard .form-message.error {
+  border: 1px solid #f00;
+}
+
 img.delivery_boy {
   width: 375px;
 }
@@ -1100,6 +1113,31 @@ h2.dashboard-heading {
   color: rgb(79, 85, 91);
   font-weight: 500;
   border: 1px solid #ccc;
+}
+
+div#preloader-loader {
+  width: 100%;
+  height: 0;
+  position: fixed;
+  z-index:-1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:#fff;
+  transition: 0.3s ease;
+  overflow: hidden;
+}
+
+div#preloader-loader.show {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index:99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.54);
+  transition: 0.3s ease;
 }
 
 /* dropzone basic */

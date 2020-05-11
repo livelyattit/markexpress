@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use App\Customer;
 use App\User;
 use App\UserPersonalData;
@@ -22,12 +23,14 @@ class CustomerController extends UserController
 
         $body_class = 'page-dashboard page-dashboard-customer';
         $page_title = 'Dashboard';
+        $cities = City::orderBy('city_name')->get();
 
         $user_details = Customer::with('parcel.status', 'addressLog', 'role', 'personalData')->find(Auth::user()->id);
         return view('pages.customer.dashboard', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,
             'user_details'=>$user_details,
+            'cities'=>$cities,
             //'user_personal_data'=>$user_personal_data
         ]);
 

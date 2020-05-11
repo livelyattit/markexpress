@@ -1,0 +1,1 @@
+cd /home/techwyhw/api.logobrisk.com/portal && php -d register_argc_argv=On artisan queue:work
