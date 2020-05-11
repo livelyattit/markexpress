@@ -20,7 +20,9 @@
                         <div class="form-addresslog-wrapper">
                             @if(Session::has('success'))
                                 <div class="alert alert-success">
-                                    {{ Session::get('success') }}
+                                    @php
+                                        echo Session::get('success');
+                                    @endphp
                                     @php
                                         Session::forget('success');
                                     @endphp

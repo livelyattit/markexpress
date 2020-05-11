@@ -80,7 +80,7 @@ class AddresslogController extends Controller
         ], [
             'consignee_alias.unique'=>'Alias already taken in your address log.',
         ] );
-        if($validator->errors()){
+        if($validator->fails()){
             return back()
                 ->withErrors($validator)
                 ->withInput($input);
@@ -96,7 +96,7 @@ class AddresslogController extends Controller
             'consignee_nearby_address'=>$input['consignee_nearby_address'],
         ]);
 
-        return back()->with('success', 'Address has been made successfully');
+        return back()->with('success', 'Consignee <strong>'.$address_log->consignee_alias.'</strong> has been added successfully');
     }
 
     /**
