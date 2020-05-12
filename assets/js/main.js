@@ -26,7 +26,6 @@ jQuery(document).ready(function ($) {
             dataType: 'JSON',
             data: form.serialize(),
             url: '/login',
-            async: false,
             beforeSend: function () {
 
                 clicked_button
@@ -103,7 +102,6 @@ jQuery(document).ready(function ($) {
             dataType: 'JSON',
             data: form.serialize(),
             url: '/register',
-            async: false,
             beforeSend: function () {
 
                 clicked_button
@@ -198,7 +196,6 @@ jQuery(document).ready(function ($) {
             dataType: 'JSON',
             data: form.serialize(),
             url: '/customer/proceed-verification',
-            async: false,
             beforeSend: function () {
 
                 clicked_button
@@ -352,12 +349,11 @@ $("#form-upload-bill").dropzone({
             type: 'GET',
             dataType: 'html',
             url: '/address-log/'+addresslog_id,
-            async: false,
             beforeSend:function(){
                 preloader_loader.toggleClass('show');
             },
             success:function(data){
-                console.log(data);
+              //  console.log(data);
                 setTimeout(function () {
                     preloader_loader.toggleClass('show');
                     addresslog_modal.find('.js-content').html(data);
@@ -381,7 +377,6 @@ $("#form-upload-bill").dropzone({
             dataType: 'json',
             url: url,
             data:form.serialize(),
-            async: false,
             beforeSend:function(){
                 preloader_loader.toggleClass('show');
                 form
@@ -474,7 +469,6 @@ $("#form-upload-bill").dropzone({
                         type: 'DELETE',
                         dataType: 'json',
                         url: '/address-log/'+addresslog_id,
-                        async: false,
                         beforeSend:function(){
                             preloader_loader.toggleClass('show');
                         },
