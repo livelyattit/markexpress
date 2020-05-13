@@ -69,7 +69,7 @@ jQuery(document).ready(function ($) {
                 }, 4000);
             },
             error: function (xhr, status, error) {
-                
+
                 console.log(xhr);
                 console.log(status);
                 console.log(error);
@@ -505,6 +505,40 @@ $("#form-upload-bill").dropzone({
 
     });
 
+    $("#parcel-create-form").find('.select-consignee').on('change', function () {
+        let consignee_id = $(this).val();
+
+        $.ajax({
+
+            type: 'POST',
+            dataType: 'html',
+            data: {
+                consignee_id:consignee_id,
+            },
+            url: '/parcel/get-consignee',
+            beforeSend: function () {
+                $('.selected-consignee-wrapper').removeClass('show').html();
+            },
+            success: function (result, status, xhr) {
+
+                console.log(result);
+                $('.selected-consignee-wrapper').addClass('show').html(result);
+            },
+            error: function (xhr, status, error) {
+
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+
+
+            },
+            complete: function () {
+
+            }
+
+        });
+
+    })
 
 
 

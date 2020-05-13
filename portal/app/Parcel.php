@@ -22,7 +22,7 @@ class Parcel extends Model
        return $this->belongsToMany(Status::class, 'parcel_status', 'parcel_id', 'status_id');
    }
 
-   public function generateParcelNumber(){
+   public static function generateParcelNumber(){
        $generated_parcel_num = 1000;
        $parcel = self::latest()->first();
        if($parcel){

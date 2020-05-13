@@ -34,16 +34,19 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label>Consignee</label>
-                                        <select data-placeholder="Select Consignee" required name="addresslog_id"   class="form-control select-js">
+                                        <select data-placeholder="Select Consignee" required name="addresslog_id"   class="form-control select-js select-consignee">
                                             <option value="" style="display: none"></option>
                                             @foreach($user_details->addresslog as $address)
-                                                    <option @if(old('addresslog_id') == $address->id) selected="selected" @endif value="{{$address->id}}">{{$address->consignee_alias}} ({{$address->consignee_address}})</option>
+                                                    <option @if(old('addresslog_id') == $address->id) selected="selected" @endif value="{{$address->id}}">{{ucwords($address->consignee_alias)}} - {{$address->city->city_name}} - ({{$address->consignee_address}})</option>
                                             @endforeach
                                         </select>
                                         @if($errors->has('addresslog_id'))
                                             <span class="alert alert-danger">{{$errors->first('addresslog_id')}}</span>
                                         @endif
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="selected-consignee-wrapper"></div>
                                 </div>
 
                                 <div class="form-group">

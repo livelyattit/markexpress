@@ -41,6 +41,7 @@ Route::middleware(['customer'])->group(function (){
 Route::post('/customer/file-upload-bill', 'CustomerController@fileUploadBill')->name('file-upload-bill');
 Route::post('/customer/file-upload-cnic', 'CustomerController@fileUploadCnic')->name('file-upload-cnic');
 Route::post('/customer/proceed-verification', 'CustomerController@proceedVerification')->name('customer-verification-proceed');
+Route::post('/parcel/get-consignee', 'ParcelController@getConsignee')->name('parcel-get-consignee');
 
 });
 

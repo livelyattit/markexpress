@@ -65,17 +65,18 @@ class ParcelController extends Controller
                 ->withInput($input);
         }
 
-//        $address_log = Addresslog::create([
-//            'user_id'=>Auth::user()->id,
-//            'city_id'=>$input['consignee_city'],
-//            'consignee_alias'=>$input['consignee_alias'],
-//            'consignee_name'=>$input['consignee_name'],
-//            'consignee_contact'=>$input['consignee_number'],
-//            'consignee_address'=>$input['consignee_address'],
-//            'consignee_nearby_address'=>$input['consignee_nearby_address'],
-//        ]);
+        $parcel = Parcel::create([
+            'user_id'=>Auth::user()->id,
+            'addresslog_id'=>$input['addresslog_id'],
+            'assigned_parcel_number'=>Parcel::generateParcelNumber(),
+            'amount'=>$input['cod_amount'],
+            'weight'=>$input['weight'],
+            'length'=>$input['length'],
+            'height'=>$input['height'],
+            'assigned_tracking_number'=>null,
+        ]);
 
-        return back()->with('success', 'Parcel created successfully');
+        return back()->with('success', '<strong>ME Parcel # '.$parcel->assigned_parcel_number.'</strong>  created successfully');
     }
 
     /**
@@ -121,5 +122,15 @@ class ParcelController extends Controller
     public function destroy(Parcel $parcel)
     {
         //
+    }
+
+    public function getConsignee(Request $request){
+        $input = $request->all();
+        $addresslog = Addresslog::with('city')->find($input['consignee_id']);
+
+        return response()->view('pages.customer.components.get-consignee', [
+            'addresslog'=>$addresslog,
+            'input'=> $input,
+        ]);
     }
 }

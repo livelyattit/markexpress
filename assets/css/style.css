@@ -1193,6 +1193,34 @@ div#address-log-modal h3 {
   font-weight: 500;
 }
 
+.selected-consignee-wrapper h5 {
+  font-size: 19px;
+  font-weight: 600;
+  color: #fff;
+}
+.selected-consignee-wrapper.show {
+  background: rgb(117, 137, 152);
+  padding: 15px;
+}
+
+.selected-consignee-wrapper.show ul {
+  list-style: circle;
+  padding-left: 15px;
+}
+
+.selected-consignee-wrapper.show ul li {
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(157, 225, 153, 0.4);
+  margin-bottom: 8px;
+  padding-bottom: 3px;
+  color: #fff;
+}
+
+.selected-consignee-wrapper.show ul li span {
+  font-weight: 600;
+}
+
 /* select 2 style */
 
 .form-group .select2-container {
@@ -1241,6 +1269,10 @@ div#address-log-modal h3 {
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
   background: rgb(120, 196, 73);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field {
