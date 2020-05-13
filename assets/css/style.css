@@ -1014,7 +1014,7 @@ section#dashboard-addresslog {
   margin-bottom: 50px;
 }
 
-.form-addresslog-wrapper {
+.form-wrapper {
   max-width: 600px;
   margin: 0 auto;
   text-align: left;
@@ -1024,12 +1024,12 @@ section#dashboard-addresslog {
   border-radius: 6px;
 }
 
-.form-addresslog-wrapper label {
+.form-wrapper label {
   font-size: 14px;
   font-weight: 600;
 }
 
-form.addresslog-form .alert.alert-danger {
+form.form-in .alert.alert-danger {
   background: rgba(255, 255, 255, 0);
   border: none;
   border-bottom: 1px solid #f00;
@@ -1063,7 +1063,7 @@ form.addresslog-form .alert.alert-danger {
 .btn-add-consignee-wrapper a {margin-bottom: 14px;width: 222px;height: 42px;line-height: 30px;font-weight: 700;text-transform: uppercase;font-size: 14px;}
 
 
-.form-addresslog-wrapper h3 {
+.form-wrapper h3 {
   font-size: 24px;
   font-weight: 700;
   color: rgb(52, 58, 64);
@@ -1189,9 +1189,68 @@ div#address-log-modal h3 {
   color: rgb(93, 177, 8);
 }
 
-.form-addresslog-wrapper .alert-success {
+.form-wrapper .alert-success {
   font-weight: 500;
 }
+
+/* select 2 style */
+
+.form-group .select2-container {
+  display: block;
+  width: 100%;
+  box-shadow: unset !important;
+}
+
+.form-group .select2-container .select2-selection {
+  background: rgba(251, 251, 251, 0.28);
+  border: 1px solid rgb(206, 212, 218);
+  border-radius: 0.25rem;
+  padding: 13px 20px 10px;
+  height: calc(2.3rem + 2px);
+  font-weight: 500;
+  box-shadow: unset !important;
+}
+
+.form-group .select2-container .select2-selection .select2-selection__rendered {
+  color: rgb(73, 80, 87);
+  line-height: 15px;
+  padding-left: 0;
+  font-size: 1rem;
+}
+
+.form-group .select2-container .select2-selection .select2-selection__arrow {
+  height: calc(2.3rem + 2px);
+}
+
+.form-group .select2-container .select2-selection .select2-selection__arrow b {
+  border-color: #253278 transparent transparent transparent;
+}
+
+.select2-dropdown {
+  background: rgb(248, 254, 249);
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+  background: rgb(140, 148, 155);
+  color: #fff;
+}
+
+.select2-results__option {
+  color: rgb(52, 58, 64);
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background: rgb(120, 196, 73);
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  background: rgb(255, 255, 255);
+  color: rgb(52, 58, 64);
+}
+
+
+/* select 2 style end */
+
 
 /* dropzone basic */
 

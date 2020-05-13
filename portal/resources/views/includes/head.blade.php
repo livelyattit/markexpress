@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset("assets/css/owl.carousel.css")}}" />
     <link rel="stylesheet" href="{{asset("assets/css/fa.css")}}" />
     <link rel="stylesheet" href="{{asset("assets/css/dropzone.min.css")}}" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset("assets/css/style.css?ver" . time())}}" />
     <link rel="stylesheet" href="{{asset("assets/css/responsive.css")}}" />
 

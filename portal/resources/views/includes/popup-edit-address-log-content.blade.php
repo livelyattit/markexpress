@@ -22,11 +22,13 @@
             <div class="form-field-status form-field-consignee_number"></div>
         </div>
         <div class="form-group">
-            <label>City</label>
-            <select name="consignee_city"   class="form-control">
-                <option value="" style="display: none">Select City</option>
+            <label>City (With Delivery Time)</label>
+            <select data-placeholder="Select City" required name="consignee_city"   class="form-control select-js">
+                <option value="" style="display: none"></option>
                 @foreach($cities as $city)
-                    <option @if($city->id == $addresslog->city_id) selected="selected" @endif value="{{$city->id}}">{{$city->city_name}}</option>
+                    @if($city->is_enabled ==1)
+                        <option  @if($city->id == $addresslog->city_id) selected="selected" @endif value="{{$city->id}}">{{$city->city_name}} ({{$city->delivery_time}})</option>
+                    @endif
                 @endforeach
             </select>
             <div class="form-field-status form-field-consignee_city"></div>

@@ -12,6 +12,12 @@ jQuery(document).ready(function ($) {
 
     });
 
+    $('.select-js').select2({
+        placeholder: function(){
+            $(this).data('placeholder');
+        }
+    });
+
     $("#form-login").submit(function (e) {
 
         e.preventDefault();
@@ -30,7 +36,9 @@ jQuery(document).ready(function ($) {
 
                 clicked_button
                     .attr('disabled', 'disabled')
-                    .addClass('disabled');
+                    .addClass('disabled')
+                    .removeClass('btn-success')
+                    .addClass('btn-outline-success');
                 clicked_button.find('span').text('Please Wait..');
                 clicked_button.find('.loader').show();
 
@@ -69,7 +77,9 @@ jQuery(document).ready(function ($) {
                 setTimeout(function () {
                     clicked_button
                         .removeAttr('disabled')
-                        .removeClass('disabled');
+                        .removeClass('disabled')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-success');
 
                     clicked_button.find('span').text('Sign in');
                     clicked_button.find('.loader').hide();
@@ -106,7 +116,9 @@ jQuery(document).ready(function ($) {
 
                 clicked_button
                     .attr('disabled', 'disabled')
-                    .addClass('disabled');
+                    .addClass('disabled')
+                    .removeClass('btn-success')
+                    .addClass('btn-outline-success');
                 clicked_button.find('span').text('Please Wait..');
                 clicked_button.find('.loader').show();
 
@@ -153,7 +165,9 @@ jQuery(document).ready(function ($) {
                 setTimeout(function () {
                     clicked_button
                         .removeAttr('disabled')
-                        .removeClass('disabled');
+                        .removeClass('disabled')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-success');
 
                     clicked_button.find('span').text('Register');
                     clicked_button.find('.loader').hide();
@@ -325,8 +339,8 @@ $("#form-upload-bill").dropzone({
                 name: 'consignee_nearby_address',
             },
             {
-                data: 'city.city_name',
-                name: 'city.city_name'
+                data: 'city_delivery',
+                name: 'city_delivery'
             },
             {
                 data: 'edit',

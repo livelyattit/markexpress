@@ -27,6 +27,9 @@ class AddresslogController extends Controller
             //$data = Addresslog::where('user_id', Auth::user()->id)->get();
             $data = Addresslog::with('city', 'user')->where('user_id', Auth::user()->id);
             return DataTables::of($data)
+                ->addColumn('city_delivery', function($data){
+                    return $data->city->city_name . ' (' . $data->city->delivery_time . ')' ;
+                })
                 ->addColumn('edit', function($data){
                     $button = '<button type="button" name="edit" data-addresslog-id="'.$data->id.'" class="btn-edit-addresslog btn btn-outline-warning btn-sm">Edit</button>';
                     return $button;

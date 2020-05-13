@@ -17,11 +17,9 @@
                             <div class="create-parcel-btn-wrapper">
                                     <p>Get Started</p>
                                     <div class="btn-add-consignee-wrapper text-center">
-                                        <a class="btn btn-info btn-round btn-outline-success btn-create-parcel" href="{{route('address-log.create')}}">Create the Parcel</a>
-                                        @if(!$user_details->addressLog->isEmpty())
-                                            <h6>OR</h6>
+                                        <a class="btn btn-info btn-round btn-outline-success btn-create-parcel" href="{{route('parcel.create')}}">Create the Parcel</a>
+                                        <h6>OR</h6>
                                         <a class="btn btn-info btn-round btn-outline-success btn-add-consignee" href="{{route('address-log.create')}}">Add New Consignee</a>
-                                        @endif
                                     </div>
                             </div>
 
@@ -57,7 +55,7 @@
                                 <th>Contact</th>
                                 <th>Address</th>
                                 <th>Nearby</th>
-                                <th>City</th>
+                                <th>City (Delivery Time)</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>

@@ -32,7 +32,10 @@ Route::middleware(['customer'])->group(function (){
     Route::get('/customer/edit-profile', 'CustomerController@editProfile')->name('customer-edit-profile');
 
 //    addresslog
-    Route::resource('address-log', 'AddresslogController');
+    Route::resources([
+        'address-log' => 'AddresslogController',
+        'parcel' => 'ParcelController'
+    ]);
 
 // Post Routes
 Route::post('/customer/file-upload-bill', 'CustomerController@fileUploadBill')->name('file-upload-bill');

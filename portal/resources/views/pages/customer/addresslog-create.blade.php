@@ -17,7 +17,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="form-addresslog-wrapper">
+                        <div class="form-addresslog-wrapper form-wrapper">
                             @if(Session::has('success'))
                                 <div class="alert alert-success">
                                     @php
@@ -29,7 +29,7 @@
                                 </div>
                             @endif
                             <h3>ADD CONSIGNEE INFORMATION</h3>
-                            <form id="addresslog-create-form" class="addresslog-form" action="{{route('address-log.store')}}" method="post">
+                            <form onsubmit=" var cc = document.querySelector('.btn-in-submit');cc.setAttribute('disabled', 'disabled');cc.value='Please Wait..'" id="addresslog-create-form" class="addresslog-form form-in" action="{{route('address-log.store')}}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label>Address Alias</label>
@@ -54,11 +54,13 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label>City</label>
-                                    <select required name="consignee_city"   class="form-control">
-                                        <option value="" style="display: none">Select City</option>
+                                    <label>City (With Delivery Time)</label>
+                                    <select data-placeholder="Select City" required name="consignee_city"   class="form-control select-js">
+                                        <option value="" style="display: none"></option>
                                         @foreach($cities as $city)
-                                            <option @if(old('consignee_city') == $city->id) selected="selected" @endif value="{{$city->id}}">{{$city->city_name}}</option>
+                                            @if($city->is_enabled ==1)
+                                                <option @if(old('consignee_city') == $city->id) selected="selected" @endif value="{{$city->id}}">{{$city->city_name}} ({{$city->delivery_time}})</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @if($errors->has('consignee_city'))

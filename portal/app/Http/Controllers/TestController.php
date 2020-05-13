@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Addresslog;
+use App\Parcel;
 use App\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,32 +23,10 @@ class TestController extends Controller
      */
     public function index()
     {
-      echo   $value = 'kashif aliasa';
-      echo "<br>";
-        $id = 9;
-        $addresslogs = Addresslog::where('user_id', Auth::user()->id)->get();
-        $addresslog_where = Addresslog::find($id);
-//        echo "<pre>";
-//        print_r($addresslogs);
-//        echo "</pre>";
-        if($addresslog_where && $addresslog_where->consignee_alias  == $value ){
-            echo "aa";
-            echo "<br>";
-            echo $addresslog_where->consignee_alias;
-            return "where found true";
-        } else{
-            foreach ($addresslogs as $addresslog)
-            {
+        $parcel = new Parcel();
+        echo $parcel->generateParcelNumber();
 
-                echo $addresslog->id . "<br>";
-                if($addresslog->consignee_alias == $value){
-                    return "general found false " . $addresslog->consignee_alias;
-                }
-            }
-        }
-
-
-        return  "general found true";
+//        return  "general found true";
 
         //return env('APP_URL').'/storage';
         //return public_path('storage');
