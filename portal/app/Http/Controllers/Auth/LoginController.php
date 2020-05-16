@@ -75,13 +75,13 @@ class LoginController extends Controller
         if (Auth::check()) {
 
             $user_details = User::find(Auth::user()->id);
-            $user_role = $user_details->role->name; // customer or admin
+            $user_role = $user_details->role->name; // customer or owner
 
             switch ($user_role) {
                 case 'customer':
                     $redirect_location = route('customer-dashboard');
                     break;
-                case 'admin':
+                case 'owner':
                     $redirect_location = route('admin-dashboard');
                     break;
                 default:

@@ -46,10 +46,10 @@ $(document).ready(function() {
     $(".fixed-sidebar .navigation-toggle a").removeClass('button-collapse');
     $(".fixed-sidebar .navigation-toggle a").addClass('reverse-icon');
     
-    $('.account-settings-link').on('click', function(){
+    /*$('.account-settings-link').on('click', function(){
         $('.page-sidebar-settings').toggleClass('hidden');
         $('.sidebar-accordion-menu').toggleClass('hidden');
-    });
+    });*/
     
     $('.button-collapse').on('click', function(){
         $('body').toggleClass('sidebar-collapsed');

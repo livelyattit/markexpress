@@ -45,16 +45,24 @@ Route::post('/parcel/get-consignee', 'ParcelController@getConsignee')->name('par
 
 });
 
-//Route::middleware(['admin'])->group(function (){
-//
-//    Route::get('/admin/dashboard', 'AdminController@index')->name('admin-dashboard');
-//
-//});
+Route::prefix('admin')->group(function(){
+
+    Route::get('login', 'AdminLoginController@showLoginForm')->name('admin-users');
+    Route::post('login/owner', 'AdminLoginController@login')->name('admin-owner-login');
+    Route::middleware(['admin'])->group(function (){
+        Route::get('dashboard', 'AdminController@index')->name('admin-dashboard');
+        Route::get('users', 'AdminController@users')->name('admin-users');
+        Route::match(['get', 'post'],'user/create', 'AdminController@createUser')->name('admin-create-user');
+        Route::match('user/edit/{id}', 'AdminController@editUser')->name('admin-edit-user');
+        Route::match('user/delete/{id}', 'AdminController@deleteUser')->name('admin-delete-user');
+    });
+
+});
 
 
 //Route::get('/home', 'HomeController@index');
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'developer'], function () {
     Voyager::routes();
 });

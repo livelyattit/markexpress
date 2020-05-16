@@ -14,7 +14,6 @@
 
     @yield('content')
 
-@include('admin_includes.right_side')
 
 </div><!-- App Container -->
 @include('admin_includes.libraries')

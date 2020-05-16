@@ -1,1 +1,10 @@
 /* Your custom CSS code */
+
+.form-message.success, .form-message.error {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 5px 15px;
+}
+#form-login .btn.btn-outline-success {
+    color: #fff;
+}

@@ -101,7 +101,7 @@ class RegisterController extends Controller
                 case 'customer':
                     $redirect_location = route('customer-dashboard');
                     break;
-                case 'admin':
+                case 'owner':
                     $redirect_location = route('admin-dashboard');
                     break;
                 default:
