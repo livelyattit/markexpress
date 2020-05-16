@@ -39,6 +39,12 @@ class TestController extends Controller
 
     }
 
+    public function getUserRole(){
+        if(Auth::check()){
+            return Auth::user()->role->name;
+        }
+    }
+
     public function getFile($filename)
 	{
 		return response()->download(base_path('users_bills\\' . $filename), null, [], null);

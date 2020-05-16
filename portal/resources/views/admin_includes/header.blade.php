@@ -18,8 +18,10 @@
 
             <div class="sidebar-profile-info">
                 <a href="javascript:void(0);" class="account-settings-link">
-                    <p>{{Auth::user()->name}}</p>
-                    <span>{{Auth::user()->email}}</span>
+                    @if(Auth::check())
+                        <p>{{Auth::user()->name}}</p>
+                        <span>{{Auth::user()->email}}</span>
+                    @endif
                 </a>
             </div>
         </div>
