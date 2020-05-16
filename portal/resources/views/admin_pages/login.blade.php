@@ -1,18 +1,20 @@
 @extends('admin_layouts.default')
 @section('content')
+
+<style>
+    .page-content {
+        padding: 85px 25px 50px 25px;
+    }
+</style>
 <div class="page-content">
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="page-title">Mark Express Admin</h2>
-            </div>
-        </div>
         <div class="row">
             <div class="col-6 mx-auto">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Admin Panel</h5>
+                        <h3>Sign Into Mark Express</h3>
                         <form id="form-login" method="post">
                             @csrf
                             <div class="form-group">
