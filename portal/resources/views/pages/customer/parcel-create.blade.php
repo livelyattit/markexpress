@@ -31,33 +31,39 @@
                             <h3>CREATE PARCEL</h3>
                             <form onsubmit=" var cc = document.querySelector('.btn-in-submit');cc.setAttribute('disabled', 'disabled');cc.value='Please Wait..'" id="parcel-create-form" class="parcel-form form-in" action="{{route('parcel.store')}}" method="post">
                                 @csrf
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <label>Consignee</label>
-                                        <select data-placeholder="Select Consignee" required name="addresslog_id"   class="form-control select-js select-consignee">
-                                            <option value="" style="display: none"></option>
-                                            @foreach($user_details->addresslog as $address)
-                                                    <option @if(old('addresslog_id') == $address->id) selected="selected" @endif value="{{$address->id}}">{{ucwords($address->consignee_alias)}} - {{$address->city->city_name}} - ({{$address->consignee_address}})</option>
-                                            @endforeach
-                                        </select>
-                                        @if($errors->has('addresslog_id'))
-                                            <span class="alert alert-danger">{{$errors->first('addresslog_id')}}</span>
-                                        @endif
-                                    </div>
-                                </div>
+                                        <div class="form-group row">
+                                            <div class="col-7">
+                                                <label>Consignee</label>
+                                                <select data-placeholder="Select Consignee" required name="addresslog_id"   class="form-control select-js select-consignee">
+                                                    <option value="" style="display: none"></option>
+                                                    @foreach($user_details->addresslog as $address)
+                                                        <option @if(old('addresslog_id') == $address->id) selected="selected" @endif value="{{$address->id}}">{{ucwords($address->consignee_alias)}} - {{$address->city->city_name}} - ({{$address->consignee_address}})</option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('addresslog_id'))
+                                                    <span class="alert alert-danger">{{$errors->first('addresslog_id')}}</span>
+                                                @endif
+                                            </div>
+                                            <div class="col-5">
+                                                <label>Or</label>
+                                                <div class="or-add-consignee">
+                                                    <a class="btn btn-outline-success" href="{{route('address-log.create')}}"><i class="fad fa-user-plus"></i> Add New Consignee</a></div>
+                                            </div>
+                                        </div>
                                 <div class="form-group">
                                     <div class="selected-consignee-wrapper"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Cod Amount</label>
-                                    <input required name="cod_amount" value="{{old('cod_amount')}}"   type="tel" placeholder="Enter Amount e.g 1000"  class="form-control">
+                                    <input autocomplete="off" required name="cod_amount" value="{{old('cod_amount')}}"   type="number" placeholder="Enter Amount e.g 1000"  class="form-control fn-number">
+                                    <div class="fn-number-words"></div>
                                     @if($errors->has('cod_amount'))
                                         <span class="alert alert-danger">{{$errors->first('cod_amount')}}</span>
                                     @endif
                                 </div>
-                                <hr>
-                                <div class="optional-fields-wrapper">
+                                <div class="d-none optional-fields-wrapper">
+                                    <hr>
                                     <h4>Optional Fields</h4>
                                     <div class="row form-group">
                                             <div class="col-12">

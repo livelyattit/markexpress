@@ -10,17 +10,55 @@ use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use DataTables;
 class ParcelController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()) {
+            //$data = Addresslog::where('user_id', Auth::user()->id)->get();
+            $data = Parcel::with( 'addressLog','status')->where('user_id', Auth::user()->id);
+            return DataTables::of($data)
+                ->addColumn('parcel_no', function($data){
+                    return 'ME Parcel # ' . $data->assigned_parcel_number;
+                })
+                ->addColumn('current_status', function($data){
+                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
+//                    foreach ($data->status as $status){
+//                        return $status->status ;
+//                    }
+                    return $dd->status  ;
+
+                })
+                ->addColumn('consignee_alias', function($data){
+                    return $data->addressLog->consignee_alias;
+                })
+                ->addColumn('shipment_created',  function($data){
+                    return $data->created_at->format('d-m-Y');
+                })
+                ->addColumn('consignee_address',  function($data){
+                    return $data->addressLog->consignee_address;
+                })
+                ->addColumn('view', function($data){
+                    $button = '<button type="button" name="view" data-parcel-id="'.$data->id.'" class="btn-view-parcel btn btn-outline-warning btn-sm">View</button>';
+                    return $button;
+                })
+                ->addColumn('edit', function($data){
+                    $button = '<button type="button" name="edit" data-parcel-id="'.$data->id.'" class="btn-edit-parcel btn btn-outline-warning btn-sm">Edit</button>';
+                    return $button;
+                })
+                ->addColumn('delete', function($data){
+                    $button = '<button type="button" name="delete" data-parcel-id="'.$data->id.'" data-addresslog-alias="'.$data->consignee_alias.'" class="btn-delete-parcel btn btn-outline-danger btn-sm">Delete</button>';
+                    return $button;
+                })
+                ->rawColumns(['view', 'edit', 'delete'])
+                ->make(true);
+        }
     }
 
     /**
@@ -57,7 +95,7 @@ class ParcelController extends Controller
             'length'=>'sometimes|nullable|numeric|min:1|max:150',
             'width'=>'sometimes|nullable|numeric|min:1|max:150',
             'height'=>'sometimes|nullable|numeric|min:1|max:150',
-            'cod_amount'=>'required|numeric|min:100|max:99000',
+            'cod_amount'=>'required|numeric|min:100|max:9900000',
         ] );
         if($validator->fails()){
             return back()
@@ -65,16 +103,21 @@ class ParcelController extends Controller
                 ->withInput($input);
         }
 
+        $pp= new Parcel();
+        $pp->refresh();
+        $num = $pp->generateParcelNumber();
+
         $parcel = Parcel::create([
             'user_id'=>Auth::user()->id,
             'addresslog_id'=>$input['addresslog_id'],
-            'assigned_parcel_number'=>Parcel::generateParcelNumber(),
+            'assigned_parcel_number'=>$num,
             'amount'=>$input['cod_amount'],
             'weight'=>$input['weight'],
             'length'=>$input['length'],
             'height'=>$input['height'],
             'assigned_tracking_number'=>null,
         ]);
+        $parcel->status()->attach(1);
 
         return back()->with('success', '<strong>ME Parcel # '.$parcel->assigned_parcel_number.'</strong>  created successfully');
     }

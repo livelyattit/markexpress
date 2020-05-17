@@ -740,11 +740,18 @@ section#login-section .tab-wrapper {
   box-shadow: 0 10px 10px #f1f1f1;
 }
 
+section#login-section form label {
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .bod-0 {
   border: 1px solid transparent;
   border-bottom: 1px solid #ced4da;
   border-radius: 0;
   box-shadow: unset;
+  padding: 0.35rem 0.4rem;
 }
 
 .bod-0:focus {
@@ -919,6 +926,8 @@ section#dashboard-verification .verification-note li {
   width: 100%;
 }
 
+form#customer-verification-proceed-form button {height: 50px;padding: 10px;width: 100%;}
+
 .verification-uploaded {
   height: 200px;
   display: flex;
@@ -957,9 +966,10 @@ section#dashboard-verification .verification-note li {
 }
 
 .verification-uploaded-note h4 {
-  font-size: 17px;
+  font-size: 21px;
   line-height: 29px;
   color: rgb(75, 181, 67);
+  font-weight: 600;
 }
 
 section#dashboard-parcels .container {
@@ -969,6 +979,7 @@ section#dashboard-parcels .container {
   text-align: center;
   border: 1px solid rgb(157, 225, 153);
   border-radius: 6px;
+  position: relative;
 }
 
 section#dashboard-parcels {
@@ -1221,6 +1232,16 @@ div#address-log-modal h3 {
   font-weight: 600;
 }
 
+.business-information-proceed-wrapper h4 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+form#customer-business-information-proceed-form button {
+  width: 100%;
+  max-width: 260px;
+}
+
 /* select 2 style */
 
 .form-group .select2-container {
@@ -1265,6 +1286,9 @@ div#address-log-modal h3 {
 
 .select2-results__option {
   color: rgb(52, 58, 64);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {

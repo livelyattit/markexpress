@@ -12,7 +12,17 @@ class StatusSeeder extends Seeder
      */
     public function run()
     {
-        $statuses = ['initiated', 'on way', 'delivered', 'canceled', 'returned'];
+        $statuses = [
+            'shipment created',
+            'shipment picked',
+            'delivery in process',
+            'delivered payment in process',
+            'delivered',
+            'undelivered',
+            'reattempt',
+            'return in process',
+            'returned',
+        ];
 
         foreach ($statuses as $status){
             Status::create([

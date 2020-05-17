@@ -28,7 +28,6 @@ Route::get('file/{authid}/{location}/{filename}', 'HelperController@getContentFi
 Route::middleware(['customer'])->group(function (){
 
     Route::get('/customer/dashboard', 'CustomerController@index')->name('customer-dashboard');
-    Route::get('/customer/create-parcel', 'CustomerController@createParcel')->name('customer-create-parcel');
     Route::get('/customer/edit-profile', 'CustomerController@editProfile')->name('customer-edit-profile');
 
 //    addresslog
@@ -41,6 +40,7 @@ Route::middleware(['customer'])->group(function (){
 Route::post('/customer/file-upload-bill', 'CustomerController@fileUploadBill')->name('file-upload-bill');
 Route::post('/customer/file-upload-cnic', 'CustomerController@fileUploadCnic')->name('file-upload-cnic');
 Route::post('/customer/proceed-verification', 'CustomerController@proceedVerification')->name('customer-verification-proceed');
+Route::post('/customer/proceed-business-information', 'CustomerController@proceedBusinessInformation')->name('customer-business-information-proceed');
 Route::post('/parcel/get-consignee', 'ParcelController@getConsignee')->name('parcel-get-consignee');
 
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Accountdetail;
 use App\City;
 use App\Customer;
 use App\User;
@@ -36,9 +37,37 @@ class CustomerController extends UserController
 
     }
 
-    public function createParcel(){
+    public function proceedBusinessInformation(Request $request){
 
-        return '<h1>Create Parcel Page</h1>';
+        $input = $request->all();
+        $validator = Validator::make($input,[
+            'business_name'=>'required|string|max:190',
+            'shipment_quantity'=>'required|numeric|min:1|max:100000',
+            'bank_name'=>'required|string|max:99000',
+            'bank_account_title'=>'required|string|max:190',
+            'bank_account_number'=>'required|string|max:30',
+        ] );
+        if($validator->fails()){
+            return back()
+                ->withErrors($validator)
+                ->withInput($input);
+        }
+
+        $account_detail = Accountdetail::create([
+            'user_id'=>Auth::user()->id,
+            'business_name'=>$input['business_name'],
+            'shipment_quantity'=>$input['shipment_quantity'],
+            'bank_name'=>$input['bank_name'],
+            'bank_account_title'=>$input['bank_account_title'],
+            'bank_account_number'=>$input['bank_account_number'],
+
+        ]);
+
+        $user = User::findOrFail(Auth::user()->id)->update([
+            'originality_verified'=>2
+        ]);
+
+        return back()->with('success', 'All Information Saved Successfully!..');
     }
 
     public function editProfile(){

@@ -81,6 +81,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'mobile' => $data['mobile'],
             'cnic' => $data['cnic'],
+            'address'=>$data['address'],
             'role_id'=>3, // 3 is for customer for now
             'originality_verified'=> 0, // 0 means not verified by the admin
             'password' => Hash::make($data['password']),

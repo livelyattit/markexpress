@@ -53,7 +53,7 @@ class AddresslogController extends Controller
         $body_class = 'page-dashboard page-dashboard-customer';
         $page_title = 'Address Log';
 
-        $user_details = BaseController::getUserDetails(Auth::user()->id);
+        $user_details = User::with('parcel.status', 'role', 'personalData')->find(Auth::user()->id)->first();
             $cities = City::orderBy('city_name')->get();
         return view('pages.customer.addresslog-create', [
             'body_class'=>$body_class,

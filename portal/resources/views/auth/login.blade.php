@@ -26,6 +26,7 @@
                             <div role="tabpanel" class="tab-pane fade in active show" id="signup">
                                 <form id="form-signup">
                                     <div class="form-group">
+                                        <label>Full Name</label>
                                         <input type="text" class="form-control bod-0" id="signup-name" name="name"
                                             aria-describedby="Full Name" placeholder="Full Name" required="">
                                         <small id="nameHelp" class="form-text text-muted">The name should match your
@@ -33,35 +34,46 @@
                                             <div class="form-field-status form-field-name"></div>
                                     </div>
                                     <div class="form-group">
+                                        <label>Email Address</label>
                                         <input type="text" class="form-control bod-0" id="signup-email" name="email"
                                             aria-describedby="Email Address" placeholder="Email Address" required="">
                                             <div class="form-field-status form-field-email"></div>
                                     </div>
                                     <div class="form-group">
+                                        <label>Mobile No.</label>
                                         <input type="text" class="form-control bod-0" id="signup-mobile" name="mobile"
-                                            aria-describedby="Mobile Number" placeholder="Mobile Number" required="">
+                                            aria-describedby="Mobile Number" placeholder="Mobile No." required="">
                                             <div class="form-field-status form-field-number"></div>
                                     </div>
                                     <div class="form-group">
+                                        <label>CNIC No.</label>
                                         <input type="text" class="form-control bod-0" id="signup-cnic" name="cnic"
-                                            aria-describedby="CNIC Number" placeholder="Cnic No#" required="">
+                                            aria-describedby="CNIC No." placeholder="Cnic No." required="">
                                         <small id="emailHelp" class="form-text text-muted">Enter CNIC in dashes format
                                             <strong><i>e.g 4XXXX-XXXXXXXX-X</i></strong></small>
                                             <div class="form-field-status form-field-cnic"></div>
                                     </div>
                                     <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control bod-0" id="signup-address" name="address"
+                                               aria-describedby="Address" placeholder="Complete Address" required="">
+                                        <div class="form-field-status form-field-address"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
                                         <input type="password" class="form-control bod-0" id="signup-password-1"
                                             name="password" placeholder="Password" required="">
                                             <div class="form-field-status" data-filter="password"></div>
                                     </div>
                                     <div class="form-group">
+                                        <label>Confirm Password</label>
                                         <input type="password" class="form-control bod-0" id="signup-password-2"
                                             name="password_confirmation" placeholder="Confirm Password" required="">
                                             <div class="form-field-status form-field-password"></div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-message">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="row form-group align-items-center">
@@ -81,12 +93,14 @@
                                 <form id="form-login">
                                     @csrf
                                     <div class="form-group">
+                                        <label>Cnic No.</label>
                                         <input type="text" class="form-control bod-0" id="login_cnic" name="cnic"
-                                            aria-describedby="CNIC Number" placeholder="Cnic No#" required="">
+                                            aria-describedby="CNIC No." placeholder="Cnic No." required="">
                                         <small id="emailHelp" class="form-text text-muted">Enter CNIC in dashes format
                                             <strong><i>e.g 4XXXX-XXXXXXXX-X</i></strong></small>
                                     </div>
                                     <div class="form-group">
+                                        <label>Password</label>
                                         <input type="password" class="form-control bod-0" id="login_password"
                                             name="password" placeholder="Password" required="">
                                     </div>
@@ -101,7 +115,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-message">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="row form-group align-items-center">

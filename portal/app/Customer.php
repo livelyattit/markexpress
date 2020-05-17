@@ -19,5 +19,4 @@ class Customer extends User
     }
 
 
-
 }

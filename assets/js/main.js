@@ -18,6 +18,25 @@ jQuery(document).ready(function ($) {
         }
     });
 
+
+    function inWords (num) {
+        var a = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
+        var b = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+        if ((num = num.toString()).length > 9) return 'overflow';
+        n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!n) return; var str = '';
+        str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'crore ' : '';
+        str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'lakh ' : '';
+        str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'thousand ' : '';
+        str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'hundred ' : '';
+        str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
+        return str;
+    }
+
+    $(".fn-number").keyup(function(){
+        $(".fn-number-words").html(inWords($(this).val()));
+    });
+
     $("#form-login").submit(function (e) {
 
         e.preventDefault();
@@ -66,7 +85,7 @@ jQuery(document).ready(function ($) {
                     window.location.href = redirect_url;
 
 
-                }, 4000);
+                }, 1200);
             },
             error: function (xhr, status, error) {
 
@@ -89,7 +108,7 @@ jQuery(document).ready(function ($) {
                         .addClass('error')
                         .html('Invalid Credentials. Try Again!');
 
-                }, 4000);
+                }, 1200);
 
 
             },
@@ -150,7 +169,7 @@ jQuery(document).ready(function ($) {
 
 
 
-                }, 4000);
+                }, 1200);
 
             },
             error: function (xhr, status, error) {
@@ -188,7 +207,7 @@ jQuery(document).ready(function ($) {
 
                         })
 
-                }, 4000);
+                }, 1200);
             },
             complete: function () {
             }
@@ -238,7 +257,7 @@ jQuery(document).ready(function ($) {
                     window.location.href = redirect_url;
 
 
-                }, 4000);
+                }, 1200);
             },
             error: function (xhr, status, error) {
 
@@ -253,7 +272,7 @@ jQuery(document).ready(function ($) {
 
                     clicked_button.text('Proceed to verify');
 
-                }, 4000);
+                }, 1200);
 
 
             },
@@ -314,6 +333,11 @@ $("#form-upload-bill").dropzone({
         processing: true,
         serverSide: true,
         responsive: true,
+        bPaginate: true,
+        bLengthChange: false,
+        bFilter: true,
+        bInfo: true,
+        bAutoWidth: true,
         ajax: {
             url: "/address-log",
         },
@@ -341,6 +365,61 @@ $("#form-upload-bill").dropzone({
             {
                 data: 'city_delivery',
                 name: 'city_delivery'
+            },
+            {
+                data: 'edit',
+                name: 'edit',
+                orderable: false
+            },
+            {
+                data: 'delete',
+                name: 'delete',
+                orderable: false
+            }
+        ]
+    });
+
+    var parcels_datatable =  $('#parcels_table').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        bPaginate: true,
+        bLengthChange: false,
+        bFilter: true,
+        bInfo: true,
+        bAutoWidth: true,
+        ajax: {
+            url: "/parcel",
+        },
+        columns: [
+            {
+                data: 'parcel_no',
+                name: 'parcel_no'
+            },
+            {
+                data: 'current_status',
+                name: 'current_status'
+            },
+            {
+                data: 'consignee_alias',
+                name: 'consignee_alias'
+            },
+            {
+                data: 'shipment_created',
+                name: 'shipment_created'
+            },
+            {
+                data: 'consignee_address',
+                name: 'consignee_address',
+            },
+            {
+                data: 'amount',
+                name: 'amount',
+            },
+            {
+                data: 'view',
+                name: 'view',
+                orderable: false
             },
             {
                 data: 'edit',
@@ -417,7 +496,7 @@ $("#form-upload-bill").dropzone({
 
                     clicked_button.text('Update Consignee');
 
-                }, 2000);
+                }, 1200);
             },
             error: function (xhr, status, error) {
 
@@ -452,7 +531,7 @@ $("#form-upload-bill").dropzone({
 
                     });
 
-                }, 2000);
+                }, 1200);
             },
             complete:function(xhr, status){
                 addresslog_datatable.ajax.reload();
