@@ -1135,17 +1135,18 @@ h2.dashboard-heading:after {content: "";position: relative;border-bottom: 3px so
 
 .customer-account-status-badge {
   position: absolute;
-  top: 0;
-  right: 0;
-  max-width: 300px;
+  top: 10px;
+  right: 10px;
+  max-width: 310px;
+  width: auto;
 }
 
 .customer-account-badge {
   padding: 10px;
   border-radius: 6px;
-  color: rgb(79, 85, 91);
+  color: rgba(0, 0, 0, 0.66);
   font-weight: 500;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(248, 254, 249);
 }
 
 div#preloader-loader {
