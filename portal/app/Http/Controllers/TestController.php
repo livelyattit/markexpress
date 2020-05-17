@@ -41,8 +41,9 @@ class TestController extends Controller
 
     public function getUserRole(){
         if(Auth::check()){
-            return Auth::user()->role->name;
+            dd(Auth::user()->toArray());
         }
+        return 0;
     }
 
     public function getFile($filename)

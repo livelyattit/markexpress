@@ -21,6 +21,7 @@ Route::get('file/{authid}/{location}/{filename}', 'HelperController@getContentFi
     'filename'=> '^[^/]+$'
     ])->name('content');
 
+Route::get('/test/user-info', "TestController@getUserRole");
 
 
 // Customer Routes
