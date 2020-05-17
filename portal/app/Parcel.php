@@ -10,6 +10,7 @@ class Parcel extends Model
         'user_id',
         'addresslog_id',
         'assigned_parcel_number',
+        'binded_addresslog',
         'weight',
         'length',
         'width',

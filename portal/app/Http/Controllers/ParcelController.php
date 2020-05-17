@@ -22,27 +22,26 @@ class ParcelController extends Controller
     {
         if($request->ajax()) {
             //$data = Addresslog::where('user_id', Auth::user()->id)->get();
-            $data = Parcel::with( 'addressLog','status')->where('user_id', Auth::user()->id);
+            $data = Parcel::with( 'status')->where('user_id', Auth::user()->id);
             return DataTables::of($data)
                 ->addColumn('parcel_no', function($data){
                     return 'ME Parcel # ' . $data->assigned_parcel_number;
                 })
                 ->addColumn('current_status', function($data){
                     $dd  = $data->status()->latest('parcel_status.updated_at')->first();
-//                    foreach ($data->status as $status){
-//                        return $status->status ;
-//                    }
                     return $dd->status  ;
 
                 })
                 ->addColumn('consignee_alias', function($data){
-                    return $data->addressLog->consignee_alias;
+                    $data_decoded = json_decode($data->binded_addresslog, true);
+                    return $data_decoded['addresslog_info']['consignee_alias'] ;
                 })
                 ->addColumn('shipment_created',  function($data){
                     return $data->created_at->format('d-m-Y');
                 })
                 ->addColumn('consignee_address',  function($data){
-                    return $data->addressLog->consignee_address;
+                    $data_decoded = json_decode($data->binded_addresslog, true);
+                    return $data_decoded['addresslog_info']['consignee_address'] ;
                 })
                 ->addColumn('view', function($data){
                     $button = '<button type="button" name="view" data-parcel-id="'.$data->id.'" class="btn-view-parcel btn btn-outline-warning btn-sm">View</button>';
@@ -107,10 +106,19 @@ class ParcelController extends Controller
         $pp->refresh();
         $num = $pp->generateParcelNumber();
 
+        $binded_address = Addresslog::find($input['addresslog_id'])->first()->toArray();
+        $cc = Addresslog::find($input['addresslog_id'])->city->toArray();
+
+        $ff = [
+            'addresslog_info'=>$binded_address,
+            'city'=>$cc,
+            ];
+
         $parcel = Parcel::create([
             'user_id'=>Auth::user()->id,
             'addresslog_id'=>$input['addresslog_id'],
             'assigned_parcel_number'=>$num,
+            'binded_addresslog'=>json_encode($ff),
             'amount'=>$input['cod_amount'],
             'weight'=>$input['weight'],
             'length'=>$input['length'],
