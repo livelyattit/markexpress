@@ -26,7 +26,7 @@ class CustomerController extends UserController
         $page_title = 'Dashboard';
         $cities = City::orderBy('city_name')->get();
 
-        $user_details = Customer::with('parcel.status', 'addressLog', 'role', 'personalData')->find(Auth::user()->id);
+        $user_details = Customer::with('parcel', 'addressLog', 'role', 'personalData')->find(Auth::user()->id);
         return view('pages.customer.dashboard', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,

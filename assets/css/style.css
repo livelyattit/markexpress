@@ -1113,6 +1113,13 @@ h2.dashboard-heading {
   color: rgb(52, 58, 64);
 }
 
+div#parcels_table_wrapper {
+  background: #fff;
+  padding: 20px 0;
+}
+
+h2.dashboard-heading:after {content: "";position: relative;border-bottom: 3px solid rgb(94, 178, 8);display: block;width: 100px;}
+
 .verification-proceed-button-wrapper {max-width: 510px;margin: 40px auto 30px;}
 
 .verification-proceed-button-wrapper .form-message {
@@ -1184,6 +1191,7 @@ table.dataTable>tbody>tr.child ul.dtr-details {display: inline-block;float: left
 div#addresslog_table_wrapper {
   background: rgb(255, 255, 255);
   padding: 20px 0;
+  margin-bottom: 50px;
 }
 
 
