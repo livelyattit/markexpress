@@ -1085,10 +1085,14 @@ form.form-in .alert.alert-danger {
   display: block;
   max-width: 830px;
   margin: 30px auto  60px;
-  background: #fff;
   border: 2px dashed rgb(157, 225, 153);
   border-radius: 6px;
+  background-color: #fff;
+  position: relative;
+  z-index: 1;
 }
+.create-parcel-btn-wrapper::before {content: '';position: absolute;width: 100%;height: 100%;background: url(../img/dashboard-back.jpg);left: 0;top: 0;opacity: 0.2;background-size: cover;background-repeat: no-repeat;filter: blur(5px);}
+
 
 .btn-add-consignee-wrapper h6 {
   color: rgb(52, 58, 64);
