@@ -421,16 +421,6 @@ $("#form-upload-bill").dropzone({
                 name: 'view',
                 orderable: false
             },
-            {
-                data: 'edit',
-                name: 'edit',
-                orderable: false
-            },
-            {
-                data: 'delete',
-                name: 'delete',
-                orderable: false
-            }
         ]
     });
 

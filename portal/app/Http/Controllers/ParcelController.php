@@ -37,25 +37,17 @@ class ParcelController extends Controller
                     return $data_decoded['addresslog_info']['consignee_alias'] ;
                 })
                 ->addColumn('shipment_created',  function($data){
-                    return $data->created_at->format('d-m-Y');
+                    return $data->created_at->format('d-F-Y');
                 })
                 ->addColumn('consignee_address',  function($data){
                     $data_decoded = json_decode($data->binded_addresslog, true);
                     return $data_decoded['addresslog_info']['consignee_address'] ;
                 })
                 ->addColumn('view', function($data){
-                    $button = '<button type="button" name="view" data-parcel-id="'.$data->id.'" class="btn-view-parcel btn btn-outline-warning btn-sm">View</button>';
+                    $button = '<a href="'.route('parcel.show', $data->id).'" name="view" data-parcel-id="'.$data->id.'" class="btn-view-parcel btn btn-outline-warning btn-sm">View Details</a>';
                     return $button;
                 })
-                ->addColumn('edit', function($data){
-                    $button = '<button type="button" name="edit" data-parcel-id="'.$data->id.'" class="btn-edit-parcel btn btn-outline-warning btn-sm">Edit</button>';
-                    return $button;
-                })
-                ->addColumn('delete', function($data){
-                    $button = '<button type="button" name="delete" data-parcel-id="'.$data->id.'" data-addresslog-alias="'.$data->consignee_alias.'" class="btn-delete-parcel btn btn-outline-danger btn-sm">Delete</button>';
-                    return $button;
-                })
-                ->rawColumns(['view', 'edit', 'delete'])
+                ->rawColumns(['view'])
                 ->make(true);
         }
     }
@@ -138,7 +130,20 @@ class ParcelController extends Controller
      */
     public function show(Parcel $parcel)
     {
-        //
+        if(Auth::user()->id == $parcel->user_id){
+
+            $data = Parcel::with(['status'=>function($query){
+               return $query->orderBy('status_id', 'asc');
+            },
+                'addressLog'])->find($parcel->id);
+
+            return view('pages.customer.parcel-show', [
+                'parcel'=>$data,
+            ]);
+        }
+        else{
+            return redirect()->route('home');
+        }
     }
 
     /**

@@ -98,8 +98,6 @@
                                 <th>Address</th>
                                 <th>Cod Amount</th>
                                 <th>View</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
                             </tr>
                             </thead>
                         </table>
