@@ -30,6 +30,15 @@
                         <a href="{{route('admin-dashboard')}}" class="waves-effect waves-grey active">
                             <i class="material-icons">settings_input_svideo</i>Dashboard
                         </a>
+                        <a class="waves-effect waves-danger" href="{{route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </li>
                     <li>
                         <a href="javascript:void(0)" class="waves-effect waves-grey">
