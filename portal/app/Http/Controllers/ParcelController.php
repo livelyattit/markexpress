@@ -43,6 +43,10 @@ class ParcelController extends Controller
                     $data_decoded = json_decode($data->binded_addresslog, true);
                     return $data_decoded['addresslog_info']['consignee_address'] ;
                 })
+                ->addColumn('amount',  function($data){
+
+                    return "PKR " .  number_format($data->amount, 1, '.', ',');
+                })
                 ->addColumn('view', function($data){
                     $button = '<a href="'.route('parcel.show', $data->id).'" name="view" data-parcel-id="'.$data->id.'" class="btn-view-parcel btn btn-outline-warning btn-sm">View Details</a>';
                     return $button;

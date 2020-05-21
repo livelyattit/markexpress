@@ -17,7 +17,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <h5>SHIPMENT DETAILS</h5>
+                        <h3>SHIPMENT DETAILS</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="parcel-info-wrapper">
-                            <h5>Details</h5>
+                            <h5>Consignee Details</h5>
                             @php
                                 $addresslog = json_decode($parcel->binded_addresslog, true) ;
                             @endphp
@@ -41,6 +41,27 @@
                                 <li><span>Estimated Delivery Time:</span> <strong>{{$addresslog['city']['delivery_time']}}</strong></li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="parcel-info-wrapper">
+                            <h5>Payment Details</h5>
+                            @php
+                                $addresslog = json_decode($parcel->binded_addresslog, true) ;
+                            @endphp
+                            <ul>
+                                <li><span>Consignee:</span> <strong>{{$addresslog['addresslog_info']['consignee_alias']}}</strong></li>
+                                <li><span>Name:</span> <strong>{{$addresslog['addresslog_info']['consignee_name']}}</strong></li>
+                                <li><span>Address:</span> <strong>{{$addresslog['addresslog_info']['consignee_address']}}</strong></li>
+                                <li><span>Nearby:</span> <strong>{{$addresslog['addresslog_info']['consignee_nearby_address']}}</strong></li>
+                                <li><span>City:</span> <strong>{{$addresslog['city']['city_name']}}</strong></li>
+                                <li><span>Estimated Delivery Time:</span> <strong>{{$addresslog['city']['delivery_time']}}</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h3>SHIPMENT TIMELINE</h3>
                     </div>
                 </div>
                 <div class="row">
