@@ -68,13 +68,16 @@ class ParcelController extends Controller
         $parcel = Parcel::create([
             'user_id'=>Auth::user()->id,
             'addresslog_id'=>$input['addresslog_id'],
-            'assigned_parcel_number'=>Parcel::generateParcelNumber(),
+            'assigned_parcel_number'=>null,
             'amount'=>$input['cod_amount'],
             'weight'=>$input['weight'],
             'length'=>$input['length'],
             'height'=>$input['height'],
             'assigned_tracking_number'=>null,
         ]);
+        $parcel_number = 1000 + $parcel->id;
+        $parcel->assigned_parcel_number = $parcel_number;
+        $parcel->save();
 
         return back()->with('success', '<strong>ME Parcel # '.$parcel->assigned_parcel_number.'</strong>  created successfully');
     }
