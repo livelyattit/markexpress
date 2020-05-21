@@ -179,6 +179,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        \niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
 
     ],
 
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'DataTables'=>Yajra\DataTables\Facades\DataTables::class,
+        'PDF'=>\niklasravnsborg\LaravelPdf\Facades\Pdf::class,
 
     ],
 

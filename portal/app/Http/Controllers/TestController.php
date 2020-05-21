@@ -23,8 +23,9 @@ class TestController extends Controller
      */
     public function index()
     {
-        $parcel = new Parcel();
-        echo $parcel->generateParcelNumber();
+        return base_path('../temp/');
+       // $parcel = new Parcel();
+       // echo $parcel->generateParcelNumber();
 
 //        return  "general found true";
 
