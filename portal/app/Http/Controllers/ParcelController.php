@@ -25,7 +25,7 @@ class ParcelController extends Controller
             $data = Parcel::with( 'status')->where('user_id', Auth::user()->id);
             return DataTables::of($data)
                 ->addColumn('parcel_no', function($data){
-                    return 'ME Parcel # ' . $data->assigned_parcel_number;
+                    return 'Parcel#' . $data->assigned_parcel_number;
                 })
                 ->addColumn('current_status', function($data){
                     $dd  = $data->status()->latest('parcel_status.updated_at')->first();
@@ -98,9 +98,9 @@ class ParcelController extends Controller
                 ->withInput($input);
         }
 
-        $pp= new Parcel();
-        $pp->refresh();
-        $num = $pp->generateParcelNumber();
+//        $pp= new Parcel();
+//        $pp->refresh();
+//        $num = $pp->generateParcelNumber();
 
         $binded_address = Addresslog::find($input['addresslog_id'])->first()->toArray();
         $cc = Addresslog::find($input['addresslog_id'])->city->toArray();
@@ -113,7 +113,7 @@ class ParcelController extends Controller
         $parcel = Parcel::create([
             'user_id'=>Auth::user()->id,
             'addresslog_id'=>$input['addresslog_id'],
-            'assigned_parcel_number'=>$num,
+            'assigned_parcel_number'=>null,
             'binded_addresslog'=>json_encode($ff),
             'amount'=>$input['cod_amount'],
             'weight'=>$input['weight'],
@@ -123,7 +123,11 @@ class ParcelController extends Controller
         ]);
         $parcel->status()->attach(1);
 
-        return back()->with('success', '<strong>ME Parcel # '.$parcel->assigned_parcel_number.'</strong>  created successfully');
+        $parcel_number = 1000 + $parcel->id;
+        $parcel->assigned_parcel_number = $parcel_number;
+        $parcel->save();
+
+        return back()->with('success', '<strong>Parcel#'.$parcel->assigned_parcel_number.'</strong>  created successfully');
     }
 
     /**

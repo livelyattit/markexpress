@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <h4>Parcel No # {{$parcel->assigned_parcel_number}}</h4>
+                        <h4>Parcel # {{$parcel->assigned_parcel_number}}</h4>
                     </div>
                 </div>
                 <div class="row">
