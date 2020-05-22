@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Originality;
 use App\User;
 use Illuminate\Http\Request;
 use DataTables;
@@ -11,29 +12,37 @@ class AdminController extends Controller
     public function index(){
         return view('admin_pages.dashboard');
     }
-    public function user($action, $id = null, Request $request){
+    public function user($action, $id = null, $form_name=null, Request $request){
         $user_obj = new UserAdmin();
         switch ($action){
             case 'all':
                 if($request->ajax()){
+                    //datatable results
                     return $user_obj->allUsers();
                 }
                 return view('admin_pages.users.users');
             break;
             case 'create':
                 if($request->isMethod('post')){
-                    return $user_obj->createUser($request->all());
+                   return $user_obj->createUser($request->all());
                 }
                 return view('admin_pages.users.user-create');
                 break;
             case 'view':
-                return view('admin_pages.users.user-view');
+
+                return $user_obj->viewUser($id);
+
                 break;
             case 'edit':
                 if($request->isMethod('post')){
-                   return $user_obj->editUser($id, $request->all());
+
+                   return $user_obj->editUser($id, $form_name, $request->all());
                 }
-                return view('admin_pages.users.user-create');
+                $user_details = User::with('role', 'originality', 'accountDetail', 'personalData', 'parcel')->find($id);
+                return view('admin_pages.users.user-edit', [
+                    'user_details'=>$user_details,
+                    'originality'=>Originality::all()
+                ]);
                 break;
             case 'delete':
                 if($id){
@@ -47,17 +56,5 @@ class AdminController extends Controller
         }
 
 
-        if($request->ajax()) {
-
-        }
-
-
-    }
-
-    public function createUser(Request $request){
-        if($request->isMethod('post')){
-            dd($request->all());
-        }
-        return view('admin_pages.users.user-create');
     }
 }

@@ -54,7 +54,7 @@ Route::prefix('admin')->group(function(){
         Route::get('dashboard', 'AdminController@index')->name('admin-dashboard');
 
         // users route
-        Route::match(['get', 'post'],'user/{action}/{id?}', 'AdminController@user')->name('admin-user');
+        Route::match(['get', 'post'],'user/{action}/{id?}/{form_name?}', 'AdminController@user')->name('admin-user');
     });
 
 });

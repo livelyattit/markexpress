@@ -18,14 +18,17 @@ class HelperController extends Controller
             'JP7gRq00'=>'users_bills',
             'lL3MgYsS'=>'users_cnic'
         ];
-
-        if(Auth::user()->id == $authid){
-            return response()->download(storage_path('app/public/' . $dir_locations[$location] . '/' .$filename), null, [], null);
-        } else {
-
-            return response('Error');
+        if(Auth::user()->role->name == 'customer'){
+            if(Auth::user()->id == $authid){
+                return response()->download(storage_path('app/public/' . $dir_locations[$location] . '/' .$filename), null, [], null);
+            }
         }
 
+        if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'owner'){
+                return response()->download(storage_path('app/public/' . $dir_locations[$location] . '/' .$filename), null, [], null);
+        }
 
-	}
+        return response('Error');
+
+    }
 }

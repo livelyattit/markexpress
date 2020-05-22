@@ -13,6 +13,7 @@ table#users_table .btn-status {
     padding: 6px 5px;
     line-height: 22px;
     font-size: 11px;
+    cursor: initial;
 }
 
 .btn.btn-icon {
@@ -22,3 +23,56 @@ table#users_table .btn-status {
 /*table.actions tr td:last-child {*/
 /*    text-align: left;*/
 /*}*/
+
+ul.view-details.btn-clipboards {
+    list-style: circle;
+    padding-left: 15px;
+    display: inline-block;
+}
+
+ul.view-details.btn-clipboards {}
+
+ul.view-details.btn-clipboards li {
+    padding: 15px 0  15px 0;
+    border-bottom: 1px solid rgb(218, 218, 226);
+    clear: both;
+}
+
+ul.view-details.btn-clipboards li button span {
+    font-size: 14px;
+    color: rgb(134, 134, 148);
+    padding: 5px 0;
+}
+
+.verification-uploaded {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: auto;
+    width: 100%;
+    padding: 15px 15px;
+    background: #fff;
+    margin-bottom: 30px;
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.verification-uploaded img {
+    height: auto;
+    width: 100%;
+}
+
+ul.view-details.btn-clipboards li button {
+    float: right;
+    margin-left: 2em;
+}
+
+.form-group small.active {
+    transform: translateY(100%) scale(1);
+    color: rgb(103, 74, 238);
+    font-weight: 400;
+    top: 8px;
+    position: relative;
+    margin-left: 16px;
+}

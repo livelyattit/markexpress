@@ -51,7 +51,6 @@
                         </a>
                         <ul class="accordion-submenu list-unstyled">
                             <li><a href="{{route('admin-user', 'all')}}">All Users</a></li>
-                            <li><a>Unverified Users</a></li>
                             <li><a href="{{route('admin-user', 'create')}}">Create User</a></li>
                         </ul>
                     </li>

@@ -13,82 +13,94 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Create User</h5>
-                        <form class="needs-validation">
+                        @if ($errors->any())
+{{--                            @foreach ($errors->all() as $error)--}}
+{{--                                <div>{{$error}}</div>--}}
+{{--                            @endforeach--}}
+                            <div class="alert alert-danger text-white">Errors!! Check the fields</div>
+                        @endif
+                        <form method="post" action="{{route('admin-user', 'create')}}" class="needs-validation">
+                            @csrf
                             <div class="form-row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="validationCustom01" class="active">First name</label>
-                                        <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required="">
-                                        <div class="valid-feedback">
-                                            Looks good!
+                                        <label for="validationCustom01">Full Name</label>
+                                        <input type="text" class="form-control" id="signup-name" name="name" placeholder="Full name" value="{{old('name')}}" required="">
+                                        @if ($errors->has('name'))
+                                        <div class="invalid-feedback">
+                                            <span class="error">{{ $errors->first('name') }}</span>
                                         </div>
+                                        @endif
+
                                     </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="validationCustom02" class="active">Last name</label>
-                                        <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required="">
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                        <label for="validationCustom01">Email Address</label>
+                                        <input type="text" class="form-control" id="signup-email" name="email" placeholder="Email Address" value="{{old('email')}}" required="">
+                                        @if ($errors->has('email'))
+                                            <div class="invalid-feedback d-block">
+                                                <span class="error">{{ $errors->first('email') }}</span>
                                             </div>
-                                            <label for="validationCustomUsername" style="margin-left: 49.5781px;" class="active">Username</label>
-                                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required="">
-                                            <div class="invalid-feedback">
-                                                Please choose a username.
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Mobile No.</label>
+                                        <input type="text" class="form-control" id="signup-mobile" name="mobile" placeholder="Mobile No." value="{{old('mobile')}}" required="">
+                                        @if ($errors->has('mobile'))
+                                            <div class="invalid-feedback d-block">
+                                                <span class="error">{{ $errors->first('mobile') }}</span>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="validationCustom03" class="active">City</label>
-                                        <input type="text" class="form-control" id="validationCustom03" placeholder="City" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid city.
-                                        </div>
+                                        <label for="validationCustom01">CNIC No.</label>
+                                        <input type="text" class="form-control" id="signup-cnic" name="cnic" placeholder="CNIC No." value="{{old('cnic')}}" required="">
+                                        @if ($errors->has('cnic'))
+                                            <div class="invalid-feedback d-block">
+                                                <span class="error">{{ $errors->first('cnic') }}</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="validationCustom04" class="active">State</label>
-                                        <input type="text" class="form-control" id="validationCustom04" placeholder="State" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
+                                        <label for="validationCustom01">Address</label>
+                                        <input type="text" class="form-control" id="signup-address" name="address" placeholder="Address" value="{{old('address')}}" required="">
+                                        @if ($errors->has('address'))
+                                            <div class="invalid-feedback d-block">
+                                                <span class="error">{{ $errors->first('address') }}</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="validationCustom05" class="">Zip</label>
-                                        <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid zip.
-                                        </div>
+                                        <label for="validationCustom01">Password</label>
+                                        <input type="text" class="form-control" id="signup-password" name="password" placeholder="Password" value="{{old('password')}}" required="">
+                                        @if ($errors->has('password'))
+                                            <div class="invalid-feedback d-block">
+                                                <span class="error">{{ $errors->first('password') }}</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input" type="checkbox" value="" id="invalidCheck" required="">
-                                        <label class="custom-control-label" for="invalidCheck">
-                                            Agree to terms and conditions
-                                        </label>
-                                        <div class="invalid-feedback">
-                                            You must agree before submitting.
-                                        </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Confirm Password</label>
+                                        <input type="text" class="form-control" id="signup-password-2" name="password_confirmation" placeholder="Confirm Password" value="{{old('password_confirmation')}}" required="">
+                                        @if ($errors->has('password_confirmation'))
+                                            <div class="invalid-feedback d-block">
+                                                <span class="error">{{ $errors->first('password_confirmation') }}</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
+
                             </div>
                             <button class="btn btn-primary waves-effect waves-light" type="submit">Submit form</button>
                         </form>

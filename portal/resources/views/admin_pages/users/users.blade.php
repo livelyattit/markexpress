@@ -13,6 +13,16 @@
                 <div class="card info-card">
                     <div class="card-body">
                         <h5 class="card-title">Users</h5>
+                        @if(Session::has('success'))
+                            <div class="alert alert-success text-white">
+                                @php
+                                    echo Session::get('success');
+                                @endphp
+                                @php
+                                    Session::forget('success');
+                                @endphp
+                            </div>
+                        @endif
                             <div class="table-container">
                                 <div class="table-responsive">
                                     <table  id="users_table" class="text-center table table-striped table-hover display actions">

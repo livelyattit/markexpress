@@ -56,6 +56,10 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(Addresslog::class, 'user_id', 'id');
     }
 
+    public function accountDetail(){
+        return $this->hasOne(Accountdetail::class, 'user_id', 'id');
+    }
+
     public function parcel(){
 
         return $this->hasMany(Parcel::class, 'user_id', 'id');
