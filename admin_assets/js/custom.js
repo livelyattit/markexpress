@@ -78,4 +78,69 @@ $("#form-login").submit(function (e) {
         }
 
     });
+
+});
+
+var users_datatable =  $('#users_table').DataTable({
+    processing: true,
+    serverSide: true,
+    bPaginate: true,
+    bLengthChange: false,
+    bFilter: true,
+    bInfo: true,
+    bAutoWidth: true,
+    ajax: {
+        url: "/admin/user/all",
+    },
+    columns: [
+        {
+            data: 'id',
+            name: 'id'
+        },
+        {
+            data: 'name',
+            name: 'name'
+        },
+        {
+            data: 'originality',
+            render:function(data, type, row){
+                if(type == 'display'){
+                    if(data){
+                        if(data.originality_verified == 0){
+                            return `<span class="btn btn-status full-width btn-info">${data.status}</span>`;
+                        }
+                        if(data.originality_verified == 1){
+                            return `<span class="btn btn-status full-width btn-indigo">${data.status}</span>`;
+                        }
+                        if(data.originality_verified == 2){
+                            return `<span class="btn btn-status full-width btn-dark">${data.status}</span>`;
+                        }
+                        if(data.originality_verified == 3){
+                            return `<span class="btn btn-status full-width btn-success">${data.status}</span>`;
+                        }
+                    }
+                }
+
+            },
+            defaultContent: "<i>Not set</i>",
+            name: 'status'
+        },
+        {
+            data: 'cnic',
+            name: 'cnic'
+        },
+        {
+            data: 'address',
+            name: 'address',
+        },
+        {
+            data: 'created_on',
+            name: 'created_on',
+        },
+        {
+            data: 'action',
+            name: 'action',
+            orderable:false,
+        },
+    ]
 });

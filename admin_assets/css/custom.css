@@ -8,3 +8,17 @@
 #form-login .btn.btn-outline-success {
     color: #fff;
 }
+
+table#users_table .btn-status {
+    padding: 6px 5px;
+    line-height: 22px;
+    font-size: 11px;
+}
+
+.btn.btn-icon {
+    min-width: 48px;
+}
+
+/*table.actions tr td:last-child {*/
+/*    text-align: left;*/
+/*}*/

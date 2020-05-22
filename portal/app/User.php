@@ -37,6 +37,11 @@ class User extends \TCG\Voyager\Models\User
         'email_verified_at' => 'datetime',
     ];
 
+    public function originality()
+    {
+        return $this->belongsTo(Originality::class, 'originality_verified', 'originality_verified');
+    }
+
 
     public function personalData(){
         return $this->hasOne(UserPersonalData::class, 'user_id', 'id');

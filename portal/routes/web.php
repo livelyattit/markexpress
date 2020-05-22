@@ -52,10 +52,9 @@ Route::prefix('admin')->group(function(){
     Route::post('login/owner', 'AdminLoginController@login')->name('admin-owner-login');
     Route::middleware(['admin'])->group(function (){
         Route::get('dashboard', 'AdminController@index')->name('admin-dashboard');
-        Route::get('users', 'AdminController@users')->name('admin-users');
-        Route::match(['get', 'post'],'user/create', 'AdminController@createUser')->name('admin-create-user');
-        Route::match('user/edit/{id}', 'AdminController@editUser')->name('admin-edit-user');
-        Route::match('user/delete/{id}', 'AdminController@deleteUser')->name('admin-delete-user');
+
+        // users route
+        Route::match(['get', 'post'],'user/{action}/{id?}', 'AdminController@user')->name('admin-user');
     });
 
 });

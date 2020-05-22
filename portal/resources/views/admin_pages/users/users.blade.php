@@ -13,43 +13,23 @@
                 <div class="card info-card">
                     <div class="card-body">
                         <h5 class="card-title">Users</h5>
-                        <div class="info-card-text">
                             <div class="table-container">
-                                <table id="users_table" class="table">
-                                    <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table  id="users_table" class="text-center table table-striped table-hover display actions">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Full Name</th>
+                                            <th>Status</th>
+                                            <th>Cnic</th>
+                                            <th>Address</th>
+                                            <th>Created On</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div class="info-card-icon">
-                            <i class="material-icons">account_circle</i>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -17,12 +17,24 @@
         <div class="page-sidebar-profile">
 
             <div class="sidebar-profile-info">
-                <a href="javascript:void(0);" class="account-settings-link">
-                    @if(Auth::check())
+                @if(Auth::check())
+                    <a href="javascript:void(0);" class="account-settings-link">
+
                         <p>{{Auth::user()->name}}</p>
                         <span>{{Auth::user()->email}}</span>
-                    @endif
-                </a>
+
+                    </a>
+                    <a class="waves-effect waves-danger" href="{{route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @endif
+
             </div>
         </div>
         <div class="page-sidebar-menu">
@@ -32,24 +44,15 @@
                         <a href="{{route('admin-dashboard')}}" class="waves-effect waves-grey active">
                             <i class="material-icons">settings_input_svideo</i>Dashboard
                         </a>
-                        <a class="waves-effect waves-danger" href="{{route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
                     </li>
                     <li>
                         <a href="javascript:void(0)" class="waves-effect waves-grey">
                             <i class="material-icons">apps</i>Users<i class="material-icons sub-arrow">keyboard_arrow_right</i>
                         </a>
                         <ul class="accordion-submenu list-unstyled">
-                            <li><a>All Users</a></li>
+                            <li><a href="{{route('admin-user', 'all')}}">All Users</a></li>
                             <li><a>Unverified Users</a></li>
-                            <li><a>Create User</a></li>
+                            <li><a href="{{route('admin-user', 'create')}}">Create User</a></li>
                         </ul>
                     </li>
 
