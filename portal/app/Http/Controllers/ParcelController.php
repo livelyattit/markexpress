@@ -39,13 +39,18 @@ class ParcelController extends Controller
                 ->addColumn('shipment_created',  function($data){
                     return $data->created_at->format('d-F-Y');
                 })
-                ->addColumn('consignee_address',  function($data){
+                ->addColumn('consignee_city',  function($data){
                     $data_decoded = json_decode($data->binded_addresslog, true);
-                    return $data_decoded['addresslog_info']['consignee_address'] ;
+                    //return $data_decoded['addresslog_info']['consignee_address'] ;
+                    return $data_decoded['city']['city_name'] ;
                 })
-                ->addColumn('amount',  function($data){
+                ->addColumn('cod_amount',  function($data){
 
                     return "PKR " .  number_format($data->amount, 1, '.', ',');
+                })
+                ->addColumn('delivery_charges',  function($data){
+                    $charges = 250;
+                    return "PKR " .  number_format($charges, 1, '.', ',');
                 })
                 ->addColumn('view', function($data){
                     $button = '<a href="'.route('parcel.show', $data->id).'" name="view" data-parcel-id="'.$data->id.'" class="btn-view-parcel btn btn-outline-warning btn-sm">View Details</a>';

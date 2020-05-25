@@ -393,6 +393,10 @@ $("#form-upload-bill").dropzone({
         },
         columns: [
             {
+                data: 'shipment_created',
+                name: 'shipment_created'
+            },
+            {
                 data: 'parcel_no',
                 name: 'parcel_no'
             },
@@ -404,17 +408,18 @@ $("#form-upload-bill").dropzone({
                 data: 'consignee_alias',
                 name: 'consignee_alias'
             },
+
             {
-                data: 'shipment_created',
-                name: 'shipment_created'
+                data: 'consignee_city',
+                name: 'consignee_city',
             },
             {
-                data: 'consignee_address',
-                name: 'consignee_address',
+                data: 'cod_amount',
+                name: 'cod_amount',
             },
             {
-                data: 'amount',
-                name: 'amount',
+                data: 'delivery_charges',
+                name: 'delivery_charges',
             },
             {
                 data: 'view',

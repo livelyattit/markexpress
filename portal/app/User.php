@@ -16,7 +16,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','mobile','cnic', 'address', 'role_id','originality_verified'
+        'name', 'email','account_code', 'password','mobile','cnic', 'address', 'role_id','originality_verified'
     ];
 
     /**
@@ -65,5 +65,15 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(Parcel::class, 'user_id', 'id');
     }
 
+    public function generateAccountCode(){
+        $generated_account_code = 1000;
+        $user = self::max('account_code');
+        if($user){
+            $generated_account_code = (int)  $user;
+            $generated_account_code++;
+        }
+
+        return $generated_account_code;
+    }
 
 }

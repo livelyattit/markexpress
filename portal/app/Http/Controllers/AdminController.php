@@ -24,7 +24,7 @@ class AdminController extends Controller
             break;
             case 'create':
                 if($request->isMethod('post')){
-                   return $user_obj->createUser($request->all());
+                   return $user_obj->createEditUser($request->all());
                 }
                 return view('admin_pages.users.user-create');
                 break;
@@ -35,9 +35,9 @@ class AdminController extends Controller
                 break;
             case 'edit':
                 if($request->isMethod('post')){
-
-                   return $user_obj->editUser($id, $form_name, $request->all());
+                   return $user_obj->createEditUser($request->all(), $id, $form_name);
                 }
+
                 $user_details = User::with('role', 'originality', 'accountDetail', 'personalData', 'parcel')->find($id);
                 return view('admin_pages.users.user-edit', [
                     'user_details'=>$user_details,

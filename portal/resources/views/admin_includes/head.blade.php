@@ -16,7 +16,7 @@
 <link href="{{asset('admin_assets/plugins/font-awesome/css/all.min.css')}}" rel="stylesheet">
 <link href="{{asset('admin_assets/plugins/waves/waves.min.css')}}" rel="stylesheet">
 <link href="{{asset('admin_assets/plugins/nvd3/nv.d3.min.css')}}" rel="stylesheet">
-
+<link rel="stylesheet" href="{{asset("assets/css/dropzone.min.css")}}" />
 
 <!-- Theme Styles -->
 <link href="{{asset('admin_assets/css/alpha.min.css')}}" rel="stylesheet">

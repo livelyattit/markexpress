@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\adminend;
 
+use App\Accountdetail;
+use App\Customer;
 use App\Http\Controllers\Controller;
 use App\Rules\CnicNumber;
 use App\Rules\PhoneNumber;
 use App\User;
+use App\UserPersonalData;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -32,8 +37,80 @@ class UserController extends Controller
 
     }
 
-    public  function createUser($inputs){
+    public  function createEditUser($inputs, $id = null, $form_name = null){
 
+        //user edit
+        $user = User::find($id);
+
+        switch ($form_name){
+            case 'basic_details':
+                $validator =  Validator::make($inputs, [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+                    'mobile' => ['required', new PhoneNumber],
+                    'cnic' => ['required', new CnicNumber, Rule::unique('users')->ignore($user->id)],
+                    'password' => ['nullable', 'string', 'min:8'],
+                ],
+                    [
+                        'cnic.unique'=>'Cnic is already associated to some other account.'
+                    ]);
+
+                if($validator->fails()){
+                    return back()
+                        ->withErrors($validator, 'basic_details')
+                        ->withInput($inputs);
+                }
+                $user_updated = User::where('id', $id)
+                    ->update([
+                            'name' => isset($inputs['name']) ? $inputs['name'] :  NULL,
+                            'email' => isset($inputs['email']) ? $inputs['email'] :  NULL,
+                            'mobile' => isset($inputs['mobile']) ? $inputs['mobile'] :  NULL,
+                            'cnic' => isset($inputs['cnic']) ? $inputs['cnic'] :  NULL,
+                            'address'=> isset($inputs['address']) ? $inputs['address'] :  NULL,
+                            'role_id'=>3, // 3 is for customer for now
+                            'originality_verified'=> isset($inputs['originality_verified']) ? $inputs['originality_verified'] :  0,
+                            'password' => !empty($inputs['password']) ?  Hash::make($inputs['password']) : $user->password ,
+                        ]
+                    );
+                $user->refresh();
+                return redirect()->route('admin-user', 'all')->with('success', '<strong>User '.$user->name.'</strong>  updated successfully');
+            break;
+
+            case 'personal_details':
+                //
+                break;
+
+            case 'business_details':
+                $validator = Validator::make($inputs,[
+                    'business_name'=>'required|string|max:190',
+                    'shipment_quantity'=>'required|numeric|min:1|max:100000',
+                    'bank_name'=>'required|string|max:99000',
+                    'bank_account_title'=>'required|string|max:190',
+                    'bank_account_number'=>'required|string|max:30',
+                ] );
+                if($validator->fails()){
+                    return back()
+                        ->withErrors($validator, 'business_details')
+                        ->withInput($inputs);
+                }
+                $user_updated = Accountdetail::where('user_id', $id)
+                    ->updateOrCreate([
+                        'user_id'=>$id
+                        ]
+                        ,[
+                            'business_name'=>$inputs['business_name'],
+                            'shipment_quantity'=>$inputs['shipment_quantity'],
+                            'bank_name'=>$inputs['bank_name'],
+                            'bank_account_title'=>$inputs['bank_account_title'],
+                            'bank_account_number'=>$inputs['bank_account_number'],
+                        ]
+                    );
+                $user->refresh();
+                return redirect()->route('admin-user', 'all')->with('success', '<strong>User '.$user->name.'</strong>  updated successfully');
+                break;
+        }
+
+        //user creation
         $validator =  Validator::make($inputs, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -51,7 +128,7 @@ class UserController extends Controller
                 ->withInput($inputs);
         }
 
-        $user =  User::create([
+        $user_updated =  User::create([
             'name' => $inputs['name'],
             'email' => $inputs['email'],
             'mobile' => $inputs['mobile'],
@@ -75,19 +152,7 @@ class UserController extends Controller
 
     public  function editUser($id, $form_name, $data){
 
-        switch ($form_name){
-            case 'basic_details':
 
-            break;
-
-            case 'personal_details':
-
-            break;
-
-            case 'business_details':
-
-                break;
-        }
 
     }
 

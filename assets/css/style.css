@@ -853,7 +853,7 @@ section#dashboard-verification .container {
 }
 
 section#dashboard-verification {
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 50px;
 }
 
@@ -1671,4 +1671,16 @@ section#dashboard-addresslog.parcel-show h3 {
 
 .parcel-info-wrapper ul {
   list-style: circle;
+}
+
+section#dashboard-upperinfo {
+  padding-top: 50px;
+}
+
+section#dashboard-upperinfo h3 {
+  font-weight: 400;
+  font-style: italic;
+  font-family: 'Open Sans', sans-serif;
+  color: rgb(103, 116, 129);
+  font-size: 19px;
 }

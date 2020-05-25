@@ -6,6 +6,9 @@
 // Attempts to display status in Bootstrap tooltip
 // ------------------------------------------------------------------------------
 
+
+Dropzone.autoDiscover = false;
+
 function copyToClipboard(text, el) {
     var copyTest = document.queryCommandSupported('copy');
     var elOriginalText = el.attr('data-original-title');
@@ -100,7 +103,7 @@ $("#form-login").submit(function (e) {
                     .addClass('error')
                     .html('Invalid Credentials. Try Again!');
 
-            }, 4000);
+            }, 1200);
 
 
         },
@@ -126,8 +129,8 @@ var users_datatable =  $('#users_table').DataTable({
     },
     columns: [
         {
-            data: 'id',
-            name: 'id'
+            data: 'account_code',
+            name: 'account_code'
         },
         {
             data: 'name',
@@ -188,4 +191,49 @@ $('.js-copy').click(function() {
     var text = $(this).attr('data-copy');
     var el = $(this);
     copyToClipboard(text, el);
+});
+
+// jQuery
+$("#form-upload-bill").dropzone({
+    url: "/admin/file-upload-bill" ,
+    acceptedFiles: ".jpeg,.jpg,.png,.gif",
+    addRemoveLinks: false,
+    uploadMultiple: false,
+    maxFiles: 1,
+    maxFilesize: 2, // MB
+    //timeout: 5000,
+    success: function(file, response)
+    {
+        console.log(file);
+        console.log(response);
+    },
+    error: function(file, response)
+    {
+        $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
+        console.log(file);
+        console.log(response);
+        return false;
+    }
+});
+
+$("#form-upload-cnic").dropzone({
+    url: "/admin/file-upload-cnic" ,
+    acceptedFiles: ".jpeg,.jpg,.png,.gif",
+    addRemoveLinks: false,
+    uploadMultiple: false,
+    maxFiles: 1,
+    maxFilesize: 2, // MB
+    //timeout: 5000,
+    success: function(file, response)
+    {
+        console.log(file);
+        console.log(response);
+    },
+    error: function(file, response)
+    {
+        $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
+        console.log(file);
+        console.log(response);
+        return false;
+    }
 });

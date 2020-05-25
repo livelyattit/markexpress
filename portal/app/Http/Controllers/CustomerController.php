@@ -53,14 +53,14 @@ class CustomerController extends UserController
                 ->withInput($input);
         }
 
-        $account_detail = Accountdetail::create([
+        $account_detail = Accountdetail::updateOrCreate([
             'user_id'=>Auth::user()->id,
+        ], [
             'business_name'=>$input['business_name'],
             'shipment_quantity'=>$input['shipment_quantity'],
             'bank_name'=>$input['bank_name'],
             'bank_account_title'=>$input['bank_account_title'],
             'bank_account_number'=>$input['bank_account_number'],
-
         ]);
 
         $user = User::findOrFail(Auth::user()->id)->update([
@@ -77,21 +77,24 @@ class CustomerController extends UserController
 
     public function fileUploadBill(Request $request){
 
-        $user_details = Customer::find(Auth::user()->id);
-        $input = $request->all();
-        $validator = Validator::make($input, [
+        $inputs = $request->all();
+        $user_id = isset($inputs['user_id']) ? $inputs['user_id'] : Auth::user()->id;
+
+        $user_details = Customer::find($user_id);
+
+        $validator = Validator::make($inputs, [
             'file'=> 'max:2000|mimes:jpeg,png,doc,docs,pdf',
         ]);
         if(!$validator->fails()){
            // return response()->json(['data'=>'Error', 'message'=>$validator->errors()], 400);
             $image = $request->file('file');
 
-            $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
+            $imageName = $user_details->cnic.'-'. time() .'-'.$image->getClientOriginalName();
             UserPersonalData::updateOrCreate([
-                'user_id'=>Auth::user()->id,
+                'user_id'=>$user_id,
             ], [
                 'bill_file_name'=>$imageName,
-                'bill_request_confirmation'=>0
+                'bill_request_confirmation'=>1
             ]);
             $image->move(storage_path('app/public/users_bills'),$imageName);
 
@@ -103,9 +106,12 @@ class CustomerController extends UserController
 
     public function fileUploadCnic(Request $request){
 
-        $user_details = Customer::find(Auth::user()->id);
-        $input = $request->all();
-        $validator = Validator::make($input, [
+        $inputs = $request->all();
+        $user_id = isset($inputs['user_id']) ? $inputs['user_id'] : Auth::user()->id;
+
+        $user_details = Customer::find($user_id);
+
+        $validator = Validator::make($inputs, [
            'file'=> 'max:2000|mimes:jpeg,png,doc,docs,pdf',
         ]);
         if($validator->fails()){
@@ -113,13 +119,13 @@ class CustomerController extends UserController
         }
         $image = $request->file('file');
 
-        $imageName = $user_details->cnic.'-'.$image->getClientOriginalName();
+        $imageName = $user_details->cnic.'-'. time() .'-'.$image->getClientOriginalName();
         $image->move(storage_path('app/public/users_cnic'),$imageName);
         UserPersonalData::updateOrCreate([
-            'user_id'=>Auth::user()->id,
+            'user_id'=>$user_id,
         ], [
             'cnic_file_name'=>$imageName,
-            'cnic_request_confirmation'=>0
+            'cnic_request_confirmation'=>1
         ]);
         return response()->json(['data'=>$imageName]) ;
     }

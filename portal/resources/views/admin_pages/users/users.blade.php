@@ -28,7 +28,7 @@
                                     <table  id="users_table" class="text-center table table-striped table-hover display actions">
                                         <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>Account</th>
                                             <th>Full Name</th>
                                             <th>Status</th>
                                             <th>Cnic</th>

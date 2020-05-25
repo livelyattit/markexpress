@@ -76,9 +76,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+                $pp= new User();
+                $pp->refresh();
+                $num = $pp->generateAccountCode();
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'account_code'=> $num,
             'mobile' => $data['mobile'],
             'cnic' => $data['cnic'],
             'address'=>$data['address'],

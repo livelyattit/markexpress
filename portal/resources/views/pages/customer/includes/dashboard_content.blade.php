@@ -91,12 +91,13 @@
                         <table id="parcels_table" class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th>Created On</th>
                                 <th>Parcel No.</th>
                                 <th>Current Status</th>
                                 <th>Consignee</th>
-                                <th>Created On</th>
-                                <th>Address</th>
+                                <th>City</th>
                                 <th>Cod Amount</th>
+                                <th>Total Delivery Charges</th>
                                 <th>View</th>
                             </tr>
                             </thead>
