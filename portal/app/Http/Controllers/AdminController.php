@@ -45,10 +45,9 @@ class AdminController extends Controller
                 ]);
                 break;
             case 'delete':
-                if($id){
-                    return $user_obj->deleteUser($id);
+                if($request->ajax()){
+                   return $user_obj->deleteUser($id);
                 }
-                dd('here deleted');
                 break;
             default:
                 dd('not found');

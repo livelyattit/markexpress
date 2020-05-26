@@ -27,9 +27,9 @@ class UserController extends Controller
                 return $data->created_at->format('d-F-Y') ;
             })
             ->addColumn('action', function($data){
-                $button = '<a href="'.route('admin-user', ['view',$data->id ]).'"  class="p-1 mr-2 mb-2 btn-view-user btn btn-outline-warning btn-sm btn-icon"><span class="material-icons">remove_red_eye</span></a>';
-                $button .= '<a href="'.route('admin-user', ['edit',$data->id ]).'"  class="p-1 mr-2 mb-2 btn-view-user btn btn-outline-info btn-sm btn-icon"><span class="material-icons">edit</span></a>';
-                $button .= '<a href="'.route('admin-user', ['delete', $data->id] ).'" class="p-1 mb-2 btn-delete-addresslog btn btn-outline-danger btn-sm btn-icon"><span class="material-icons">report_problem</span></a>';
+                $button = '<a href="'.route('admin-user', ['view',$data->id ]).'"  class="p-1 btn-view-user btn btn-outline-warning btn-sm btn-icon full-width"><span class="material-icons">remove_red_eye</span></a>';
+//                $button .= '<a href="'.route('admin-user', ['edit',$data->id ]).'"  class="p-1 mr-2 mb-2 btn-view-user btn btn-outline-info btn-sm btn-icon"><span class="material-icons">edit</span></a>';
+//                $button .= '<a href="'.route('admin-user', ['delete', $data->id] ).'" class="p-1 mb-2 btn-delete-addresslog btn btn-outline-danger btn-sm btn-icon"><span class="material-icons">report_problem</span></a>';
                 return $button;
             })
             ->rawColumns(['action'])
@@ -73,7 +73,7 @@ class UserController extends Controller
                         ]
                     );
                 $user->refresh();
-                return redirect()->route('admin-user', 'all')->with('success', '<strong>User '.$user->name.'</strong>  updated successfully');
+                return redirect()->route('admin-user', ['view',$user->id ])->with('success', '<strong>User '.$user->name.'</strong>  updated successfully');
             break;
 
             case 'personal_details':
@@ -106,7 +106,7 @@ class UserController extends Controller
                         ]
                     );
                 $user->refresh();
-                return redirect()->route('admin-user', 'all')->with('success', '<strong>User '.$user->name.'</strong>  updated successfully');
+                return redirect()->route('admin-user', ['view',$user->id ])->with('success', '<strong>User '.$user->name.'</strong>  updated successfully');
                 break;
         }
 
@@ -127,10 +127,14 @@ class UserController extends Controller
                 ->withErrors($validator)
                 ->withInput($inputs);
         }
+        $pp= new User();
+        $pp->refresh();
+        $num = $pp->generateAccountCode();
 
-        $user_updated =  User::create([
+        $user_created =  User::create([
             'name' => $inputs['name'],
             'email' => $inputs['email'],
+            'account_code'=> $num,
             'mobile' => $inputs['mobile'],
             'cnic' => $inputs['cnic'],
             'address'=>$inputs['address'],
@@ -139,7 +143,7 @@ class UserController extends Controller
             'password' => Hash::make($inputs['password']),
         ]);
 
-        return redirect()->route('admin-user', 'all')->with('success', '<strong>User '.$user->name.'</strong>  created successfully');
+        return redirect()->route('admin-user', ['view',$user_created->id ])->with('success', '<strong>User '.$user_created->name.'</strong>  created successfully');
 
     }
 
@@ -157,6 +161,9 @@ class UserController extends Controller
     }
 
     public  function deleteUser($id){
+
+        User::destroy($id);
+        return response()->json(['data'=>'success']);
 
     }
 

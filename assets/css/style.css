@@ -983,7 +983,7 @@ section#dashboard-parcels .container {
 }
 
 section#dashboard-parcels {
-  margin-top: 50px;
+  margin-top: 6px;
   margin-bottom: 50px;
 }
 
@@ -1221,11 +1221,12 @@ div#address-log-modal h3 {
 
 .selected-consignee-wrapper h5 {
   font-size: 19px;
-  font-weight: 600;
-  color: #fff;
+  font-weight: 700;
+  color: rgb(59, 66, 72);
+  font-family: 'Open Sans', sans-serif;
 }
 .selected-consignee-wrapper.show {
-  background: rgb(117, 137, 152);
+  background: rgb(244, 244, 244);
   padding: 15px;
 }
 
@@ -1240,7 +1241,7 @@ div#address-log-modal h3 {
   border-bottom: 1px solid rgba(157, 225, 153, 0.4);
   margin-bottom: 8px;
   padding-bottom: 3px;
-  color: #fff;
+  color: rgb(59, 66, 72);
 }
 
 .selected-consignee-wrapper.show ul li span {
@@ -1674,13 +1675,17 @@ section#dashboard-addresslog.parcel-show h3 {
 }
 
 section#dashboard-upperinfo {
-  padding-top: 50px;
+  padding-top: 39px;
+  text-align: center;
 }
 
 section#dashboard-upperinfo h3 {
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 600;
+  font-style: normal;
   font-family: 'Open Sans', sans-serif;
-  color: rgb(103, 116, 129);
+  color: rgb(52, 58, 64);
   font-size: 19px;
+}
+section#dashboard-upperinfo h3 strong {
+  font-weight: 700;
 }

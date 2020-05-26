@@ -5,7 +5,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h2 class="page-title">Edit User</h2>
+                <h5 class="page-title">Edit User</h5>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-6">
+                <h4 class="text text-dark">{{ucwords($user_details->name)}}</h4>
+            </div>
+            <div class="col-6">
+                <div class="d-flex">
+                    <a href="{{route('admin-user', ['view',$user_details->id ])}}" class="m-2 p-2 btn-view-user btn btn-outline-warning btn-sm btn-icon w-50"><span class="material-icons">remove_red_eye</span>View</a>
+                    <a href="javascript:void(0)" data-url="{{route('admin-user', ['delete',$user_details->id ])}}" class="m-2 p-2 btn-delete-user btn btn-outline-danger btn-sm btn-icon w-50"><span class="material-icons">report_problem</span>Delete</a>
+                </div>
             </div>
         </div>
         <div class="row">

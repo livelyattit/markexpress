@@ -14,6 +14,7 @@
 <script src="{{asset('admin_assets/plugins/flot/jquery.flot.resize.min.js')}}"></script>
 <script src="{{asset('admin_assets/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
 <script src="{{asset('assets/js/dropzone.min.js')}}"></script>
+<script src="{{asset('assets/js/bootbox.min.js')}}"></script>
 <script src="{{asset('admin_assets/js/alpha.js')}}"></script>
 <script src="{{asset('admin_assets/js/pages/dashboard.js')}}"></script>
 <script src="{{asset('admin_assets/js/custom.js')}}"></script>

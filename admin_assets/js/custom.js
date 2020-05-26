@@ -237,3 +237,42 @@ $("#form-upload-cnic").dropzone({
         return false;
     }
 });
+
+$('.btn-delete-user').on('click', function (e) {
+
+    e.preventDefault();
+    let url = $(this).data('url');
+    console.log(url);
+    bootbox.confirm({
+        title: `Confirmation for deletion`,
+        message: `Do you want to delete?`,
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel',
+                className: 'btn-gray',
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm',
+                className: 'btn-primary',
+            }
+        },
+        callback: function (result) {
+            if(result == true){
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: url,
+                    beforeSend:function(){
+                    },
+                    success:function(response){
+                        if(response.data == 'success'){
+                            window.location.href ='/admin/user/all';
+                        }
+                    },
+                    error:function(){}
+                });
+            }
+
+        }
+    });
+});
