@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Addresslog;
 use App\Parcel;
 use App\Test;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -23,6 +24,15 @@ class TestController extends Controller
      */
     public function index()
     {
+
+        $data = User::with(['originality','role'=>function($query){
+            //  return $query->where('name', 'customer');
+        }])->where('role_id', '=',3)->get();
+        echo "<pre>";
+
+        print_r($data->toArray());
+        echo "</pre>";
+
         return base_path('../temp/');
        // $parcel = new Parcel();
        // echo $parcel->generateParcelNumber();

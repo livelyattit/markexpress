@@ -139,31 +139,37 @@ var users_datatable =  $('#users_table').DataTable({
         {
             data: 'originality',
             render:function(data, type, row){
-                if(type == 'display'){
                     if(data){
-                        if(data.originality_verified == 0){
-                            return `<span class="btn btn-status full-width btn-info">${data.status}</span>`;
+                        if(data == 'Not Set'){
+                            return `<i>Not Set</i>`;
                         }
-                        if(data.originality_verified == 1){
-                            return `<span class="btn btn-status full-width btn-indigo">${data.status}</span>`;
+                        if(data == 'user created'){
+                            return `<span class="btn btn-status full-width btn-warning">${data}</span>`;
                         }
-                        if(data.originality_verified == 2){
-                            return `<span class="btn btn-status full-width btn-dark">${data.status}</span>`;
+                        if(data == 'file verification'){
+                            return `<span class="btn btn-status full-width btn-info">${data}</span>`;
                         }
-                        if(data.originality_verified == 3){
-                            return `<span class="btn btn-status full-width btn-success">${data.status}</span>`;
+                        if(data == 'business verification'){
+                            return `<span class="btn btn-status full-width btn-indigo">${data}</span>`;
+                        }
+                        if(data == 'verified'){
+                            return `<span class="btn btn-status full-width btn-success">${data}</span>`;
                         }
                     }
-                }
 
             },
-            defaultContent: "<i>Not set</i>",
-            name: 'status'
+            defaultContent: "<i>Not initialized</i>",
+            name: 'originality'
         },
+        // {
+        //     data: 'originality',
+        //     name: 'originality'
+        // },
         {
             data: 'cnic',
             name: 'cnic'
         },
+
         {
             data: 'address',
             name: 'address',

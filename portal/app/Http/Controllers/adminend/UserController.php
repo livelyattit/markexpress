@@ -20,11 +20,16 @@ class UserController extends Controller
 {
     public  function allUsers(){
         $data = User::with(['originality','role'=>function($query){
-            return $query->where('name', 'customer');
-        }])->get();
+          //  return $query->where('name', 'customer');
+        }])->where('role_id', '=',3)->get();
         return DataTables::of($data)
             ->addColumn('created_on', function($data){
                 return $data->created_at->format('d-F-Y') ;
+            })
+            ->addColumn('originality', function($data){
+
+                return $data->originality->status;
+
             })
             ->addColumn('action', function($data){
                 $button = '<a href="'.route('admin-user', ['view',$data->id ]).'"  class="p-1 btn-view-user btn btn-outline-warning btn-sm btn-icon full-width"><span class="material-icons">remove_red_eye</span></a>';
