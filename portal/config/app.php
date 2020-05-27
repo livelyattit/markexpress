@@ -180,6 +180,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         \niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
 
     ],
 

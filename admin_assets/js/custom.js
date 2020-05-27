@@ -81,7 +81,7 @@ $("#form-login").submit(function (e) {
                 window.location.href = redirect_url;
 
 
-            }, 4000);
+            }, 1200);
         },
         error: function (xhr, status, error) {
 
@@ -122,8 +122,8 @@ var users_datatable =  $('#users_table').DataTable({
     bLengthChange: false,
     bFilter: true,
     bInfo: true,
-    bAutoWidth: true,
-    responsive:true,
+    responsive:false,
+    bAutoWidth: false,
     ajax: {
         url: "/admin/user/all",
     },
@@ -182,6 +182,101 @@ var users_datatable =  $('#users_table').DataTable({
             data: 'action',
             name: 'action',
             orderable:false,
+        },
+    ]
+});
+
+var parcels_datatable =  $('#parcels_table').DataTable({
+    processing: true,
+    serverSide: true,
+    responsive: false,
+    bPaginate: true,
+    bLengthChange: false,
+    bFilter: true,
+    bInfo: true,
+    bAutoWidth: false,
+    ajax: {
+        url: "/admin/parcel/all",
+    },
+    columns: [
+        {
+            data: 'shipment_created',
+            name: 'created_at'
+        },
+        {
+            data: 'parcel_no',
+            name: 'assigned_parcel_number'
+        },
+        {
+            data: 'user.account_code',
+            name: 'user.account_code'
+        },
+        {
+            data: 'current_status',
+            render:function(data, type, row){
+                if(data){
+                    if(data == 'shipment created'){
+                        return `<span class="btn btn-status full-width shipment-created">${data}</span>`;
+                    }
+                    if(data == 'shipment picked'){
+                        return `<span class="btn btn-status full-width shipment-picked">${data}</span>`;
+                    }
+                    if(data == 'delivery in process'){
+                        return `<span class="btn btn-status full-width delivery-in-process">${data}</span>`;
+                    }
+                    if(data == 'delivered payment in process'){
+                        return `<span class="btn btn-status full-width delivered-payment-in-process">${data}</span>`;
+                    }
+                    if(data == 'delivered'){
+                        return `<span class="btn btn-status full-width delivered">${data}</span>`;
+                    }
+                    if(data == 'undelivered'){
+                        return `<span class="btn btn-status full-width undelivered">${data}</span>`;
+                    }
+                    if(data == 'reattempt'){
+                        return `<span class="btn btn-status full-width reattempt">${data}</span>`;
+                    }
+                    if(data == 'return in process'){
+                        return `<span class="btn btn-status full-width return-in-process">${data}</span>`;
+                    }
+                    if(data == 'returned'){
+                        return `<span class="btn btn-status full-width returned">${data}</span>`;
+                    }
+
+
+                }
+                return data;
+            },
+            defaultContent: "<i>Not initialized</i>",
+            name: 'status.status',
+            orderable: false,
+        },
+        {
+            data:'parcel_status_change',
+            name:'parcel_status_change',
+            orderable: false,
+        },
+        // {
+        //     data: 'consignee_alias',
+        //     name: 'consignee_alias'
+        // },
+        //
+        // {
+        //     data: 'consignee_city',
+        //     name: 'consignee_city',
+        // },
+        // {
+        //     data: 'cod_amount',
+        //     name: 'cod_amount',
+        // },
+        // {
+        //     data: 'delivery_charges',
+        //     name: 'delivery_charges',
+        // },
+        {
+            data: 'view',
+            name: 'view',
+            orderable: false
         },
     ]
 });
@@ -274,6 +369,58 @@ $('.btn-delete-user').on('click', function (e) {
                         if(response.data == 'success'){
                             window.location.href ='/admin/user/all';
                         }
+                    },
+                    error:function(){}
+                });
+            }
+
+        }
+    });
+
+});
+
+$(document).on('change', '#parcel-status-change', function () {
+    let status_val = $(this).children("option:selected").val();
+    let url =  $(this).children("option:selected").data('url');
+    let text =  $(this).children("option:selected").data('text');
+    let tableRow = $(this).closest('tr').index(); // GET TABLE ROW NUMBER
+    console.log(url);
+    console.log(tableRow);
+    bootbox.confirm({
+        title: `Confirmation for changing status`,
+        message: `Do you want to update the status?`,
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel',
+                className: 'btn-gray',
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm',
+                className: 'btn-primary',
+            }
+        },
+        callback: function (result) {
+            if(result == true){
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    data:{
+                        status:status_val,
+                    },
+                    url: url,
+                    beforeSend:function(){
+                    },
+                    success:function(response){
+                        console.log(response);
+                        parcels_datatable.rows().iterator('row', function ( context, index ) {
+                            var data = this.row(index).data();
+                            var row = $(this.row(index).node());
+                            data[0] = 'new data';
+                            parcels_datatable.row(row).data(data).draw();
+                        });
+                        // if(response.data == 'success'){
+                        //     window.location.href ='/admin/user/all';
+                        // }
                     },
                     error:function(){}
                 });

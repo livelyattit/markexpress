@@ -53,10 +53,13 @@ Route::prefix('admin')->group(function(){
     Route::middleware(['admin'])->group(function (){
         Route::get('dashboard', 'AdminController@index')->name('admin-dashboard');
 
-        // users route
+        // users routes
         Route::post('file-upload-bill', 'CustomerController@fileUploadBill')->name('file-upload-bill');
         Route::post('file-upload-cnic', 'CustomerController@fileUploadCnic')->name('file-upload-cnic');
         Route::match(['get', 'post'],'user/{action}/{id?}/{form_name?}', 'AdminController@user')->name('admin-user');
+
+        //parcel route
+        Route::match(['get', 'post'],'parcel/{action}/{id?}/{form_name?}', 'AdminController@parcel')->name('admin-parcel');
     });
 
 });

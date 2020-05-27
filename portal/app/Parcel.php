@@ -19,12 +19,17 @@ class Parcel extends Model
         'amount',
     ];
 
-   public function status(){
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function status(){
        return $this->belongsToMany(Status::class, 'parcel_status', 'parcel_id', 'status_id')->withTimestamps();
    }
 
    public function currentStatus(){
-       return $this->status()->orderBy('parcels.updated_at', 'desc');
+       return $this->status()->orderBy('parcels.updated_at', 'desc')->first();
    }
 
    public function addressLog(){

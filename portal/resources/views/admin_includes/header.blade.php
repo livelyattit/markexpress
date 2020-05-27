@@ -60,9 +60,17 @@
                             <i class="material-icons">dashboard</i>Parcels<i class="material-icons sub-arrow">keyboard_arrow_right</i>
                         </a>
                         <ul class="accordion-submenu list-unstyled">
-                            <li><a>All Parcels</a></li>
+                            <li><a href="{{route('admin-parcel', 'all')}}">All Parcels</a></li>
                             <li><a>Create Parcel</a></li>
                             <li><a>Parcels Payment Due</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a style="color: #f00;" href="javascript:void(0)" class="waves-effect waves-grey">
+                            <i class="material-icons">error</i>Developer Area<i class="material-icons sub-arrow">keyboard_arrow_right</i>
+                        </a>
+                        <ul class="accordion-submenu list-unstyled">
+                            <li><a style="color: #f00;" href="{{Url()->to('/admin/log-viewer')}}">Do Not Open!!</a></li>
                         </ul>
                     </li>
                 </ul>

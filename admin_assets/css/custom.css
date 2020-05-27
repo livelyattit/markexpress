@@ -76,3 +76,52 @@ ul.view-details.btn-clipboards li button {
     position: relative;
     margin-left: 16px;
 }
+
+.shipment-created{
+    background: #ffd547;
+}
+
+.shipment-picked{
+    background: #ffb3e8;
+}
+.delivery-in-process{
+    background: #3d8ed4;
+    color: #fff;
+}
+.delivered-payment-in-process{
+    background: #fffdba;
+}
+.delivered{
+    background: #a2ff67;
+}
+.undelivered{
+    background: #b1b1b1;
+}
+.reattempt{
+    background: #ccbbff;
+}
+.return-in-process{
+    background: #2ea892;
+    color: #fff;
+}
+.returned{
+    background: #ff5f5f;
+    color: #fff;
+}
+
+table.mini-table {
+    min-width: 320px;
+}
+
+table.mini-table th, table.mini-table td {
+    height: 44px;
+    padding: 10px;
+}
+
+.table tbody th, .table td {
+    vertical-align: middle;
+}
+
+select.form-control {
+    margin-bottom: 7px;
+}
