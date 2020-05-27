@@ -209,7 +209,8 @@ var parcels_datatable =  $('#parcels_table').DataTable({
         },
         {
             data: 'user.account_code',
-            name: 'user.account_code'
+            name: 'user.account_code',
+            orderable: false,
         },
         {
             data: 'current_status',
