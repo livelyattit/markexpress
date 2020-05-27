@@ -1230,6 +1230,14 @@ div#address-log-modal h3 {
   padding: 15px;
 }
 
+.fn-number-words {
+  width: 100%;
+  display: block;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #343a40;
+}
+
 .selected-consignee-wrapper.show ul {
   list-style: circle;
   padding-left: 15px;

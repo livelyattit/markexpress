@@ -478,7 +478,7 @@ class CitySeeder extends Seeder
             462 => array('city_name' => 'ZAFARWAL', 'delivery_time' => '5-6 DAYS'),
             463 => array('city_name' => 'ZAHIR PIR', 'delivery_time' => '5-6 DAYS'),
             464 => array('city_name' => 'ZHOB', 'delivery_time' => '6-7 DAYS'),
-        );;
+        );
 
         $cc=0;
         foreach ($cities as $key=>$val){

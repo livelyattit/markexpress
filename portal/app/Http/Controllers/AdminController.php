@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Originality;
+use App\Parcel;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Http\Controllers\adminend\UserController as UserAdmin;
 use App\Http\Controllers\adminend\ParcelController as ParcelAdmin;
+use Illuminate\Support\Facades\File;
+use League\Csv\Exception;
+use League\Csv\Reader;
+use League\Csv\Statement;
+
 class AdminController extends Controller
 {
     public function index(){
@@ -103,4 +110,38 @@ class AdminController extends Controller
 
 
     }
+
+    public function csv(Request $request){
+        if($request->isMethod('post')){
+            $file = $request->file('file');
+
+            File::cleanDirectory(storage_path('app/public/parcels_csv'));
+
+            $fileName = Carbon::now()->format('d-F-Y*H:i:s') .'-'.$file->getClientOriginalName();
+            $file->move(storage_path('app/public/parcels_csv'),$fileName);
+
+            $csv = Reader::createFromPath(storage_path('app/public/parcels_csv/' . $fileName));
+            try {
+                $csv->setHeaderOffset(0);
+            } catch (Exception $e) {
+
+                return $e->getMessage();
+            }
+            try {
+                $records = Statement::create()->process($csv);
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+            foreach ($records as $record){
+                Parcel::where('assigned_parcel_number', $record['refno'])
+                ->update([
+                    'assigned_tracking_number'=> $record['cnno']
+                ]);
+            }
+           // return $csv->getContent();
+        }
+
+        return view('admin_pages.parcels.parcel-import-csv');
+    }
+
 }

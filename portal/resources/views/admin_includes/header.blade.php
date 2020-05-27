@@ -61,6 +61,7 @@
                         </a>
                         <ul class="accordion-submenu list-unstyled">
                             <li><a href="{{route('admin-parcel', 'all')}}">All Parcels</a></li>
+                            <li><a href="{{route('admin-csv')}}">Import Cn No. CSV</a></li>
                             <li><a>Create Parcel</a></li>
                             <li><a>Parcels Payment Due</a></li>
                         </ul>

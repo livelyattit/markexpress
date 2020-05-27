@@ -60,6 +60,8 @@ Route::prefix('admin')->group(function(){
 
         //parcel route
         Route::match(['get', 'post'],'parcel/{action}/{id?}/{form_name?}', 'AdminController@parcel')->name('admin-parcel');
+
+        Route::match(['get', 'post'],'csv/upload', 'AdminController@csv')->name('admin-csv');
     });
 
 });
