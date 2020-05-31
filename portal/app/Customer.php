@@ -14,7 +14,7 @@ class Customer extends User
         parent::boot();
 
         static::addGlobalScope(function ($query) {
-            $query->where('role_id', '=', '3' );
+            $query->where('role_id', '=', '3' ); //3 is for customer
         });
     }
 

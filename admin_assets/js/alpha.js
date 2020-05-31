@@ -256,9 +256,9 @@ $(document).ready(function() {
             $(this).next('label').css('margin-left', marginSize);
         });
 
-        if($('select').prev('label').length > 0) {
-            $('select').prev('label').hide();
-        }
+        // if($('select').prev('label').length > 0) {
+        //     $('select').prev('label').hide();
+        // }
 
         $('')
     }

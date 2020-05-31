@@ -125,3 +125,9 @@ table.mini-table th, table.mini-table td {
 select.form-control {
     margin-bottom: 7px;
 }
+
+table.dataTable select.form-control {
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 5px;
+    margin-bottom: 0;
+}

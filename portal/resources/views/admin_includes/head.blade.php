@@ -38,6 +38,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 <link href="{{asset('admin_assets/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+<link href="{{asset('admin_assets/plugins/select2/css/select2-material.css')}}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/datatables.min.css"/>
 <link href="{{asset('admin_assets/plugins/font-awesome/css/all.min.css')}}" rel="stylesheet">
 <link href="{{asset('admin_assets/plugins/waves/waves.min.css')}}" rel="stylesheet">

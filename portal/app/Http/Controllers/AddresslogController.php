@@ -97,6 +97,7 @@ class AddresslogController extends Controller
             'consignee_contact'=>$input['consignee_number'],
             'consignee_address'=>$input['consignee_address'],
             'consignee_nearby_address'=>$input['consignee_nearby_address'],
+            'created_by'=>'is_customer',
         ]);
 
         return back()->with('success', 'Consignee <strong>'.$address_log->consignee_alias.'</strong> has been added successfully');

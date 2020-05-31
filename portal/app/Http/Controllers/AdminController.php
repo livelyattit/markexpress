@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
+use App\Customer;
 use App\Originality;
 use App\Parcel;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Http\Controllers\adminend\UserController as UserAdmin;
 use App\Http\Controllers\adminend\ParcelController as ParcelAdmin;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use League\Csv\Exception;
 use League\Csv\Reader;
@@ -67,6 +71,9 @@ class AdminController extends Controller
 
 
     public function parcel($action, $id = null, $form_name=null, Request $request){
+        //the id param in this method is used for two purposes
+        // 1 - to create the parcel we pass user id from user to directly select that user, from user section to create parcel
+        //2 - to edit the parcel we pass the parcel id from parcel section to edit parcel
         $parcel_obj = new ParcelAdmin();
         switch ($action){
             case 'all':
@@ -80,7 +87,23 @@ class AdminController extends Controller
                 if($request->isMethod('post')){
                     return $parcel_obj->createEditParcel($request->all());
                 }
-                return view('admin_pages.users.user-create');
+
+                // id belongs to the user
+                $user_details = '';
+                if(isset($id)){
+                    try {
+                        $user_details = User::findOrFail($id);
+                    }
+                    catch (ModelNotFoundException $e){
+                        //if we dont write findOrFail in try catch it will through 404 if model not found.
+                    }
+
+                }
+                $cities = City::orderBy('city_name')->get();
+                return view('admin_pages.parcels.parcel-create',[
+                    'cities'=>$cities,
+                    'user_details'=>$user_details,
+                ]);
                 break;
             case 'view':
 
@@ -142,6 +165,18 @@ class AdminController extends Controller
         }
 
         return view('admin_pages.parcels.parcel-import-csv');
+    }
+
+    public function ajaxUsersList(Request $request){
+       // if($request->wantsJson()){
+            $users = Customer::where('name', 'LIKE', '%'.$request->input('q', '').'%')
+                ->orWhere('email', 'LIKE', '%'.$request->input('q', '').'%')
+                ->orWhere('account_code', 'LIKE', '%'.$request->input('q', '').'%')
+                //->select(DB::raw("id, CONCAT(account_code, '-', name, '-', email) AS text"))
+        ->get(['id', 'name','email', 'account_code']);
+            return response()->json($users);
+       // }
+
     }
 
 }

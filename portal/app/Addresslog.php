@@ -14,6 +14,7 @@ class Addresslog extends Model
         'consignee_contact',
         'consignee_address',
         'consignee_nearby_address',
+        'created_by',
         ];
 
     public function city(){

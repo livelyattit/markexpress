@@ -30,6 +30,7 @@
                                         <tr>
                                             <th>Created On</th>
                                             <th>Parcel #</th>
+                                            <th>Cn #</th>
                                             <th>Account</th>
                                             <th>Status</th>
                                             <th>Change Status</th>

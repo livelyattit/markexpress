@@ -25,6 +25,7 @@
             </div>
             <div class="col-6">
                 <div class="d-flex">
+                    <a href="{{route('admin-parcel', ['create',$parcel_details->user->id ])}}" class="m-2 p-2 btn-edit-user btn btn-outline-primary btn-sm btn-icon w-50"><span class="material-icons">control_point_duplicate</span>New Parcel</a>
                     <a href="{{route('admin-parcel', ['edit',$parcel_details->id ])}}" class="m-2 p-2 btn-edit-user btn btn-outline-info btn-sm btn-icon w-50"><span class="material-icons">edit</span>Edit</a>
                     <a href="javascript:void(0)" data-url="{{route('admin-parcel', ['delete',$parcel_details->id ])}}" class="m-2 p-2 btn-delete-parcel btn btn-outline-danger btn-sm btn-icon w-50"><span class="material-icons">report_problem</span>Delete</a>
                 </div>

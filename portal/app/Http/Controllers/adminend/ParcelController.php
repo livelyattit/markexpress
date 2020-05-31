@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\adminend;
 
 use App\Accountdetail;
+use App\Addresslog;
 use App\Http\Controllers\Controller;
 use App\Parcel;
 use App\Rules\CnicNumber;
@@ -31,6 +32,9 @@ class ParcelController extends Controller
                 ->addColumn('parcel_no', function($data){
                     return  $data->assigned_parcel_number;
                 })
+                ->addColumn('cn_no', function($data){
+                    return  $data->assigned_tracking_number;
+                })
                 ->addColumn('current_status', function($data){
                     $dd  = $data->status()->latest('parcel_status.updated_at')->first();
                     return empty($dd) ? 'No data' : $dd->status;
@@ -38,12 +42,20 @@ class ParcelController extends Controller
                 })
                 ->addColumn('parcel_status_change', function($data){
                     $statuses = Status::all();
-                    $select = '<select id="parcel-status-change" class="form-control">';
-                    $select .='<option style="display: none" value="">Change Status</option>';
+                    $select = '<label class="d-flex">Change Status</label><select id="parcel-status-change" class="form-control">';
+                    //$select .='<option style="display: none" value="">Change Status</option>';
+                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
+                    $selected = '';
                     foreach ($statuses as $status){
-                        $select .='<option value="'.$status->id.'" data-url="'.route('admin-parcel', ['edit', $data->id, 'parcel_status' ]).'" data-text="'.strtoupper($status->status).'" >' .$status->status. '</option>';
+                        if($status->status == $dd->status){
+                            $selected = 'selected';
+                        }
+                        $select .='<option '.$selected.' value="'.$status->id.'" data-url="'.route('admin-parcel', ['edit', $data->id, 'parcel_status' ]).'" data-text="'.$status->status.'" >' .$status->status. '</option>';
+                        $selected = '';
                     }
                     $select .= '</select>';
+
+
                     return $select  ;
 
                 })
@@ -76,11 +88,11 @@ class ParcelController extends Controller
 
     public  function createEditParcel($inputs, $id = null, $form_name = null){
 
-        //user edit
+        //parcel edit
         $parcel = Parcel::find($id);
 
         switch ($form_name){
-            case 'parcel_status':
+            case 'parcel_status': //edit
                 $parcel->status()->attach($inputs['status']);
                 $parcel->refresh();
                 return response()->json(['data'=>$parcel->toArray()]);
@@ -94,40 +106,70 @@ class ParcelController extends Controller
 
         }
 
-        //user creation
-        $validator =  Validator::make($inputs, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', new PhoneNumber],
-            'cnic' => ['required', new CnicNumber, 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ],
-            [
-                'cnic.unique'=>'Cnic is already associated to some other account.'
-            ]);
+        //addresslog creation
+        $validator = Validator::make($inputs,[
+            'user_account'=>'required|exists:App\User,id',
+            'consignee_alias'=>'required|unique:addresslogs,consignee_alias,NULL,id,user_id,'. Auth::user()->id,
+            'consignee_name'=>'required|max:190',
+            'consignee_number'=>['required', new PhoneNumber()],
+            'consignee_city'=>'required|not_in:0',
+            'consignee_address'=>'required|max:100',
+            'consignee_nearby_address'=>'max:100',
 
+            //'addresslog_id'=>'required|exists:addresslogs,id,user_id,'. Auth::user()->id,
+            'weight'=>'sometimes|nullable|numeric|min:1|max:50',
+            'length'=>'sometimes|nullable|numeric|min:1|max:150',
+            'width'=>'sometimes|nullable|numeric|min:1|max:150',
+            'height'=>'sometimes|nullable|numeric|min:1|max:150',
+            'cod_amount'=>'required|numeric|min:100|max:9900000',
+        ], [
+            'consignee_alias.unique'=>'Alias already taken in your address log.',
+        ] );
         if($validator->fails()){
             return back()
                 ->withErrors($validator)
                 ->withInput($inputs);
         }
-        $pp= new User();
-        $pp->refresh();
-        $num = $pp->generateAccountCode();
 
-        $user_created =  User::create([
-            'name' => $inputs['name'],
-            'email' => $inputs['email'],
-            'account_code'=> $num,
-            'mobile' => $inputs['mobile'],
-            'cnic' => $inputs['cnic'],
-            'address'=>$inputs['address'],
-            'role_id'=>3, // 3 is for customer for now
-            'originality_verified'=> 0, // 0 means not verified by the admin
-            'password' => Hash::make($inputs['password']),
+        $address_log = Addresslog::create([
+            'user_id'=>$inputs['user_account'],
+            'city_id'=>$inputs['consignee_city'],
+            'consignee_alias'=>$inputs['consignee_alias'],
+            'consignee_name'=>$inputs['consignee_name'],
+            'consignee_contact'=>$inputs['consignee_number'],
+            'consignee_address'=>$inputs['consignee_address'],
+            'consignee_nearby_address'=>$inputs['consignee_nearby_address'],
+            'created_by'=>'is_admin'
         ]);
 
-        return redirect()->route('admin-user', ['view',$user_created->id ])->with('success', '<strong>User '.$user_created->name.'</strong>  created successfully');
+        $binded_address = Addresslog::find($address_log->id)->first()->toArray();
+        $binded_city = Addresslog::find($address_log->id)->city->toArray();
+
+        $ff = [
+            'addresslog_info'=>$binded_address,
+            'city'=>$binded_city,
+        ];
+
+        $parcel = Parcel::create([
+            'user_id'=>$inputs['user_account'],
+            'addresslog_id'=>$address_log->id,
+            'assigned_parcel_number'=>null,
+            'binded_addresslog'=>json_encode($ff),
+            'amount'=>$inputs['cod_amount'],
+            'weight'=>$inputs['weight'],
+            'length'=>$inputs['length'],
+            'height'=>$inputs['height'],
+            'assigned_tracking_number'=>null,
+        ]);
+        $parcel->status()->attach(1);
+
+        $parcel_number = 1000 + $parcel->id;
+        $parcel->assigned_parcel_number = $parcel_number;
+        $parcel->save();
+
+        $parcel->refresh();
+
+        return redirect()->route('admin-parcel', ['view',$parcel->id ])->with('success', '<strong>Parcel# '.$parcel->assigned_parcel_number.'</strong>  created successfully');
 
     }
 
