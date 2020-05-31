@@ -40,6 +40,9 @@
 <link href="{{asset('admin_assets/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
 <link href="{{asset('admin_assets/plugins/select2/css/select2-material.css')}}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.1/css/fixedColumns.bootstrap4.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css"/>
+
 <link href="{{asset('admin_assets/plugins/font-awesome/css/all.min.css')}}" rel="stylesheet">
 <link href="{{asset('admin_assets/plugins/waves/waves.min.css')}}" rel="stylesheet">
 <link href="{{asset('admin_assets/plugins/nvd3/nv.d3.min.css')}}" rel="stylesheet">

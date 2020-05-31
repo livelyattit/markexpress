@@ -130,4 +130,10 @@ table.dataTable select.form-control {
     height: calc(1.5em + 0.75rem + 2px);
     padding: 5px;
     margin-bottom: 0;
+    min-width: 200px;
+}
+
+table.dataTable td .btn {
+    line-height: 20px;
+    padding: 9px 5px;
 }

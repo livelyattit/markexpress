@@ -227,6 +227,11 @@ var parcels_datatable =  $('#parcels_table').DataTable({
     bFilter: true,
     bInfo: true,
     bAutoWidth: false,
+    // scrollY:        "300px",
+    // scrollX:        true,
+    // fixedColumns:   {
+    //     leftColumns: 2
+    // },
     ajax: {
         url: "/admin/parcel/all",
     },
