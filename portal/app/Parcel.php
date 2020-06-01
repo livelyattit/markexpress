@@ -17,6 +17,7 @@ class Parcel extends Model
         'height',
         'assigned_tracking_number',
         'amount',
+        't_basic_charges',
     ];
 
     public function user()

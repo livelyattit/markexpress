@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h5 class="page-title">Parcel</h5>
+                <h5 class="page-title">Upload Parcel No. CSV</h5>
                 @if(Session::has('success'))
                     <div class="alert alert-success text-white">
                         @php

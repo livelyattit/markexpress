@@ -11,10 +11,12 @@ use App\Rules\PhoneNumber;
 use App\Status;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Http\Client\ConnectionException;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use DataTables;
@@ -156,6 +158,7 @@ class ParcelController extends Controller
             'assigned_parcel_number'=>null,
             'binded_addresslog'=>json_encode($ff),
             'amount'=>$inputs['cod_amount'],
+            't_basic_charges'=>$binded_city['initial_weight_price'],
             'weight'=>$inputs['weight'],
             'length'=>$inputs['length'],
             'height'=>$inputs['height'],
@@ -175,8 +178,33 @@ class ParcelController extends Controller
 
     public function viewParcel($id){
         $parcel_details = Parcel::with('user', 'status')->find($id);
+        $tracking_number = $parcel_details->assigned_tracking_number;
+        $response_to_show = '';
+        if(!empty($tracking_number)){
+            try{
+                $url ='https://cod.callcourier.com.pk/api/CallCourier/GetTackingHistory?cn=' . $tracking_number;
+                $response_tracking = Http::get($url);
+                if($response_tracking->status() == '200'){
+                    //$response_to_show = json_decode($response_tracking->json(), true);
+                    $response_to_show = $response_tracking->json();
+                }
+                else{
+                    $response_to_show = 'Error in tracking call courier with cn no. <strong class="text-dark">' . $tracking_number . '</strong>';
+                }
+
+            }
+            catch (ConnectionException $e){
+
+                $response_to_show = 'Could not connect to Call Courier. Message: <span class="text-dark">' . $e->getMessage() . '</span>';
+            }
+
+        }
+//        echo "<pre>";
+//        print_r($response_tracking->json());
+//        echo "</pre>";
         return view('admin_pages.parcels.parcel-view', [
-            'parcel_details'=>$parcel_details
+            'parcel_details'=>$parcel_details,
+            'response_courier'=>$response_to_show,
         ]);
     }
 

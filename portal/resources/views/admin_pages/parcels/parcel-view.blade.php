@@ -33,97 +33,183 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="card info-card">
-                            <div class="card-body">
-                                <h5 class="card-title">Parcel Details</h5>
-                                <ul class="view-details btn-clipboards">
-                                    <li>Parcel #: <strong>{{$parcel_details->assigned_parcel_number ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->assigned_parcel_number ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>CN #: <strong>{{$parcel_details->assigned_tracking_number ?? 'Not Set'}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->assigned_tracking_number ?? 'Not Set'}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>
-                                        Parcel Status
-                                        <div class="table-container">
-                                            <div class="table-responsive">
-                                                <table border="1" class="mini-table table table-striped w-100">
-                                                    <thead class="table-dark">
+            <div class="col-6">
+                <div class="card info-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Parcel Details</h5>
+                        <ul class="view-details btn-clipboards">
+                            <li>Parcel #: <strong>{{$parcel_details->assigned_parcel_number ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->assigned_parcel_number ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>CN #: <strong>{{$parcel_details->assigned_tracking_number ?? 'Not Set'}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->assigned_tracking_number ?? 'Not Set'}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>
+                                Parcel Status
+                                <div class="table-container">
+                                    <div class="table-responsive">
+                                        <table border="1" class="mini-table table table-striped w-100">
+                                            <thead class="table-dark">
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($parcel_details->status as $status)
                                                     <tr>
-                                                        <th>Date</th>
-                                                        <th>Status</th>
+                                                        <td class="w-50">
+                                                            <span>{{\Carbon\Carbon::parse($status->pivot->updated_at)->format('d-F-Y')}}</span>
+                                                        </td>
+                                                        <td class="w-50">
+                                                            <span>{{$status->status}}</span>
+                                                        </td>
                                                     </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($parcel_details->status as $status)
-                                                            <tr>
-                                                                <td class="w-50">
-                                                                    <span>{{\Carbon\Carbon::parse($status->pivot->updated_at)->format('d-F-Y')}}</span>
-                                                                </td>
-                                                                <td class="w-50">
-                                                                    <span>{{$status->status}}</span>
-                                                                </td>
-                                                            </tr>
 
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                Current Call Courier Status
+                                @if(is_array($response_courier))
+                                    <pre style="display: none">
+                                        {{print_r($response_courier)}}
+                                    </pre>
+                                    @foreach($response_courier as $courier)
+                                        @if ($loop->last)
+                                           <p class="text-dark">OperationDesc: <span class="text-primary">{{$courier['OperationDesc']}}</span></p>
+                                           <p class="text-dark">ProcessDescForPortal: <span class="text-primary">{{$courier['ProcessDescForPortal']}}</span></p>
+                                            <i class="text-info">Complete Details can be seen below</i>
+                                        @endif
+                                    @endforeach
+
+                                @else
+                                    <div class="response-courier text-danger">{!! $response_courier !!}</div>
+                                @endif
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-6">
-                        <div class="card info-card">
-                            <div class="card-body">
-                                <h5 class="card-title">Amount Details</h5>
-                                <ul class="view-details btn-clipboards">
-                                    <li>Name: <strong>{{$parcel_details->user->name ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->name ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Account Code: <strong>{{$parcel_details->user->account_code ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->account_code ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Email: <strong><a href="mailto:{{$parcel_details->user->email ?? ''}}">{{$parcel_details->user->email ?? ''}}</a></strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->email ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Address: <strong>{{$parcel_details->user->address ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->address ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Cnic: <strong>{{$parcel_details->user->cnic ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->cnic ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Mobile: <strong><a href="tel:{{$parcel_details->user->mobile ?? ''}}">{{$parcel_details->user->mobile ?? ''}}</a></strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->mobile ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                </ul>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card info-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Amount Details</h5>
+                        <ul class="view-details btn-clipboards">
+                            <li>Cod Amount: <strong>{{$parcel_details->amount ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->amount ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Basic Delivery Charges: <strong>{{$parcel_details->t_basic_charges ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->t_basic_charges ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Booking Charges: <strong>{{$parcel_details->t_booking_charges}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->t_booking_charges ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Cash Handling: <strong>{{$parcel_details->t_cash_handling_charges ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->t_cash_handling_charges ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Packing Charges: <strong>{{$parcel_details->t_packing_charges ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->t_packing_charges ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Total Delivery Charges: <strong>{{($parcel_details->t_basic_charges + $parcel_details->t_booking_charges + $parcel_details->t_cash_handling_charges + $parcel_details->t_packing_charges) ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->t_packing_charges ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Remaining Amount: <strong>{{$parcel_details->amount - ($parcel_details->t_basic_charges + $parcel_details->t_booking_charges + $parcel_details->t_cash_handling_charges + $parcel_details->t_packing_charges) ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->t_packing_charges ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                        </ul>
                     </div>
-                    <div class="col-6">
-                        <div class="card info-card">
-                            <div class="card-body">
-                                <h5 class="card-title">Consignee Details</h5>
-                                @php
-                                    $addresslog = json_decode($parcel_details->binded_addresslog, true) ;
-                                @endphp
-                                <ul class="view-details btn-clipboards">
-                                    <li>Name: <strong>{{$addresslog['addresslog_info']['consignee_name'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_name'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Address: <strong>{{$addresslog['addresslog_info']['consignee_address'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_address'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Nearby: <strong>{{$addresslog['addresslog_info']['consignee_nearby_address']}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_nearby_address'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>City: <strong>{{$addresslog['city']['city_name'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['city']['city_name'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Estimated Delivery Time: <strong>{{$addresslog['city']['delivery_time'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['city']['delivery_time'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                </ul>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card info-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Consignee Details</h5>
+                        @php
+                            $addresslog = json_decode($parcel_details->binded_addresslog, true) ;
+                        @endphp
+                        <ul class="view-details btn-clipboards">
+                            <li>Name: <strong>{{$addresslog['addresslog_info']['consignee_name'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_name'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Address: <strong>{{$addresslog['addresslog_info']['consignee_address'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_address'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Nearby: <strong>{{$addresslog['addresslog_info']['consignee_nearby_address']}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_nearby_address'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>City: <strong>{{$addresslog['city']['city_name'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['city']['city_name'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Estimated Delivery Time: <strong>{{$addresslog['city']['delivery_time'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['city']['delivery_time'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                        </ul>
                     </div>
-                    <div class="col-6">
-                        <div class="card info-card">
-                            <div class="card-body">
-                                <h5 class="card-title">Customer Details</h5>
-                                <ul class="view-details btn-clipboards">
-                                    <li>Name: <strong>{{$parcel_details->user->name ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->name ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Account Code: <strong>{{$parcel_details->user->account_code ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->account_code ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Email: <strong><a href="mailto:{{$parcel_details->user->email ?? ''}}">{{$parcel_details->user->email ?? ''}}</a></strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->email ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Address: <strong>{{$parcel_details->user->address ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->address ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Cnic: <strong>{{$parcel_details->user->cnic ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->cnic ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                    <li>Mobile: <strong><a href="tel:{{$parcel_details->user->mobile ?? ''}}">{{$parcel_details->user->mobile ?? ''}}</a></strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->mobile ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                                </ul>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card info-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Customer Details</h5>
+                        <ul class="view-details btn-clipboards">
+                            <li>Name: <strong>{{$parcel_details->user->name ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->name ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Account Code: <strong>{{$parcel_details->user->account_code ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->account_code ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Email: <strong><a href="mailto:{{$parcel_details->user->email ?? ''}}">{{$parcel_details->user->email ?? ''}}</a></strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->email ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Address: <strong>{{$parcel_details->user->address ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->address ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Cnic: <strong>{{$parcel_details->user->cnic ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->cnic ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                            <li>Mobile: <strong><a href="tel:{{$parcel_details->user->mobile ?? ''}}">{{$parcel_details->user->mobile ?? ''}}</a></strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$parcel_details->user->mobile ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+        @if(is_array($response_courier))
+        <div class="row">
+            <div class="col-12">
+                    <h5 class="page-title">Call Courier Log</h5>
+                    <div class="table-responsive">
+                        <table class="table display table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ConsignmentNo</th>
+                                    <th>ConsigneeName</th>
+                                    <th>ConsigneeAddress</th>
+                                    <th>ConsigneeCity</th>
+                                    <th>ContactNo</th>
+                                    <th>ShipperName</th>
+                                    <th>ShipperAddress</th>
+                                    <th>TransactionDate</th>
+                                    <th>OperationDesc</th>
+                                    <th>ProcessDescForPortal</th>
+                                    <th>ReceiverName</th>
+                                    <th>Relation</th>
+                                    <th>ReasonDesc</th>
+                                    <th>IsPortalBooking</th>
+                                    <th>HomeBranch</th>
+                                    <th>DestBranch</th>
+                                    <th>codAmount</th>
+                                    <th>Weight</th>
+                                    <th>Pcs</th>
+                                    <th>ServiceType</th>
+                                    <th>OriginCity</th>
+                                    <th>MDNNo</th>
+                                    <th>CallDate</th>
+                                    <th>CallTime</th>
+                                    <th>CallStatus</th>
+                                    <th>CallRemarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($response_courier as $courier)
+                                <tr>
+                                    <td>{{$courier['ConsignmentNo']}}</td>
+                                    <td>{{$courier['ConsigneeName']}}</td>
+                                    <td>{{$courier['ConsigneeAddress']}}</td>
+                                    <td>{{$courier['ContactNo']}}</td>
+                                    <td>{{$courier['ShipperName']}}</td>
+                                    <td>{{$courier['ShipperAddress']}}</td>
+                                    <td>{{$courier['TransactionDate']}}</td>
+                                    <td>{{$courier['OperationDesc']}}</td>
+                                    <td>{{$courier['ProcessDescForPortal']}}</td>
+                                    <td>{{$courier['ReceiverName']}}</td>
+                                    <td>{{$courier['Relation']}}</td>
+                                    <td>{{$courier['IsPortalBooking']}}</td>
+                                    <td>{{$courier['HomeBranch']}}</td>
+                                    <td>{{$courier['DestBranch']}}</td>
+                                    <td>{{$courier['codAmount']}}</td>
+                                    <td>{{$courier['Weight']}}</td>
+                                    <td>{{$courier['Pcs']}}</td>
+                                    <td>{{$courier['ServiceType']}}</td>
+                                    <td>{{$courier['OriginCity']}}</td>
+                                    <td>{{$courier['MDNNo']}}</td>
+                                    <td>{{$courier['CallDate']}}</td>
+                                    <td>{{$courier['CallTime']}}</td>
+                                    <td>{{$courier['CallStatus']}}</td>
+                                    <td>{{$courier['CallRemarks']}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+        @endif
     </div>
 
 </div><!-- Page Content -->

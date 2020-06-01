@@ -15,6 +15,7 @@ use App\Http\Controllers\adminend\UserController as UserAdmin;
 use App\Http\Controllers\adminend\ParcelController as ParcelAdmin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use League\Csv\Exception;
 use League\Csv\Reader;
 use League\Csv\Statement;
@@ -176,6 +177,12 @@ class AdminController extends Controller
         ->get(['id', 'name','email', 'account_code']);
             return response()->json($users);
        // }
+
+    }
+
+    public static function callCourierTrackingByCn($cn){
+
+        $response = Http::get('https://cod.callcourier.com.pk/api/CallCourier/GetTackingHistory?cn=03032-01-010607575');
 
     }
 
