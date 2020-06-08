@@ -32,6 +32,7 @@
                                             <th>Parcel #</th>
                                             <th>Cn #</th>
                                             <th>Account</th>
+                                            <th>Name</th>
                                             <th>Status</th>
                                             <th>Change Status</th>
                                             <th>Action</th>

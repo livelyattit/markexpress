@@ -245,13 +245,18 @@ var parcels_datatable =  $('#parcels_table').DataTable({
             name: 'assigned_parcel_number'
         },
         {
-            data: 'cn_no',
-            name: 'cn_no',
+            data: 'assigned_tracking_number',
+            name: 'assigned_tracking_number',
             defaultContent: "<i>Not assigned</i>",
         },
         {
             data: 'user.account_code',
             name: 'user.account_code',
+            orderable: false,
+        },
+        {
+            data: 'user.name',
+            name: 'user.name',
             orderable: false,
         },
         {
@@ -422,7 +427,7 @@ $('.btn-delete-user').on('click', function (e) {
 
 });
 
-$(document).on('change', '#parcel-status-change', function () {
+$(document).on('change', '.parcel-status-change', function () {
     let status_val = $(this).children("option:selected").val();
     let url =  $(this).children("option:selected").data('url');
     let text =  $(this).children("option:selected").data('text');
@@ -465,7 +470,17 @@ $(document).on('change', '#parcel-status-change', function () {
                         //     window.location.href ='/admin/user/all';
                         // }
                     },
-                    error:function(){}
+                    error:function(){
+
+                    }
+                });
+            }
+            else {
+                    parcels_datatable.rows().iterator('row', function ( context, index ) {
+                    var data = this.row(index).data();
+                    var row = $(this.row(index).node());
+                    data[0] = 'new data';
+                    parcels_datatable.row(row).data(data).draw();
                 });
             }
 

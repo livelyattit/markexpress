@@ -116,11 +116,12 @@ class AdminController extends Controller
                     return $parcel_obj->createEditParcel($request->all(), $id, $form_name);
                 }
 
-//                $user_details = User::with('role', 'originality', 'accountDetail', 'personalData', 'parcel')->find($id);
-//                return view('admin_pages.users.user-edit', [
-//                    'user_details'=>$user_details,
-//                    'originality'=>Originality::all()
-//                ]);
+                $parcel_details = Parcel::with('user', 'status', 'addressLog')->find($id);
+                $cities = City::orderBy('city_name')->get();
+                return view('admin_pages.parcels.parcel-edit', [
+                    'parcel_details'=>$parcel_details,
+                    'cities'=>$cities,
+                ]);
                 break;
             case 'delete':
                 if($request->ajax()){

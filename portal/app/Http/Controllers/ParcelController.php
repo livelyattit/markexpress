@@ -107,7 +107,7 @@ class ParcelController extends Controller
 //        $pp->refresh();
 //        $num = $pp->generateParcelNumber();
 
-        $binded_address = Addresslog::find($input['addresslog_id'])->first()->toArray();
+        $binded_address = Addresslog::find($input['addresslog_id'])->toArray();
         $cc = Addresslog::find($input['addresslog_id'])->city->toArray();
 
         $ff = [

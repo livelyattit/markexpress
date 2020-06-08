@@ -45,7 +45,9 @@ class UserController extends Controller
     public  function createEditUser($inputs, $id = null, $form_name = null){
 
         //user edit
-        $user = User::find($id);
+        if($id != null){
+            $user = User::find($id);
+        }
 
         switch ($form_name){
             case 'basic_details':

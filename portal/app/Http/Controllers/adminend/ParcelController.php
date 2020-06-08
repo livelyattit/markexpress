@@ -34,9 +34,9 @@ class ParcelController extends Controller
                 ->addColumn('parcel_no', function($data){
                     return  $data->assigned_parcel_number;
                 })
-                ->addColumn('cn_no', function($data){
-                    return  $data->assigned_tracking_number;
-                })
+//                ->addColumn('cn_no', function($data){
+//                    return  $data->assigned_tracking_number;
+//                })
                 ->addColumn('current_status', function($data){
                     $dd  = $data->status()->latest('parcel_status.updated_at')->first();
                     return empty($dd) ? 'No data' : $dd->status;
@@ -44,7 +44,7 @@ class ParcelController extends Controller
                 })
                 ->addColumn('parcel_status_change', function($data){
                     $statuses = Status::all();
-                    $select = '<label class="d-flex">Change Status</label><select id="parcel-status-change" class="form-control">';
+                    $select = '<label class="d-flex">Change Status</label><select class="parcel-status-change form-control">';
                     //$select .='<option style="display: none" value="">Change Status</option>';
                     $dd  = $data->status()->latest('parcel_status.updated_at')->first();
                     $selected = '';
@@ -91,7 +91,9 @@ class ParcelController extends Controller
     public  function createEditParcel($inputs, $id = null, $form_name = null){
 
         //parcel edit
-        $parcel = Parcel::find($id);
+        if($id != null){
+            $parcel = Parcel::find($id);
+        }
 
         switch ($form_name){
             case 'parcel_status': //edit
@@ -100,11 +102,9 @@ class ParcelController extends Controller
                 return response()->json(['data'=>$parcel->toArray()]);
                 break;
 
-            case 'personal_details':
+            case 'parcel_details':
                 //
                 break;
-
-            case 'business_details':
 
         }
 
@@ -144,7 +144,7 @@ class ParcelController extends Controller
             'created_by'=>'is_admin'
         ]);
 
-        $binded_address = Addresslog::find($address_log->id)->first()->toArray();
+        $binded_address = Addresslog::find($address_log->id)->toArray();
         $binded_city = Addresslog::find($address_log->id)->city->toArray();
 
         $ff = [
