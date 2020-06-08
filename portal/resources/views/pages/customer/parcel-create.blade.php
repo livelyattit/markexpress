@@ -36,7 +36,7 @@
                                                 <label>Consignee</label>
                                                 <select data-placeholder="Select Consignee" required name="addresslog_id"   class="form-control select-js select-consignee">
                                                     <option value="" style="display: none"></option>
-                                                    @foreach($user_details->addresslog as $address)
+                                                    @foreach($user_details->addressLog as $address)
                                                         <option @if(old('addresslog_id') == $address->id) selected="selected" @endif value="{{$address->id}}">{{ucwords($address->consignee_alias)}} - {{$address->city->city_name}} - ({{$address->consignee_address}})</option>
                                                     @endforeach
                                                 </select>

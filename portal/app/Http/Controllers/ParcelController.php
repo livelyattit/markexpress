@@ -24,17 +24,15 @@ class ParcelController extends Controller
             //$data = Addresslog::where('user_id', Auth::user()->id)->get();
             $data = Parcel::with( 'status')->where('user_id', Auth::user()->id);
             return DataTables::of($data)
-                ->addColumn('parcel_no', function($data){
-                    return 'Parcel#' . $data->assigned_parcel_number;
-                })
-                ->addColumn('current_status', function($data){
-                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
-                    return $dd->status  ;
+//                ->addColumn('current_status', function($data){
+//                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
+//                    return $dd->status  ;
+//
+//                })
 
-                })
                 ->addColumn('consignee_alias', function($data){
                     $data_decoded = json_decode($data->binded_addresslog, true);
-                    return $data_decoded['addresslog_info']['consignee_alias'] ;
+                    return $data_decoded['addresslog_info']['consignee_name'] ;
                 })
                 ->addColumn('shipment_created',  function($data){
                     return $data->created_at->format('d-F-Y');
@@ -49,8 +47,7 @@ class ParcelController extends Controller
                     return "PKR " .  number_format($data->amount, 1, '.', ',');
                 })
                 ->addColumn('delivery_charges',  function($data){
-                    $charges = 250;
-                    return "PKR " .  number_format($charges, 1, '.', ',');
+                    return "PKR " .  number_format($data->t_basic_charges, 1, '.', ',');
                 })
                 ->addColumn('view', function($data){
                     $button = '<a href="'.route('parcel.show', $data->id).'" name="view" data-parcel-id="'.$data->id.'" class="btn-view-parcel btn btn-outline-warning btn-sm">View Details</a>';
@@ -71,7 +68,9 @@ class ParcelController extends Controller
         $body_class = 'page-dashboard page-dashboard-customer';
         $page_title = 'Create Parcel';
 
-        $user_details = User::with('addressLog')->find(Auth::user()->id);
+        $user_details = User::with(['addressLog'=>function($q){
+            return $q->where('created_by', '=', 'is_customer');
+        }])->find(Auth::user()->id);
         return view('pages.customer.parcel-create', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,
@@ -108,11 +107,11 @@ class ParcelController extends Controller
 //        $num = $pp->generateParcelNumber();
 
         $binded_address = Addresslog::find($input['addresslog_id'])->toArray();
-        $cc = Addresslog::find($input['addresslog_id'])->city->toArray();
+        $binded_city = Addresslog::find($input['addresslog_id'])->city->toArray();
 
         $ff = [
             'addresslog_info'=>$binded_address,
-            'city'=>$cc,
+            'city'=>$binded_city,
             ];
 
         $parcel = Parcel::create([
@@ -120,7 +119,12 @@ class ParcelController extends Controller
             'addresslog_id'=>$input['addresslog_id'],
             'assigned_parcel_number'=>null,
             'binded_addresslog'=>json_encode($ff),
+            'current_last_status'=>'shipment created',
             'amount'=>$input['cod_amount'],
+            't_basic_charges'=>$binded_city['initial_weight_price'],
+            't_booking_charges'=>null,
+            't_cash_handling_charges'=>null, //null for now .. will change to charge 1% for exceeding cod_amount >= 5000
+            't_packing_charges'=>null,
             'weight'=>$input['weight'],
             'length'=>$input['length'],
             'height'=>$input['height'],

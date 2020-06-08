@@ -130,6 +130,51 @@
                                             @endif
                                         </div>
                                         <div class="optional-fields-wrapper">
+                                            <h6 class="text-dark mt-4 mb-3"><strong>OPTIONAL FIELDS</strong></h6>
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <label>Basic Charges</label>
+                                                    <input step="1"  min="1" name="t_basic_charges" value="{{old('t_basic_charges')}}"   type="number" placeholder="Enter Basic Charges"  class="form-control">
+                                                    @if($errors->has('t_basic_charges'))
+                                                        <div class="d-block invalid-feedback">
+                                                            <span class="error">{{ $errors->first('t_basic_charges') }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <label>Booking Charges</label>
+                                                    <input step="1"  min="1" name="t_booking_charges" value="{{old('t_booking_charges')}}"   type="number" placeholder="Enter Booking Charges"  class="form-control">
+                                                    @if($errors->has('t_booking_charges'))
+                                                        <div class="d-block invalid-feedback">
+                                                            <span class="error">{{ $errors->first('t_booking_charges') }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <label>Cash Handling Charges</label>
+                                                    <input step="1"  min="1" name="t_cash_handling_charges" value="{{old('t_cash_handling_charges')}}"   type="number" placeholder="Enter Cash Handling Charges"  class="form-control">
+                                                    @if($errors->has('t_cash_handling_charges'))
+                                                        <div class="d-block invalid-feedback">
+                                                            <span class="error">{{ $errors->first('t_cash_handling_charges') }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <label>Packing Charges</label>
+                                                    <input step="1"  min="1" name="t_packing_charges" value="{{old('t_packing_charges')}}"   type="number" placeholder="Enter Basic Charges"  class="form-control">
+                                                    @if($errors->has('t_packing_charges'))
+                                                        <div class="d-block invalid-feedback">
+                                                            <span class="error">{{ $errors->first('t_packing_charges') }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
                                             <div class="row form-group">
                                                 <div class="col-12">
                                                     <label>Weight in Kgs.</label>

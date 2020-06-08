@@ -11,6 +11,7 @@ class Parcel extends Model
         'addresslog_id',
         'assigned_parcel_number',
         'binded_addresslog',
+        'current_last_status',
         'weight',
         'length',
         'width',
@@ -18,6 +19,9 @@ class Parcel extends Model
         'assigned_tracking_number',
         'amount',
         't_basic_charges',
+        't_booking_charges',
+        't_cash_handling_charges',
+        't_packing_charges',
     ];
 
     public function user()

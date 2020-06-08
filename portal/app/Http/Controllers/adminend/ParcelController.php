@@ -124,6 +124,10 @@ class ParcelController extends Controller
             'width'=>'sometimes|nullable|numeric|min:1|max:150',
             'height'=>'sometimes|nullable|numeric|min:1|max:150',
             'cod_amount'=>'required|numeric|min:100|max:9900000',
+            't_basic_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
+            't_booking_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
+            't_cash_handling_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
+            't_packing_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
         ], [
             'consignee_alias.unique'=>'Alias already taken in your address log.',
         ] );
@@ -158,7 +162,11 @@ class ParcelController extends Controller
             'assigned_parcel_number'=>null,
             'binded_addresslog'=>json_encode($ff),
             'amount'=>$inputs['cod_amount'],
-            't_basic_charges'=>$binded_city['initial_weight_price'],
+            //'t_basic_charges'=>$binded_city['initial_weight_price'],
+            't_basic_charges'=>$inputs['t_basic_charges'],
+            't_booking_charges'=>$inputs['t_booking_charges'],
+            't_cash_handling_charges'=>$inputs['t_cash_handling_charges'],
+            't_packing_charges'=>$inputs['t_packing_charges'],
             'weight'=>$inputs['weight'],
             'length'=>$inputs['length'],
             'height'=>$inputs['height'],

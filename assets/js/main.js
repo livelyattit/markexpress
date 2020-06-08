@@ -363,8 +363,15 @@ $("#form-upload-bill").dropzone({
                 name: 'consignee_nearby_address',
             },
             {
-                data: 'city_delivery',
-                name: 'city_delivery'
+                data: 'city',
+                render:function(data, type, row){
+                    if(data){
+                        return data.city_name + ' ( ' + data.delivery_time + ' )';
+                    }
+
+                },
+                defaultContent: "<i>Not initialized</i>",
+                name: 'city.city_name',
             },
             {
                 data: 'edit',
@@ -380,8 +387,8 @@ $("#form-upload-bill").dropzone({
     });
 
     var parcels_datatable =  $('#parcels_table').DataTable({
-        processing: true,
-        serverSide: true,
+        processing: false,
+        serverSide: false,
         responsive: true,
         bPaginate: true,
         bLengthChange: false,
@@ -397,12 +404,12 @@ $("#form-upload-bill").dropzone({
                 name: 'shipment_created'
             },
             {
-                data: 'parcel_no',
-                name: 'parcel_no'
+                data: 'assigned_parcel_number',
+                name: 'assigned_parcel_number'
             },
             {
-                data: 'current_status',
-                name: 'current_status'
+                data: 'current_last_status',
+                name: 'current_last_status'
             },
             {
                 data: 'consignee_alias',
