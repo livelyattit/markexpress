@@ -260,7 +260,7 @@ var parcels_datatable =  $('#parcels_table').DataTable({
             orderable: false,
         },
         {
-            data: 'current_status',
+            data: 'current_last_status',
             render:function(data, type, row){
                 if(data){
                     if(data == 'shipment created'){
@@ -296,7 +296,7 @@ var parcels_datatable =  $('#parcels_table').DataTable({
                 return data;
             },
             defaultContent: "<i>Not initialized</i>",
-            name: 'status.status',
+            name: 'current_last_status',
             orderable: false,
         },
         {
@@ -454,6 +454,7 @@ $(document).on('change', '.parcel-status-change', function () {
                     dataType: 'json',
                     data:{
                         status:status_val,
+                        text: text,
                     },
                     url: url,
                     beforeSend:function(){

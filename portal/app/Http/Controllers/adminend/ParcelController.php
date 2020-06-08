@@ -37,11 +37,11 @@ class ParcelController extends Controller
 //                ->addColumn('cn_no', function($data){
 //                    return  $data->assigned_tracking_number;
 //                })
-                ->addColumn('current_status', function($data){
-                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
-                    return empty($dd) ? 'No data' : $dd->status;
-
-                })
+//                ->addColumn('current_status', function($data){
+//                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
+//                    return empty($dd) ? 'No data' : $dd->status;
+//
+//                })
                 ->addColumn('parcel_status_change', function($data){
                     $statuses = Status::all();
                     $select = '<label class="d-flex">Change Status</label><select class="parcel-status-change form-control">';
@@ -98,6 +98,8 @@ class ParcelController extends Controller
         switch ($form_name){
             case 'parcel_status': //edit
                 $parcel->status()->attach($inputs['status']);
+                $parcel->current_last_status = $inputs['text'];
+                $parcel->save();
                 $parcel->refresh();
                 return response()->json(['data'=>$parcel->toArray()]);
                 break;
