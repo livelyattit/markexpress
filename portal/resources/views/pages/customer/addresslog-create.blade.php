@@ -32,14 +32,6 @@
                             <form onsubmit=" var cc = document.querySelector('.btn-in-submit');cc.setAttribute('disabled', 'disabled');cc.value='Please Wait..'" id="addresslog-create-form" class="addresslog-form form-in" action="{{route('address-log.store')}}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Address Alias</label>
-                                    <input required name="consignee_alias" value="{{old('consignee_alias')}}"  type="text" placeholder="e.g Consignee Name"  class="form-control">
-                                    @if($errors->has('consignee_alias'))
-                                        <span class="alert alert-danger">{{$errors->first('consignee_alias')}}</span>
-                                    @endif
-                                </div>
-
-                                <div class="form-group">
                                     <label>Consignee Name</label>
                                     <input required name="consignee_name" value="{{old('consignee_name')}}"   type="text" placeholder="Full Name"  class="form-control">
                                     @if($errors->has('consignee_name'))

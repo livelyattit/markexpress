@@ -113,7 +113,7 @@ class ParcelController extends Controller
         //addresslog creation
         $validator = Validator::make($inputs,[
             'user_account'=>'required|exists:App\User,id',
-            'consignee_alias'=>'required|unique:addresslogs,consignee_alias,NULL,id,user_id,'. Auth::user()->id,
+            //'consignee_alias'=>'required|unique:addresslogs,consignee_alias,NULL,id,user_id,'. Auth::user()->id,
             'consignee_name'=>'required|max:190',
             'consignee_number'=>['required', new PhoneNumber()],
             'consignee_city'=>'required|not_in:0',
@@ -163,6 +163,7 @@ class ParcelController extends Controller
             'addresslog_id'=>$address_log->id,
             'assigned_parcel_number'=>null,
             'binded_addresslog'=>json_encode($ff),
+            'current_last_status'=>'shipment created',
             'amount'=>$inputs['cod_amount'],
             //'t_basic_charges'=>$binded_city['initial_weight_price'],
             't_basic_charges'=>$inputs['t_basic_charges'],

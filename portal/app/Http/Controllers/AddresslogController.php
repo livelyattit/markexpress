@@ -75,14 +75,14 @@ class AddresslogController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input,[
-            'consignee_alias'=>'required|unique:addresslogs,consignee_alias,NULL,id,user_id,'. Auth::user()->id,
+            //'consignee_alias'=>'required|unique:addresslogs,consignee_alias,NULL,id,user_id,'. Auth::user()->id,
             'consignee_name'=>'required|max:190',
-            'consignee_number'=>['required', new PhoneNumber()],
+            'consignee_number'=>['required', 'unique:addresslogs,consignee_contact,NULL,id,user_id,' . Auth::user()->id, new PhoneNumber()],
             'consignee_city'=>'required|not_in:0',
             'consignee_address'=>'required|max:100',
             'consignee_nearby_address'=>'max:100',
         ], [
-            'consignee_alias.unique'=>'Alias already taken in your address log.',
+           // 'consignee_alias.unique'=>'Alias already taken in your address log.',
         ] );
         if($validator->fails()){
             return back()
@@ -93,7 +93,7 @@ class AddresslogController extends Controller
         $address_log = Addresslog::create([
             'user_id'=>Auth::user()->id,
             'city_id'=>$input['consignee_city'],
-            'consignee_alias'=>$input['consignee_alias'],
+            'consignee_alias'=>'no_concerned_for_now',
             'consignee_name'=>$input['consignee_name'],
             'consignee_contact'=>$input['consignee_number'],
             'consignee_address'=>$input['consignee_address'],
@@ -101,7 +101,7 @@ class AddresslogController extends Controller
             'created_by'=>'is_customer',
         ]);
 
-        return back()->with('success', 'Consignee <strong>'.$address_log->consignee_alias.'</strong> has been added successfully');
+        return back()->with('success', 'Consignee <strong>'.$address_log->consignee_name.'</strong> has been added successfully');
     }
 
     /**
@@ -152,9 +152,9 @@ class AddresslogController extends Controller
         $addresslog_id = $input['addresslog_id'];
 
         $validator = Validator::make($input,[
-            'consignee_alias'=>['required', new ConsigneeAliasRule($addresslog_id)],
+            //'consignee_alias'=>['required', new ConsigneeAliasRule($addresslog_id)],
             'consignee_name'=>'required|max:190',
-            'consignee_number'=>['required', new PhoneNumber()],
+            'consignee_number'=>['required', 'unique:addresslogs,consignee_contact,NULL,id,user_id,' . Auth::user()->id, new PhoneNumber()],
             'consignee_city'=>'required|not_in:0',
             'consignee_address'=>'required|max:100',
             'consignee_nearby_address'=>'max:100',
@@ -174,7 +174,7 @@ class AddresslogController extends Controller
         $address_log = Addresslog::find($addresslog_id)->update([
             'user_id'=>Auth::user()->id,
             'city_id'=>$input['consignee_city'],
-            'consignee_alias'=>$input['consignee_alias'],
+            //'consignee_alias'=>$input['consignee_alias'],
             'consignee_name'=>$input['consignee_name'],
             'consignee_contact'=>$input['consignee_number'],
             'consignee_address'=>$input['consignee_address'],

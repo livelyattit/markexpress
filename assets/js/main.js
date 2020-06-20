@@ -342,10 +342,10 @@ $("#form-upload-bill").dropzone({
             url: "/address-log",
         },
         columns: [
-            {
-                data: 'consignee_alias',
-                name: 'consignee_alias'
-            },
+            // {
+            //     data: 'consignee_alias',
+            //     name: 'consignee_alias'
+            // },
             {
                 data: 'consignee_name',
                 name: 'consignee_name'

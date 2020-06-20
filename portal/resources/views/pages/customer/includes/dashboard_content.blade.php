@@ -66,7 +66,7 @@
                         <table id="addresslog_table" class="table table-bordered table-hover display responsive nowrap">
                             <thead>
                             <tr>
-                                <th>Consignee Alias</th>
+{{--                                <th>Consignee Alias</th>--}}
                                 <th>Full Name</th>
                                 <th>Contact</th>
                                 <th>Address</th>

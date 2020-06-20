@@ -1,15 +1,15 @@
 <div class="pb-4 pr-4 pl-4 pt-1 text-center">
     <h4>Edit Consignee</h4>
-    <h3>{{ucwords($addresslog->consignee_alias)}}</h3>
+    <h3>{{ucwords($addresslog->consignee_name)}}</h3>
     <form id="addresslog-edit-form" class="addresslog-form" action="{{route('address-log.update', $addresslog->id)}}" method="post">
         @csrf
         @method('PUT')
         <input type="hidden" name="addresslog_id" value="{{$addresslog->id}}">
-        <div class="form-group">
-            <label>Address Alias</label>
-            <input value="{{$addresslog->consignee_alias ?? ''}}" name="consignee_alias"  type="text" placeholder="e.g Consignee Name"  class="form-control">
-            <div class="form-field-status form-field-consignee_alias"></div>
-        </div>
+{{--        <div class="form-group">--}}
+{{--            <label>Address Alias</label>--}}
+{{--            <input value="{{$addresslog->consignee_alias ?? ''}}" name="consignee_alias"  type="text" placeholder="e.g Consignee Name"  class="form-control">--}}
+{{--            <div class="form-field-status form-field-consignee_alias"></div>--}}
+{{--        </div>--}}
 
         <div class="form-group">
             <label>Consignee Name</label>

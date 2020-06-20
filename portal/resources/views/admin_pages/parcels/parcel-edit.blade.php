@@ -70,7 +70,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Consignee Contact</label>
-                                        <input required name="consignee_number" value="@empty(old('consignee_name')) {{$addresslog['addresslog_info']['consignee_name']}}  @else {{old('consignee_name')}}  @endempty"   type="tel" placeholder="e.g 03111234567"  class="form-control">
+                                        <input required name="consignee_number" value="@empty(old('consignee_number')) {{$addresslog['addresslog_info']['consignee_number']}}  @else {{old('consignee_number')}}  @endempty"   type="tel" placeholder="e.g 03111234567"  class="form-control">
                                         @if($errors->has('consignee_number'))
                                             <div class="d-block invalid-feedback">
                                                 <span class="error">{{ $errors->first('consignee_number') }}</span>
@@ -99,7 +99,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Consignee Address</label>
-                                        <input required name="consignee_address" value="@empty(old('consignee_name')) {{$addresslog['addresslog_info']['consignee_name']}}  @else {{old('consignee_name')}}  @endempty"   type="text" placeholder="Complete Address"  class="form-control">
+                                        <input required name="consignee_address" value="@empty(old('consignee_address')) {{$addresslog['addresslog_info']['consignee_address']}}  @else {{old('consignee_address')}}  @endempty"   type="text" placeholder="Complete Address"  class="form-control">
                                         @if($errors->has('consignee_address'))
                                             <div class="d-block invalid-feedback">
                                                 <span class="error">{{ $errors->first('consignee_address') }}</span>
@@ -110,7 +110,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Nearby Location (Optional)</label>
-                                        <input  name="consignee_nearby_address" value="@empty(old('consignee_name')) {{$addresslog['addresslog_info']['consignee_name']}}  @else {{old('consignee_name')}}  @endempty"  type="text" placeholder="Any nearby location if necessary"  class="form-control">
+                                        <input  name="consignee_nearby_address" value="@empty(old('consignee_nearby_address')) {{$addresslog['addresslog_info']['consignee_nearby_address']}}  @else {{old('consignee_nearby_address')}}  @endempty"  type="text" placeholder="Any nearby location if necessary"  class="form-control">
                                         @if($errors->has('consignee_nearby_address'))
                                             <div class="d-block invalid-feedback">
                                                 <span class="error">{{ $errors->first('consignee_nearby_address') }}</span>
