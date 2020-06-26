@@ -10,7 +10,11 @@ class Parcel extends Model
         'user_id',
         'addresslog_id',
         'assigned_parcel_number',
-        'binded_addresslog',
+        'city_id',
+        'consignee_name',
+        'consignee_contact',
+        'consignee_address',
+        'consignee_nearby_address',
         'current_last_status',
         'weight',
         'length',
@@ -37,11 +41,17 @@ class Parcel extends Model
        return $this->status()->orderBy('parcels.updated_at', 'desc')->first();
    }
 
-   public function addressLog(){
-       return $this->belongsTo(Addresslog::class, 'addresslog_id', 'id');
-   }
+//   public function addressLog(){
+//       return $this->belongsTo(Addresslog::class, 'addresslog_id', 'id');
+//   }
 
-   public function generateParcelNumber(){
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id', 'id');
+    }
+
+
+    public function generateParcelNumber(){
        $generated_parcel_num = 1000;
        $parcel = self::max('assigned_parcel_number');
        if($parcel){

@@ -8,6 +8,7 @@ use App\User;
 use App\Parcel;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
@@ -21,37 +22,39 @@ class ParcelController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            //$data = Addresslog::where('user_id', Auth::user()->id)->get();
-            $data = Parcel::with( 'status')->where('user_id', Auth::user()->id);
+            $data = Parcel::with( 'status', 'city')->where('user_id', Auth::user()->id);
             return DataTables::of($data)
-//                ->addColumn('current_status', function($data){
-//                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
-//                    return $dd->status  ;
-//
+//                ->addColumn('shipment_created',  function($data){
+//                    return $data->created_at->format('d-F-Y');
 //                })
-
-                ->addColumn('consignee_alias', function($data){
-                    $data_decoded = json_decode($data->binded_addresslog, true);
-                    return $data_decoded['addresslog_info']['consignee_name'] ;
-                })
-                ->addColumn('shipment_created',  function($data){
-                    return $data->created_at->format('d-F-Y');
-                })
-                ->addColumn('consignee_city',  function($data){
-                    $data_decoded = json_decode($data->binded_addresslog, true);
-                    //return $data_decoded['addresslog_info']['consignee_address'] ;
-                    return $data_decoded['city']['city_name'] ;
-                })
-                ->addColumn('cod_amount',  function($data){
-
-                    return "PKR " .  number_format($data->amount, 1, '.', ',');
-                })
-                ->addColumn('delivery_charges',  function($data){
-                    return "PKR " .  number_format($data->t_basic_charges, 1, '.', ',');
-                })
+//                ->addColumn('consignee_city',  function($data){
+//                    $data_decoded = json_decode($data->binded_addresslog, true);
+//                    //return $data_decoded['addresslog_info']['consignee_address'] ;
+//                    return $data_decoded['city']['city_name'] ;
+//                })
+//                ->addColumn('cod_amount',  function($data){
+//
+//                    return "PKR " .  number_format($data->amount, 1, '.', ',');
+//                })
+//                ->addColumn('delivery_charges',  function($data){
+//                    return "PKR " .  number_format($data->t_basic_charges, 1, '.', ',');
+//                })
                 ->addColumn('view', function($data){
                     $button = '<a href="'.route('parcel.show', $data->id).'" name="view" data-parcel-id="'.$data->id.'" class="btn-view-parcel btn btn-outline-warning btn-sm">View Details</a>';
                     return $button;
+                })
+//                ->filter(function ($query) {
+//                    if (request()->has('jobFilter') && !empty(request()->jobFilter)) {
+//                        $query->whereHas('job', function($query) {
+//                            $query->where('jobs.id', request('jobFilter'));
+//                        });
+//                }
+//                })
+                ->editColumn('created_at', function ($user) {
+                    return $user->created_at ? with(new Carbon($user->created_at))->format('d-m-Y') : '';
+                })
+                ->filterColumn('created_at', function ($query, $keyword) {
+                    $query->whereRaw("DATE_FORMAT(created_at,'%d-%m-%Y') like ?", ["%$keyword%"]);
                 })
                 ->rawColumns(['view'])
                 ->make(true);
@@ -102,26 +105,21 @@ class ParcelController extends Controller
                 ->withInput($input);
         }
 
-//        $pp= new Parcel();
-//        $pp->refresh();
-//        $num = $pp->generateParcelNumber();
+        $addresslog = Addresslog::find($input['addresslog_id']);
 
-        $binded_address = Addresslog::find($input['addresslog_id'])->toArray();
-        $binded_city = Addresslog::find($input['addresslog_id'])->city->toArray();
-
-        $ff = [
-            'addresslog_info'=>$binded_address,
-            'city'=>$binded_city,
-            ];
 
         $parcel = Parcel::create([
             'user_id'=>Auth::user()->id,
             'addresslog_id'=>$input['addresslog_id'],
             'assigned_parcel_number'=>null,
-            'binded_addresslog'=>json_encode($ff),
+            'city_id'=>$addresslog->city_id,
+            'consignee_name'=>$addresslog->consignee_name,
+            'consignee_contact'=>$addresslog->consignee_contact,
+            'consignee_address'=>$addresslog->consignee_address,
+            'consignee_nearby_address'=>$addresslog->consignee_nearby_address,
             'current_last_status'=>'shipment created',
             'amount'=>$input['cod_amount'],
-            't_basic_charges'=>$binded_city['initial_weight_price'],
+            't_basic_charges'=>$addresslog->city->initial_weight_price,
             't_booking_charges'=>null,
             't_cash_handling_charges'=>null, //null for now .. will change to charge 1% for exceeding cod_amount >= 5000
             't_packing_charges'=>null,
@@ -151,8 +149,7 @@ class ParcelController extends Controller
 
             $data = Parcel::with(['status'=>function($query){
                return $query->orderBy('status_id', 'asc');
-            },
-                'addressLog'])->find($parcel->id);
+            } , 'city'])->find($parcel->id);
 
             return view('pages.customer.parcel-show', [
                 'parcel'=>$data,

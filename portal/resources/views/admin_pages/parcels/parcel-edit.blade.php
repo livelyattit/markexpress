@@ -24,14 +24,15 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Basic Details</h5>
-                        @if ($errors->basic_details->any())
-                            @foreach ($errors->basic_details->all() as $error)
-                                <div>{{$error}}</div>
-                            @endforeach
+                        <h5 class="card-title">Parcel Details</h5>
+                        @if ($errors->any())
+                                                        @foreach ($errors->all() as $error)
+                                                            <div>{{$error}}</div>
+                                                        @endforeach
                             <div class="alert alert-danger text-white">Errors!! Check the fields</div>
                         @endif
                         <form method="post" action="{{route('admin-parcel', ['edit', $parcel_details->id, 'parcel_details'])}}" class="needs-validation">
+                            <input name="user_account" type="hidden" value="{{$parcel_details->user->id}}">
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-12">
@@ -70,7 +71,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Consignee Contact</label>
-                                        <input required name="consignee_number" value="@empty(old('consignee_number')) {{$addresslog['addresslog_info']['consignee_number']}}  @else {{old('consignee_number')}}  @endempty"   type="tel" placeholder="e.g 03111234567"  class="form-control">
+                                        <input required name="consignee_number" value="@empty(old('consignee_number')) {{$addresslog['addresslog_info']['consignee_contact']}}  @else {{old('consignee_number')}}  @endempty"   type="tel" placeholder="e.g 03111234567"  class="form-control">
                                         @if($errors->has('consignee_number'))
                                             <div class="d-block invalid-feedback">
                                                 <span class="error">{{ $errors->first('consignee_number') }}</span>
@@ -85,7 +86,7 @@
                                             <option value="" style="display: none"></option>
                                             @foreach($cities as $city)
                                                 @if($city->is_enabled ==1)
-                                                    <option @if(old('consignee_city') == $city->id) selected="selected" @endif value="{{$city->id}}">{{$city->city_name}} ({{$city->delivery_time}})</option>
+                                                    <option @if(old('consignee_city') == $city->id) selected="selected" @elseif($addresslog['city']['id'] == $city->id) selected="selected" @endif value="{{$city->id}}">{{$city->city_name}} ({{$city->delivery_time}})</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -124,7 +125,7 @@
                                         <h5 class="text-dark mt-4 mb-3"><strong>PARCEL FIELDS</strong></h5>
                                         <div class="form-group">
                                             <label>Cod Amount</label>
-                                            <input autocomplete="off" required name="cod_amount" value="{{old('cod_amount')}}"   type="number" placeholder="Enter Amount e.g 1000"  class="form-control fn-number">
+                                            <input autocomplete="off" required name="cod_amount" value="@empty(old('cod_amount')){{$parcel_details->amount}}@else{{old('cod_amount')}}@endif"   type="number" placeholder="Enter Amount e.g 1000"  class="form-control fn-number">
                                             <div class="fn-number-words"></div>
                                             @if($errors->has('cod_amount'))
                                                 <div class="d-block invalid-feedback">
@@ -133,6 +134,50 @@
                                             @endif
                                         </div>
                                         <div class="optional-fields-wrapper">
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <label>Basic Charges</label>
+                                                    <input step="1"  min="1" name="t_basic_charges" value="@empty(old('t_basic_charges')){{$parcel_details->t_basic_charges}}@else{{old('t_basic_charges')}}@endif"   type="number" placeholder="Enter Basic Charges"  class="form-control">
+                                                    @if($errors->has('t_basic_charges'))
+                                                        <div class="d-block invalid-feedback">
+                                                            <span class="error">{{ $errors->first('t_basic_charges') }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <label>Booking Charges</label>
+                                                    <input step="1"  min="1" name="t_booking_charges" value="@empty(old('t_booking_charges')){{$parcel_details->t_booking_charges}}@else{{old('t_booking_charges')}}@endif"   type="number" placeholder="Enter Booking Charges"  class="form-control">
+                                                    @if($errors->has('t_booking_charges'))
+                                                        <div class="d-block invalid-feedback">
+                                                            <span class="error">{{ $errors->first('t_booking_charges') }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <label>Cash Handling Charges</label>
+                                                    <input step="1"  min="1" name="t_cash_handling_charges" value="@empty(old('t_cash_handling_charges')){{$parcel_details->t_cash_handling_charges}}@else{{old('t_cash_handling_charges')}}@endif"   type="number" placeholder="Enter Cash Handling Charges"  class="form-control">
+                                                    @if($errors->has('t_cash_handling_charges'))
+                                                        <div class="d-block invalid-feedback">
+                                                            <span class="error">{{ $errors->first('t_cash_handling_charges') }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-12">
+                                                    <label>Packing Charges</label>
+                                                    <input step="1"  min="1" name="t_packing_charges" value="@empty(old('t_packing_charges')){{$parcel_details->t_packing_charges}}@else{{old('t_packing_charges')}}@endif"   type="number" placeholder="Enter Packing Charges"  class="form-control">
+                                                    @if($errors->has('t_packing_charges'))
+                                                        <div class="d-block invalid-feedback">
+                                                            <span class="error">{{ $errors->first('t_packing_charges') }}</span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
                                             <div class="row form-group">
                                                 <div class="col-12">
                                                     <label>Weight in Kgs.</label>

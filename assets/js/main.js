@@ -387,8 +387,8 @@ $("#form-upload-bill").dropzone({
     });
 
     var parcels_datatable =  $('#parcels_table').DataTable({
-        processing: false,
-        serverSide: false,
+        processing: true,
+        serverSide: true,
         responsive: true,
         bPaginate: true,
         bLengthChange: false,
@@ -398,10 +398,11 @@ $("#form-upload-bill").dropzone({
         ajax: {
             url: "/parcel",
         },
+        order: [[ 0, "desc" ]],
         columns: [
             {
-                data: 'shipment_created',
-                name: 'shipment_created'
+                data: 'created_at',
+                name: 'created_at'
             },
             {
                 data: 'assigned_parcel_number',
@@ -412,21 +413,21 @@ $("#form-upload-bill").dropzone({
                 name: 'current_last_status'
             },
             {
-                data: 'consignee_alias',
-                name: 'consignee_alias'
+                data: 'consignee_name',
+                name: 'consignee_name'
             },
 
             {
-                data: 'consignee_city',
-                name: 'consignee_city',
+                data: 'city.city_name',
+                name: 'city.city_name',
             },
             {
-                data: 'cod_amount',
-                name: 'cod_amount',
+                data: 'amount',
+                name: 'amount',
             },
             {
-                data: 'delivery_charges',
-                name: 'delivery_charges',
+                data: 't_basic_charges',
+                name: 't_basic_charges',
             },
             {
                 data: 'view',

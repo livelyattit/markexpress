@@ -29,32 +29,27 @@
                     <div class="col-6">
                         <div class="parcel-info-wrapper">
                             <h5>Consignee Details</h5>
-                            @php
-                                $addresslog = json_decode($parcel->binded_addresslog, true) ;
-                            @endphp
                             <ul>
-                                <li><span>Consignee:</span> <strong>{{$addresslog['addresslog_info']['consignee_alias']}}</strong></li>
-                                <li><span>Name:</span> <strong>{{$addresslog['addresslog_info']['consignee_name']}}</strong></li>
-                                <li><span>Address:</span> <strong>{{$addresslog['addresslog_info']['consignee_address']}}</strong></li>
-                                <li><span>Nearby:</span> <strong>{{$addresslog['addresslog_info']['consignee_nearby_address']}}</strong></li>
-                                <li><span>City:</span> <strong>{{$addresslog['city']['city_name']}}</strong></li>
-                                <li><span>Estimated Delivery Time:</span> <strong>{{$addresslog['city']['delivery_time']}}</strong></li>
+                                <li><span>Consignee:</span> <strong>{{$parcel->consignee_name}}</strong></li>
+                                <li><span>Name:</span> <strong>{{$parcel->consignee_name}}</strong></li>
+                                <li><span>Address:</span> <strong>{{$parcel->consignee_address}}</strong></li>
+                                <li><span>Nearby:</span> <strong>{{$parcel->consignee_nearby_address}}</strong></li>
+                                <li><span>City:</span> <strong>{{$parcel->city->city_name}}</strong></li>
+                                <li><span>Estimated Delivery Time:</span> <strong>{{$parcel->city->delivery_time}}</strong></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="parcel-info-wrapper">
                             <h5>Payment Details</h5>
-                            @php
-                                $addresslog = json_decode($parcel->binded_addresslog, true) ;
-                            @endphp
+
                             <ul>
-                                <li><span>Consignee:</span> <strong>{{$addresslog['addresslog_info']['consignee_alias']}}</strong></li>
-                                <li><span>Name:</span> <strong>{{$addresslog['addresslog_info']['consignee_name']}}</strong></li>
-                                <li><span>Address:</span> <strong>{{$addresslog['addresslog_info']['consignee_address']}}</strong></li>
-                                <li><span>Nearby:</span> <strong>{{$addresslog['addresslog_info']['consignee_nearby_address']}}</strong></li>
-                                <li><span>City:</span> <strong>{{$addresslog['city']['city_name']}}</strong></li>
-                                <li><span>Estimated Delivery Time:</span> <strong>{{$addresslog['city']['delivery_time']}}</strong></li>
+                                <li><span>Consignee:</span> <strong>{{$parcel->consignee_name}}</strong></li>
+                                <li><span>Name:</span> <strong>{{$parcel->consignee_name}}</strong></li>
+                                <li><span>Address:</span> <strong>{{$parcel->consignee_address}}</strong></li>
+                                <li><span>Nearby:</span> <strong>{{$parcel->consignee_nearby_address}}</strong></li>
+                                <li><span>City:</span> <strong>{{$parcel->city->city_name}}</strong></li>
+                                <li><span>Estimated Delivery Time:</span> <strong>{{$parcel->city->delivery_time}}</strong></li>
                             </ul>
                         </div>
                     </div>

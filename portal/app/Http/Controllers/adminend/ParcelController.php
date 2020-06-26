@@ -105,7 +105,82 @@ class ParcelController extends Controller
                 break;
 
             case 'parcel_details':
-                //
+
+                //addresslog update
+                $validator = Validator::make($inputs,[
+                    'user_account'=>'required|exists:App\User,id',
+                    //'consignee_alias'=>'required|unique:addresslogs,consignee_alias,NULL,id,user_id,'. Auth::user()->id,
+                    'consignee_name'=>'required|max:190',
+                    'consignee_number'=>['required', new PhoneNumber()],
+                    'consignee_city'=>'required|not_in:0',
+                    'consignee_address'=>'required|max:100',
+                    'consignee_nearby_address'=>'max:100',
+
+                    //'addresslog_id'=>'required|exists:addresslogs,id,user_id,'. Auth::user()->id,
+                    'weight'=>'sometimes|nullable|numeric|min:1|max:50',
+                    'length'=>'sometimes|nullable|numeric|min:1|max:150',
+                    'width'=>'sometimes|nullable|numeric|min:1|max:150',
+                    'height'=>'sometimes|nullable|numeric|min:1|max:150',
+                    'cod_amount'=>'required|numeric|min:100|max:9900000',
+                    't_basic_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
+                    't_booking_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
+                    't_cash_handling_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
+                    't_packing_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
+                ], [
+                    'consignee_alias.unique'=>'Alias already taken in your address log.',
+                ] );
+                if($validator->fails()){
+                    return back()
+                        ->withErrors($validator)
+                        ->withInput($inputs);
+                }
+
+                dd($inputs);
+
+                $address_log = Addresslog::where('id', $inputs['user_account'])
+                ->update([
+                    'user_id'=>$inputs['user_account'],
+                    'city_id'=>$inputs['consignee_city'],
+                    'consignee_alias'=>$inputs['consignee_alias'],
+                    'consignee_name'=>$inputs['consignee_name'],
+                    'consignee_contact'=>$inputs['consignee_number'],
+                    'consignee_address'=>$inputs['consignee_address'],
+                    'consignee_nearby_address'=>$inputs['consignee_nearby_address'],
+                    'created_by'=>'is_admin'
+                ]);
+
+                $binded_address = Addresslog::find($address_log->id)->toArray();
+                $binded_city = Addresslog::find($address_log->id)->city->toArray();
+
+                $ff = [
+                    'addresslog_info'=>$binded_address,
+                    'city'=>$binded_city,
+                ];
+
+                $parcel = Parcel::create([
+                    'user_id'=>$inputs['user_account'],
+                    'addresslog_id'=>$address_log->id,
+                    'assigned_parcel_number'=>null,
+                    'binded_addresslog'=>json_encode($ff),
+                    'current_last_status'=>'shipment created',
+                    'amount'=>$inputs['cod_amount'],
+                    //'t_basic_charges'=>$binded_city['initial_weight_price'],
+                    't_basic_charges'=>$inputs['t_basic_charges'],
+                    't_booking_charges'=>$inputs['t_booking_charges'],
+                    't_cash_handling_charges'=>$inputs['t_cash_handling_charges'],
+                    't_packing_charges'=>$inputs['t_packing_charges'],
+                    'weight'=>$inputs['weight'],
+                    'length'=>$inputs['length'],
+                    'height'=>$inputs['height'],
+                    'assigned_tracking_number'=>null,
+                ]);
+                $parcel->status()->attach(1);
+                $parcel->save();
+
+                $parcel->refresh();
+
+                return redirect()->route('admin-parcel', ['view',$parcel->id ])->with('success', '<strong>Parcel# '.$parcel->assigned_parcel_number.'</strong>  edited successfully');
+
                 break;
 
         }
