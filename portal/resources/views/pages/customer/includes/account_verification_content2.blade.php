@@ -54,10 +54,16 @@
                                 <h4>Bank Account Details</h4>
                                 <div class="form-group">
                                     <label>Bank Name</label>
-                                    <input required value="{{old('bank_name')}}" type="text" class="bod form-control" name="bank_name" placeholder="Your Bank Name">
+                                    <select required class="bod form-control" name="bank_name">
+                                        <option style="display: none" value="">Your Bank Name</option>
+                                        @foreach($banks as $bank_value => $bank_name)
+                                            <option @if(old('bank_name') == $bank_value) selected="selected" @endif value="{{$bank_value}}">{{$bank_name}}</option>
+                                        @endforeach
+                                    </select>
                                     @if($errors->has('bank_name'))
                                         <span class="alert alert-danger">{{$errors->first('bank_name')}}</span>
                                     @endif
+
                                 </div>
                                 <div class="form-group">
                                     <label>Bank Account Title</label>

@@ -31,29 +31,48 @@
                             <h3>CREATE PARCEL</h3>
                             <form onsubmit=" var cc = document.querySelector('.btn-in-submit');cc.setAttribute('disabled', 'disabled');cc.value='Please Wait..'" id="parcel-create-form" class="parcel-form form-in" action="{{route('parcel.store')}}" method="post">
                                 @csrf
-                                        <div class="form-group row">
-                                            <div class="col-7">
-                                                <label>Consignee</label>
-                                                <select data-placeholder="Select Consignee" required name="addresslog_id"   class="form-control select-js select-consignee">
-                                                    <option value="" style="display: none"></option>
-                                                    @foreach($user_details->addressLog as $address)
-                                                        <option @if(old('addresslog_id') == $address->id) selected="selected" @endif value="{{$address->id}}">{{$address->consignee_contact}} - {{ucwords($address->consignee_alias)}} - {{$address->city->city_name}} - ({{$address->consignee_address}})</option>
-                                                    @endforeach
-                                                </select>
-                                                @if($errors->has('addresslog_id'))
-                                                    <span class="alert alert-danger">{{$errors->first('addresslog_id')}}</span>
-                                                @endif
-                                            </div>
-                                            <div class="col-5">
-                                                <label>Or</label>
-                                                <div class="or-add-consignee">
-                                                    <a class="btn btn-outline-success" href="{{route('address-log.create')}}"><i class="fad fa-user-plus"></i> Add New Consignee</a></div>
-                                            </div>
-                                        </div>
                                 <div class="form-group">
-                                    <div class="selected-consignee-wrapper"></div>
+                                    <label>Consignee Name</label>
+                                    <input required name="consignee_name" value="{{old('consignee_name')}}"   type="text" placeholder="Full Name"  class="form-control">
+                                    @if($errors->has('consignee_name'))
+                                        <span class="alert alert-danger">{{$errors->first('consignee_name')}}</span>
+                                    @endif
                                 </div>
-
+                                <div class="form-group">
+                                    <label>Consignee Contact</label>
+                                    <input required name="consignee_contact" value="{{old('consignee_contact')}}"   type="tel" placeholder="e.g 03111234567"  class="form-control">
+                                    @if($errors->has('consignee_contact'))
+                                        <span class="alert alert-danger">{{$errors->first('consignee_contact')}}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>City (With Delivery Time)</label>
+                                    <select data-placeholder="Select City" required name="consignee_city"   class="form-control select-js">
+                                        <option value="" style="display: none"></option>
+                                        @foreach($cities as $city)
+                                            @if($city->is_enabled ==1)
+                                                <option @if(old('consignee_city') == $city->id) selected="selected" @endif value="{{$city->id}}">{{$city->city_name}} ({{$city->delivery_time}})</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('consignee_city'))
+                                        <span class="alert alert-danger">{{$errors->first('consignee_city')}}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>Consignee Address</label>
+                                    <input required name="consignee_address" value="{{old('consignee_address')}}"   type="text" placeholder="Complete Address"  class="form-control">
+                                    @if($errors->has('consignee_address'))
+                                        <span class="alert alert-danger">{{$errors->first('consignee_address')}}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>Nearby Location</label>
+                                    <input required  name="consignee_nearby_address" value="{{old('consignee_nearby_address')}}"  type="text" placeholder="A nearby location"  class="form-control">
+                                    @if($errors->has('consignee_nearby_address'))
+                                        <span class="alert alert-danger">{{$errors->first('consignee_nearby_address')}}</span>
+                                    @endif
+                                </div>
                                 <div class="form-group">
                                     <label>Cod Amount</label>
                                     <input autocomplete="off" required name="cod_amount" value="{{old('cod_amount')}}"   type="number" placeholder="Enter Amount e.g 1000"  class="form-control fn-number">
@@ -62,18 +81,19 @@
                                         <span class="alert alert-danger">{{$errors->first('cod_amount')}}</span>
                                     @endif
                                 </div>
+                                <div class="row form-group">
+                                    <div class="col-12">
+                                        <label>Weight in Kgs.</label>
+                                        <input required step="1"  min="1" max="50" name="weight" value="{{old('weight')}}"   type="number" placeholder="Enter Weight e.g 10"  class="form-control">
+                                        @if($errors->has('weight'))
+                                            <span class="alert alert-danger">{{$errors->first('weight')}}</span>
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="d-none optional-fields-wrapper">
                                     <hr>
                                     <h4>Optional Fields</h4>
-                                    <div class="row form-group">
-                                            <div class="col-12">
-                                                <label>Weight in Kgs.</label>
-                                                <input step="1"  min="1" max="50" name="weight" value="{{old('weight')}}"   type="number" placeholder="Enter Weight e.g 10"  class="form-control">
-                                                @if($errors->has('weight'))
-                                                    <span class="alert alert-danger">{{$errors->first('weight')}}</span>
-                                                @endif
-                                            </div>
-                                    </div>
+
                                     <div class="row form-group">
                                         <div class="col-12">
                                             <label>Length in Cm.</label>

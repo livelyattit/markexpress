@@ -71,13 +71,11 @@ class ParcelController extends Controller
         $body_class = 'page-dashboard page-dashboard-customer';
         $page_title = 'Create Parcel';
 
-        $user_details = User::with(['addressLog'=>function($q){
-            return $q->where('created_by', '=', 'is_customer');
-        }])->find(Auth::user()->id);
+        $cities = City::orderBy('city_name')->get();
         return view('pages.customer.parcel-create', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,
-            'user_details'=>$user_details,
+            'cities'=>$cities,
 
         ]);
     }
@@ -92,7 +90,6 @@ class ParcelController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input,[
-            'addresslog_id'=>'required|exists:addresslogs,id,user_id,'. Auth::user()->id,
             'weight'=>'sometimes|nullable|numeric|min:1|max:50',
             'length'=>'sometimes|nullable|numeric|min:1|max:150',
             'width'=>'sometimes|nullable|numeric|min:1|max:150',
@@ -105,23 +102,29 @@ class ParcelController extends Controller
                 ->withInput($input);
         }
 
-        $addresslog = Addresslog::find($input['addresslog_id']);
 
 
+        $city = City::find($input['consignee_city']);
+        $cash_handling_amount = 0;
+        $cash_handling_message = '';
+        if($input['cod_amount'] >= 5000){
+            $cash_handling_amount = ($input['cod_amount'] * 1) / 100; //1 percent amount if charges exceeds 5000
+            $cash_handling_amount = round($cash_handling_amount);
+            $cash_handling_message = ' 1% <strong>(Rs. '.$cash_handling_amount. ')</strong> is deducted as cash handling charges.';
+        }
         $parcel = Parcel::create([
             'user_id'=>Auth::user()->id,
-            'addresslog_id'=>$input['addresslog_id'],
             'assigned_parcel_number'=>null,
-            'city_id'=>$addresslog->city_id,
-            'consignee_name'=>$addresslog->consignee_name,
-            'consignee_contact'=>$addresslog->consignee_contact,
-            'consignee_address'=>$addresslog->consignee_address,
-            'consignee_nearby_address'=>$addresslog->consignee_nearby_address,
+            'city_id'=>$input['consignee_city'],
+            'consignee_name'=>$input['consignee_name'],
+            'consignee_contact'=>$input['consignee_contact'],
+            'consignee_address'=>$input['consignee_address'],
+            'consignee_nearby_address'=>$input['consignee_nearby_address'],
             'current_last_status'=>'shipment created',
             'amount'=>$input['cod_amount'],
-            't_basic_charges'=>$addresslog->city->initial_weight_price,
+            't_basic_charges'=>$city->initial_weight_price,
             't_booking_charges'=>null,
-            't_cash_handling_charges'=>null, //null for now .. will change to charge 1% for exceeding cod_amount >= 5000
+            't_cash_handling_charges'=>$cash_handling_amount,
             't_packing_charges'=>null,
             'weight'=>$input['weight'],
             'length'=>$input['length'],
@@ -134,7 +137,8 @@ class ParcelController extends Controller
         $parcel->assigned_parcel_number = $parcel_number;
         $parcel->save();
 
-        return back()->with('success', '<strong>Parcel#'.$parcel->assigned_parcel_number.'</strong>  created successfully');
+
+        return back()->with('success', '<strong>Parcel#'.$parcel->assigned_parcel_number.'</strong>  created successfully.' . $cash_handling_message);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Addresslog;
 use App\City;
+use App\Parcel;
 use App\Rules\ConsigneeAliasRule;
 use App\Rules\PhoneNumber;
 use App\DataTables\AddressLog as DAddressLog;
@@ -81,6 +82,8 @@ class AddresslogController extends Controller
             'consignee_city'=>'required|not_in:0',
             'consignee_address'=>'required|max:100',
             'consignee_nearby_address'=>'max:100',
+            'cod_amount'=>'required|numeric|min:100|max:9900000',
+            'weight'=>'sometimes|nullable|numeric|min:1|max:50',
         ], [
            // 'consignee_alias.unique'=>'Alias already taken in your address log.',
         ] );
@@ -100,6 +103,33 @@ class AddresslogController extends Controller
             'consignee_nearby_address'=>$input['consignee_nearby_address'],
             'created_by'=>'is_customer',
         ]);
+
+
+        $parcel = Parcel::create([
+            'user_id'=>Auth::user()->id,
+            'assigned_parcel_number'=>null,
+            'city_id'=>$address_log->city_id,
+            'consignee_name'=>$address_log->consignee_name,
+            'consignee_contact'=>$address_log->consignee_contact,
+            'consignee_address'=>$address_log->consignee_address,
+            'consignee_nearby_address'=>$address_log->consignee_nearby_address,
+            'current_last_status'=>'shipment created',
+            'amount'=>$input['cod_amount'],
+            't_basic_charges'=>$address_log->city->initial_weight_price,
+            't_booking_charges'=>null,
+            't_cash_handling_charges'=>null, //null for now .. will change to charge 1% for exceeding cod_amount >= 5000
+            't_packing_charges'=>null,
+            'weight'=>$input['weight'],
+            'length'=>$input['length'],
+            'height'=>$input['height'],
+            'assigned_tracking_number'=>null,
+        ]);
+        $parcel->status()->attach(1);
+
+        $parcel_number = 1000 + $parcel->id;
+        $parcel->assigned_parcel_number = $parcel_number;
+        $parcel->save();
+
 
         return back()->with('success', 'Consignee <strong>'.$address_log->consignee_name.'</strong> has been added successfully');
     }
