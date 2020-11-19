@@ -60,8 +60,8 @@ $app->singleton(
 if(isset($_SERVER['HTTP_HOST'])){
 
     switch($_SERVER['HTTP_HOST']){
-    case 'markexpress.local':
-        $app->loadEnvironmentFrom('.env.local');		
+    case 'markplan.local':
+        $app->loadEnvironmentFrom('.env.local');
     break;
     case 'markplan.techygeek.co':
         $app->loadEnvironmentFrom('.env');
