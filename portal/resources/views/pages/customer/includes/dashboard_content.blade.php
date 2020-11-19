@@ -12,7 +12,7 @@
                 </div>
 
         </div>
-        <div class="row">
+        <div class="row intro-section">
             <div class="col-12">
                 @if(Session::has('success'))
                     <div class="alert alert-success">
@@ -24,66 +24,44 @@
                         @endphp
                     </div>
                 @endif
-                <div class="parcel-welcome">
-                    <div class="parcel-welcome-header">
-                        <h4>Welcome to <span class="logo-green">Mark</span> <span class="logo-blue">Express</span> <strong>{{ucwords($user_details->name)}}</strong></h4>
-                        @if($user_details->addressLog->isEmpty() && $user_details->parcel->isEmpty())
-                            <p class="no-parcel-note">You have not created any parcel yet. Feel free to get started with us.</p>
-                        @else
-                            <div class="create-parcel-btn-wrapper">
-                                    <p>Get Started</p>
-                                    <div class="btn-add-consignee-wrapper text-center">
-                                        <a class="btn btn-info btn-round btn-outline-success btn-create-parcel" href="{{route('parcel.create')}}">Create the Parcel</a>
-                                        <h6>OR</h6>
-                                        <a class="btn btn-info btn-round btn-outline-success btn-add-consignee" href="{{route('address-log.create')}}">Add New Consignee</a>
-                                    </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="parcel-welcome">
+                            <div class="parcel-welcome-header">
+                                <h6>WELCOME</h6>
+                                <h1><strong>{{ucwords(Auth::user()->name)}}</strong></h1>
                             </div>
-
-                        @endif
-                        @if($user_details->addressLog->isEmpty())
-                        <a href="{{route('address-log.create')}}">Add your Consignee Information</a>
-                        @endif
-
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        Chart Here
                     </div>
                 </div>
-{{--                @if(!$user_details->parcel->isEmpty())--}}
-{{--                    @foreach($user_details->parcel as $parcel)--}}
-{{--                        @foreach($parcel->status as $status)--}}
-{{--                            {{$status->status }}<br>--}}
-{{--                        @endforeach--}}
-{{--                    @endforeach--}}
-{{--                @endif--}}
-
 
 
             </div>
         </div>
-        @if(!$user_details->addressLog->isEmpty())
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="dashboard-heading">ADDRESS LOG</h2>
-                    <div class="table-responsive">
-                        <table id="addresslog_table" class="table table-bordered table-hover display responsive nowrap">
-                            <thead>
-                            <tr>
-{{--                                <th>Consignee Alias</th>--}}
-                                <th>Full Name</th>
-                                <th>Contact</th>
-                                <th>Address</th>
-                                <th>Nearby</th>
-                                <th>City (Delivery Time)</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
 
+        @if(!Auth::user()->parcel->isEmpty())
+            <div class="row">
+                <div class="col-4">
+                    <div class="parcels-status-box today">
+                        <h3>Today Parcels <span>{{$count_today_bookings}}</span></h3>
+
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="parcels-status-box weekly">
+                        <h3>Weekly Parcels <span>{{$count_weekly_bookings}}</span></h3>
+
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="parcels-status-box monthly">
+                        <h3>Monthly Parcels <span>{{$count_monthly_bookings}}</span></h3>
+                    </div>
                 </div>
             </div>
-        @endif
-
-        @if(!$user_details->parcel->isEmpty())
             <div class="row">
                 <div class="col-12">
                     <h2 class="dashboard-heading">PARCELS</h2>

@@ -68,13 +68,62 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Nearby Location (Optional)</label>
-                                    <input  name="consignee_nearby_address" value="{{old('consignee_nearby_address')}}"  type="text" placeholder="Any nearby location if necessary"  class="form-control">
+                                    <label>Nearby Location</label>
+                                    <input required  name="consignee_nearby_address" value="{{old('consignee_nearby_address')}}"  type="text" placeholder="A nearby location"  class="form-control">
                                     @if($errors->has('consignee_nearby_address'))
                                         <span class="alert alert-danger">{{$errors->first('consignee_nearby_address')}}</span>
                                     @endif
                                 </div>
 
+                                <div class="form-group">
+                                    <label>Cod Amount</label>
+                                    <input autocomplete="off" required name="cod_amount" value="{{old('cod_amount')}}"   type="number" placeholder="Enter Amount e.g 1000"  class="form-control fn-number">
+                                    <div class="fn-number-words"></div>
+                                    @if($errors->has('cod_amount'))
+                                        <span class="alert alert-danger">{{$errors->first('cod_amount')}}</span>
+                                    @endif
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-12">
+                                        <label>Weight in Kgs.</label>
+                                        <input required step="1"  min="1" max="50" name="weight" value="{{old('weight')}}"   type="number" placeholder="Enter Weight e.g 10"  class="form-control">
+                                        @if($errors->has('weight'))
+                                            <span class="alert alert-danger">{{$errors->first('weight')}}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="d-none optional-fields-wrapper">
+                                    <hr>
+                                    <h4>Optional Fields</h4>
+
+                                    <div class="row form-group">
+                                        <div class="col-12">
+                                            <label>Length in Cm.</label>
+                                            <input step="1" min="1" max="150" name="length" value="{{old('length')}}"   type="number" placeholder="Enter Length e.g 110"  class="form-control">
+                                            @if($errors->has('length'))
+                                                <span class="alert alert-danger">{{$errors->first('length')}}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-12">
+                                            <label>Width in Cm.</label>
+                                            <input step="1"  min="1" max="150" name="width" value="{{old('width')}}"   type="number" placeholder="Enter Width e.g 110"  class="form-control">
+                                            @if($errors->has('width'))
+                                                <span class="alert alert-danger">{{$errors->first('width')}}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-12">
+                                            <label>Height in Cm.</label>
+                                            <input step="1"  min="1" max="150" name="height" value="{{old('height')}}"   type="number" placeholder="Enter Height e.g 110"  class="form-control">
+                                            @if($errors->has('height'))
+                                                <span class="alert alert-danger">{{$errors->first('height')}}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group text-center">
                                     <input type="submit" value="Save Consignee" class="btn btn-success btn-round btn-in-submit">
                                 </div>

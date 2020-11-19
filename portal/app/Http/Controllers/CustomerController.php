@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Accountdetail;
 use App\City;
 use App\Customer;
+use App\Parcel;
 use App\User;
 use App\UserPersonalData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -25,14 +27,51 @@ class CustomerController extends UserController
         $body_class = 'page-dashboard page-dashboard-customer';
         $page_title = 'Dashboard';
         $cities = City::orderBy('city_name')->get();
+        $banks = [
+            'Al Baraka Bank (Pakistan) Limited.'=>'Al Baraka Bank (Pakistan) Limited.',
+            'Allied Bank Limited.'=>'Allied Bank Limited.',
+            'Askari Bank Limited.'=>'Askari Bank Limited.',
+            'Bank Alfalah Limited.'=>'Bank Alfalah Limited.',
+            'Bank Al-Habib Limited.'=>'Bank Al-Habib Limited.',
+            'Bank Islami Pakistan Limited.'=>'Bank Islami Pakistan Limited.',
+            'Al Baraka Bank (Pakistan) Limited.'=>'Al Baraka Bank (Pakistan) Limited.',
+            'Burj Bank Limited.'=>'Burj Bank Limited.',
+            'Citi Bank N.A.'=>'Citi Bank N.A.',
+            'Deutsche Bank A.G.'=>'Deutsche Bank A.G.',
+            'Faysal Bank Limited.'=>'Faysal Bank Limited.',
+            'Habib Bank Limited.'=>'Habib Bank Limited.',
+            'Habib Metropolitan Bank Limited.'=>'Habib Metropolitan Bank Limited.',
+            'JS Bank Limited.'=>'JS Bank Limited.',
+            'MCB Bank Limited.'=>'MCB Bank Limited.',
+            'MCB Islamic Bank Limited.'=>'MCB Islamic Bank Limited.',
+            'Meezan Bank Limited.'=>'Meezan Bank Limited.',
+            'National Bank of Pakistan.'=>'National Bank of Pakistan.',
+            'NIB Bank Limited.'=>'NIB Bank Limited.',
+            'S.M.E. Bank Limited.'=>'S.M.E. Bank Limited.',
+            'Samba Bank Limited.'=>'Samba Bank Limited.',
+            'Silk Bank Limited.'=>'Silk Bank Limited.',
+            'Sindh Bank Limited.'=>'Sindh Bank Limited.',
+            'Soneri Bank Limited.'=>'Soneri Bank Limited.',
+            'Standard Chartered Bank (Pakistan) Limited.'=>'Standard Chartered Bank (Pakistan) Limited.',
+            'Summit Bank Limited.'=>'Summit Bank Limited.',
+            'The Bank of Khyber.'=>'The Bank of Khyber.',
+            'The Bank of Punjab.'=>'The Bank of Punjab.',
+            'UBL - United Bank Limited.'=>'UBL - United Bank Limited.',
+        ];
+        $count_today_bookings = Parcel::where('user_id', Auth::user()->id)->whereDate('created_at', Carbon::today())->count();
 
-        $user_details = Customer::with('parcel', 'addressLog', 'role', 'personalData')->find(Auth::user()->id);
+        $count_weekly_bookings = Parcel::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(Carbon::MONDAY), Carbon::now()->endOfWeek(Carbon::SUNDAY)])->count();
+
+        $count_monthly_bookings = Parcel::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+
         return view('pages.customer.dashboard', [
             'body_class'=>$body_class,
             'page_title'=>$page_title,
-            'user_details'=>$user_details,
             'cities'=>$cities,
-            //'user_personal_data'=>$user_personal_data
+            'banks'=>$banks,
+            'count_today_bookings'=>$count_today_bookings,
+            'count_weekly_bookings'=>$count_weekly_bookings,
+            'count_monthly_bookings'=>$count_monthly_bookings,
         ]);
 
     }

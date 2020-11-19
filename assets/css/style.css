@@ -973,11 +973,11 @@ form#customer-verification-proceed-form button {height: 50px;padding: 10px;width
 }
 
 section#dashboard-parcels .container {
-  background: rgba(245, 255, 244, 0.5803921568627451);
+  background: #fff;
   padding-top: 70px;
   padding-bottom: 70px;
-  text-align: center;
-  border: 1px solid rgb(157, 225, 153);
+  text-align: left;
+  /* border: 1px solid rgb(157, 225, 153); */
   border-radius: 6px;
   position: relative;
 }
@@ -1115,6 +1115,11 @@ h2.dashboard-heading {
   font-size: 20px;
   font-weight: 800;
   color: rgb(52, 58, 64);
+}
+
+section#dashboard-parcels .intro-section {
+  padding-top: 50px;
+  padding-bottom: 60px;
 }
 
 div#parcels_table_wrapper {

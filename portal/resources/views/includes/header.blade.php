@@ -3,16 +3,21 @@
             <div class="container">
               <div class="row">
                 <div class="col-12 text-center">
+                @guest
                   <a class="logo-header" href="{{route('home')}}">
                     <img src="{{asset("assets/img/MARK-EXPRESS-LOGO.png")}}" />
                   </a>
+                @else
+                    <a class="logo-header" href="{{route('customer-dashboard')}}">
+                        <img src="{{asset("assets/img/MARK-EXPRESS-LOGO.png")}}" />
+                    </a>
+                @endguest
                 </div>
               </div>
               <div class="left-side">
                 <div class="row">
                     <div class="col-12">
                         <ul>
-                            <li><i class="fad fa-box"></i><a href="#">Create Your Parcel</a></li>
                             <li><i class="fad fa-file-alt"></i><a data-toggle="modal" data-target="#enquire-now-modal" href="javascript:;">Enquire Now</a></li>
                         </ul>
                     </div>
@@ -33,7 +38,11 @@
           <div class="header-primary">
             <div class="container">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="{{route('home')}}">Mark Express</a>
+                  @guest
+                      <a class="navbar-brand" href="{{route('home')}}">Mark Express</a>
+                  @else
+                      <a class="navbar-brand" href="{{route('customer-dashboard')}}">Mark Express</a>
+                  @endguest
                 <button
                   class="navbar-toggler"
                   type="button"
