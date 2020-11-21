@@ -63,7 +63,9 @@ Route::prefix('customer')->group(function () {
 
 Route::domain(env('ADMIN_URL'))->group(function() {
 
-    // slash is necessary before every route
+    Route::get('file/{authid}/{location}/{filename}', 'HelperController@getContentFile')->where([
+        'filename' => '^[^/]+$'
+    ])->name('content');
 
     Route::get('login', 'AdminLoginController@showLoginForm')->name('admin-users');
 
