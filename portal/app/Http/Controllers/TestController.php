@@ -26,6 +26,9 @@ class TestController extends Controller
     public function index()
     {
 
+        echo env('APP_ENV');
+        return ;
+
         $response = Http::get('https://cod.callcourier.com.pk/api/CallCourier/GetTackingHistory?cn=03032-01-010607575');
 
         echo "<pre>";

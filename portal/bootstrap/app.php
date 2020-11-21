@@ -57,21 +57,26 @@ $app->singleton(
 
 // die($_SERVER['HTTP_HOST']);
 
-if(isset($_SERVER['HTTP_HOST'])){
+// if(isset($_SERVER['HTTP_HOST'])){
 
-    switch($_SERVER['HTTP_HOST']){
-    case 'markplan.local':
-        $app->loadEnvironmentFrom('.env.local');
-    break;
-    case 'markplan.techygeek.co':
-        $app->loadEnvironmentFrom('.env');
-    break;
-    default:
-	$app->loadEnvironmentFrom('.env');
-	break;
-};
+//     $url = $_SERVER['HTTP_HOST'];
 
-}
+
+
+//     if(strpos($_SERVER['HTTP_HOST'], "markplan.local")){
+
+//         //echo "loading local file";
+//         $app->loadEnvironmentFrom('.env.local');
+//         //echo env("CC");
+//     }
+
+//     else if(strpos($_SERVER['HTTP_HOST'], "markexpress.pk")){
+
+//         $app->loadEnvironmentFrom('.env');
+
+//     }
+
+// }
 
 
 return $app;

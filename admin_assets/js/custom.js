@@ -21,7 +21,7 @@ $('#ajax-accounts').select2({
     },
     minimumInputLength:2,
     ajax: {
-        url: '/admin/ajax/customers',
+        url: '/ajax/customers',
         dataType: 'json',
         delay: 250,
         processResults: function (data) {
@@ -79,7 +79,7 @@ $("#form-login").submit(function (e) {
         type: 'POST',
         dataType: 'JSON',
         data: form.serialize(),
-        url: '/admin/login/owner',
+        url: '/login/owner',
         beforeSend: function () {
 
             clicked_button
@@ -110,7 +110,7 @@ $("#form-login").submit(function (e) {
                     .addClass('success')
                     .html('Redirecting You In..');
 
-                window.location.href = redirect_url;
+              //  window.location.href = redirect_url;
 
 
             }, 1200);
@@ -157,7 +157,7 @@ var users_datatable =  $('#users_table').DataTable({
     responsive:false,
     bAutoWidth: false,
     ajax: {
-        url: "/admin/user/all",
+        url: "/user/all",
     },
     columns: [
         {
@@ -233,7 +233,7 @@ var parcels_datatable =  $('#parcels_table').DataTable({
     //     leftColumns: 2
     // },
     ajax: {
-        url: "/admin/parcel/all",
+        url: "/parcel/all",
     },
     columns: [
         {
@@ -344,7 +344,7 @@ $('.js-copy').click(function() {
 
 // jQuery
 $("#form-upload-bill").dropzone({
-    url: "/admin/file-upload-bill" ,
+    url: "/file-upload-bill" ,
     acceptedFiles: ".jpeg,.jpg,.png,.gif",
     addRemoveLinks: false,
     uploadMultiple: false,
@@ -366,7 +366,7 @@ $("#form-upload-bill").dropzone({
 });
 
 $("#form-upload-cnic").dropzone({
-    url: "/admin/file-upload-cnic" ,
+    url: "/file-upload-cnic" ,
     acceptedFiles: ".jpeg,.jpg,.png,.gif",
     addRemoveLinks: false,
     uploadMultiple: false,
@@ -415,7 +415,7 @@ $('.btn-delete-user').on('click', function (e) {
                     },
                     success:function(response){
                         if(response.data == 'success'){
-                            window.location.href ='/admin/user/all';
+                            window.location.href ='/user/all';
                         }
                     },
                     error:function(){}
@@ -468,7 +468,7 @@ $(document).on('change', '.parcel-status-change', function () {
                             parcels_datatable.row(row).data(data).draw();
                         });
                         // if(response.data == 'success'){
-                        //     window.location.href ='/admin/user/all';
+                        //     window.location.href ='/user/all';
                         // }
                     },
                     error:function(){

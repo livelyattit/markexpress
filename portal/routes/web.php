@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::domain(env('SITE_URL'))->group(function() {
+
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/about', 'HomeController@about')->name('about');
@@ -27,9 +30,10 @@ Route::get('/test/user-info', "TestController@getUserRole");
 
 // Customer Routes
 
-Route::middleware(['customer'])->group(function () {
+Route::prefix('customer')->group(function () {
 
-    Route::prefix('customer')->group(function () {
+    Route::middleware(['customer'])->group(function () {
+
 
         Route::get('dashboard', 'CustomerController@index')->name('customer-dashboard');
         Route::get('edit-profile', 'CustomerController@editProfile')->name('customer-edit-profile');
@@ -50,11 +54,21 @@ Route::middleware(['customer'])->group(function () {
     Route::post('/parcel/get-consignee', 'ParcelController@getConsignee')->name('parcel-get-consignee');
 });
 
-Route::prefix('admin')->group(function () {
+
+});
+
+
+
+
+
+Route::domain(env('ADMIN_URL'))->group(function() {
+
+    // slash is necessary before every route
 
     Route::get('login', 'AdminLoginController@showLoginForm')->name('admin-users');
+
     Route::post('login/owner', 'AdminLoginController@login')->name('admin-owner-login');
-    Route::middleware(['admin'])->group(function () {
+    //Route::middleware(['admin'])->group(function () {
         Route::get('dashboard', 'AdminController@index')->name('admin-dashboard');
 
         // users routes
@@ -67,7 +81,7 @@ Route::prefix('admin')->group(function () {
 
         Route::match(['get', 'post'], 'csv/upload', 'AdminController@csv')->name('admin-csv');
         Route::get('ajax/customers', 'AdminController@ajaxUsersList')->name('admin-customers-list');
-    });
+    //});
 });
 
 

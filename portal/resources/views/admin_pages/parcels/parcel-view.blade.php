@@ -128,15 +128,15 @@
                     <div class="card-body">
                         <h5 class="card-title">Consignee Details</h5>
                         @php
-                            $addresslog = json_decode($parcel_details->binded_addresslog, true) ;
+                        //    $addresslog = json_decode($parcel_details->binded_addresslog, true) ;
                         @endphp
-                        <ul class="view-details btn-clipboards">
+                        {{-- <ul class="view-details btn-clipboards">
                             <li>Name: <strong>{{$addresslog['addresslog_info']['consignee_name'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_name'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
                             <li>Address: <strong>{{$addresslog['addresslog_info']['consignee_address'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_address'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
                             <li>Nearby: <strong>{{$addresslog['addresslog_info']['consignee_nearby_address']}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['addresslog_info']['consignee_nearby_address'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
                             <li>City: <strong>{{$addresslog['city']['city_name'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['city']['city_name'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
                             <li>Estimated Delivery Time: <strong>{{$addresslog['city']['delivery_time'] ?? ''}}</strong> <button type="button" class="btn btn-default btn-copy js-tooltip js-copy btn-xs" data-toggle="tooltip" data-placement="bottom" data-copy="{{$addresslog['city']['delivery_time'] ?? ''}}" title="Copy to clipboard"><span class="material-icons">file_copy</span></button></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
             </div>
@@ -164,10 +164,10 @@
                         <table class="table display table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>ConsignmentNo</th>
-                                    <th>ConsigneeName</th>
-                                    <th>ConsigneeAddress</th>
-                                    <th>ConsigneeCity</th>
+                                    <th>ConsignmentNo   </th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>City</th>
                                     <th>ContactNo</th>
                                     <th>ShipperName</th>
                                     <th>ShipperAddress</th>
@@ -198,6 +198,7 @@
                                     <td>{{$courier['ConsignmentNo']}}</td>
                                     <td>{{$courier['ConsigneeName']}}</td>
                                     <td>{{$courier['ConsigneeAddress']}}</td>
+                                    <td>{{$courier['ConsigneeCity']}}</td>
                                     <td>{{$courier['ContactNo']}}</td>
                                     <td>{{$courier['ShipperName']}}</td>
                                     <td>{{$courier['ShipperAddress']}}</td>
@@ -206,6 +207,7 @@
                                     <td>{{$courier['ProcessDescForPortal']}}</td>
                                     <td>{{$courier['ReceiverName']}}</td>
                                     <td>{{$courier['Relation']}}</td>
+                                    <td>{{$courier['ReasonDesc']}}</td>
                                     <td>{{$courier['IsPortalBooking']}}</td>
                                     <td>{{$courier['HomeBranch']}}</td>
                                     <td>{{$courier['DestBranch']}}</td>

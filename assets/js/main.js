@@ -396,7 +396,7 @@ $("#form-upload-bill").dropzone({
         bInfo: true,
         bAutoWidth: true,
         ajax: {
-            url: "/parcel",
+            url: "/customer/parcel",
         },
         order: [[ 0, "desc" ]],
         columns: [
@@ -436,6 +436,8 @@ $("#form-upload-bill").dropzone({
             },
         ]
     });
+
+    console.log(parcels_datatable.rows().data());
 
     $(document).on('click', '.btn-edit-addresslog', function () {
         let addresslog_id = $(this).data('addresslog-id');
