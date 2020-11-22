@@ -25,6 +25,12 @@ class AdminController extends Controller
     public function index(){
         return view('admin_pages.dashboard');
     }
+
+    public function showLogoutForm(){
+        return view('admin_pages.logout');
+    }
+
+
     public function user($action, $id = null, $form_name=null, Request $request){
         $user_obj = new UserAdmin();
         switch ($action){

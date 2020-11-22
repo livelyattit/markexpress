@@ -14,13 +14,6 @@ $(document).ready(function() {
         var canceled = !elem.dispatchEvent(evt);
     };
    
-    let wavesConfig = {
-        // How long Waves effect duration 
-        // when it's clicked (in milliseconds)
-        duration: 400
-    };
-   
-    Waves.init(wavesConfig);
 
     if ($('.material-design-hamburger__icon').length === 1) {
         document.querySelector('.material-design-hamburger__icon').addEventListener(
@@ -263,21 +256,10 @@ $(document).ready(function() {
         $('')
     }
     
-    const plugin_init = function(){
-        
-        // Slimscroll
-        $('.slimscroll').slimScroll({
-            wheelStep: 5
-        });
-        Waves.attach('.btn',['waves-light']);
-
-        $('[data-toggle="popover"]').popover();
-        $('[data-toggle="tooltip"]').tooltip();
-    }
+    
     
     
     search_f();
-    plugin_init();
     inputs();
     material_tabs();
 });

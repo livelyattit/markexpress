@@ -23,6 +23,6 @@ class Admin
         }
 
 
-        return redirect()->route('home');
+        return redirect()->route('admin-users');
     }
 }

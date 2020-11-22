@@ -110,7 +110,7 @@ $("#form-login").submit(function (e) {
                     .addClass('success')
                     .html('Redirecting You In..');
 
-              //  window.location.href = redirect_url;
+                window.location.href = redirect_url;
 
 
             }, 1200);
