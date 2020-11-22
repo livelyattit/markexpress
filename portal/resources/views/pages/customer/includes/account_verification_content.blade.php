@@ -25,7 +25,7 @@
                         @isset(Auth::user()->personalData->bill_file_name)
                             <div class="verification-uploaded">
                                 <h4>Your Uploaded Bill Copy</h4>
-                                <img class="verification-img" src="{{route('content',
+                                <img class="verification-img" src="{{route('content-customer',
                                  ['authid'=>Auth::user()->id,
                                  'location'=>'JP7gRq00',
                                     'filename'=>Auth::user()->personalData->bill_file_name
@@ -44,7 +44,7 @@
                         @isset(Auth::user()->personalData->cnic_file_name)
                             <div class="verification-uploaded">
                                 <h4>Your Uploaded Cnic Copy</h4>
-                                <img class="verification-img" src="{{route('content',
+                                <img class="verification-img" src="{{route('content-customer',
                                      ['authid'=>Auth::user()->id,
                                      'location'=>'lL3MgYsS',
                                         'filename'=>Auth::user()->personalData->cnic_file_name
