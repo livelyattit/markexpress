@@ -72,7 +72,7 @@
                                 @isset($user_details->personalData->bill_file_name)
                                     <h4>Uploaded Bill Copy</h4>
                                     <div class="verification-uploaded">
-                                        <img class="verification-img" src="{{route('content',
+                                        <img class="verification-img" src="{{route('content-admin',
                                  ['authid'=>$user_details->id,
                                  'location'=>'JP7gRq00',
                                     'filename'=>$user_details->personalData->bill_file_name
@@ -86,7 +86,7 @@
                                     <h4>Uploaded Cnic Copy</h4>
                                     <div class="verification-uploaded">
 
-                                        <img class="verification-img" src="{{route('content',
+                                        <img class="verification-img" src="{{route('content-admin',
                                      ['authid'=>$user_details->id,
                                      'location'=>'lL3MgYsS',
                                         'filename'=>$user_details->personalData->cnic_file_name

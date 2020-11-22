@@ -42,6 +42,39 @@
             </div>
         </div>
 
+
+        {{-- <h5 class="card-title">Personal Details</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                @isset(Auth::user()->personalData->bill_file_name)
+                                    <div class="verification-uploaded">
+                                        <h4>User Uploaded Bill Copy</h4>
+                                        <img class="verification-img" src="{{route('content-customer',
+                                 ['authid'=>Auth::user()->id,
+                                 'location'=>'JP7gRq00',
+                                    'filename'=>Auth::user()->personalData->bill_file_name
+                                 ])}}">
+                                    </div>
+
+                                @endisset
+                            </div>
+
+                            <div class="col-6">
+                                @isset(Auth::user()->personalData->cnic_file_name)
+                                    <div class="verification-uploaded">
+                                        <h4>Your Uploaded Cnic Copy</h4>
+                                        <img class="verification-img" src="{{route('content-customer',
+                                     ['authid'=>Auth::user()->id,
+                                     'location'=>'lL3MgYsS',
+                                        'filename'=>Auth::user()->personalData->cnic_file_name
+                                     ])}}">
+                                    </div>
+                                @endisset
+                            </div>
+                        </div> --}}
+
+
+
         @if(!Auth::user()->parcel->isEmpty())
             <div class="row">
                 <div class="col-4">
