@@ -39,11 +39,15 @@ Route::domain(env('SITE_URL'))->group(function() {
             Route::get('dashboard', 'CustomerController@index')->name('customer-dashboard');
             Route::get('edit-profile', 'CustomerController@editProfile')->name('customer-edit-profile');
 
+
+
+            Route::match(['get', 'post'], '/parcel/all-parcels', 'ParcelController@allParcels')->name('customer-all-parcels');
             //    addresslog
             Route::resources([
                 'address-log' => 'AddresslogController',
                 'parcel' => 'ParcelController'
             ]);
+
 
 
             // Post Routes

@@ -30,7 +30,17 @@ class ParcelController extends Controller
         //  }
         //  return;
 
-        if ($request->ajax()) {
+
+    }
+
+    public function allParcels(Request $request){
+
+        $data = Parcel::with('status', 'city')->where('user_id', Auth::user()->id)->get();
+
+        $pp = $request->all();
+        //dd($pp);
+
+        //if ($request->ajax()) {
             $data = Parcel::with('status', 'city')->where('user_id', Auth::user()->id);
             return DataTables::of($data)
                 //                ->addColumn('shipment_created',  function($data){
@@ -80,9 +90,26 @@ class ParcelController extends Controller
                         //->select("MONTHNAME(STR_TO_DATE(".$keyword.", '%m')")
                         ->whereRaw("DATE_FORMAT(created_at,'%d-%m-%Y') like ?", ["%$keyword%"]);
                 })
+                ->filter(function ($query) use ($request) {
+                    if ($request->get('from') && $request->get('to')) {
+
+                        $from = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('from') . "00:00:00")->format('Y-m-d H:i:s');
+                        $to = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('to'). "23:59:59")->format('Y-m-d H:i:s');
+
+                        //$from = $request->get('from');
+                        //$to = $request->get('to');
+
+                        //$query->where('consignee_name', '=', 'kashif raees');
+
+                    $query->whereBetween('created_at', [$from, $to]);
+                    }
+
+
+                })
                 ->rawColumns(['view'])
                 ->make(true);
-        }
+        //}
+
     }
 
     /**

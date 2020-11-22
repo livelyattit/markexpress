@@ -12,8 +12,7 @@
                 </div>
 
         </div>
-        <div class="row intro-section">
-            <div class="col-12">
+        <div class="intro-section">
                 @if(Session::has('success'))
                     <div class="alert alert-success">
                         @php
@@ -24,22 +23,44 @@
                         @endphp
                     </div>
                 @endif
+
                 <div class="row">
                     <div class="col-6">
                         <div class="parcel-welcome">
                             <div class="parcel-welcome-header">
                                 <h6>WELCOME</h6>
                                 <h1><strong>{{ucwords(Auth::user()->name)}}</strong></h1>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="parcels-status-box today">
+                                            <h5>Today Parcels: <strong>{{$count_today_bookings}}</strong></h5>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="parcels-status-box weekly">
+                                            <h5>Weekly Parcels: <strong>{{$count_weekly_bookings}}</strong></h5>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="parcels-status-box monthly">
+                                            <h5>Monthly Parcels <strong>{{$count_monthly_bookings}}</strong></h5>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        Chart Here
+                        <canvas id="myChart" width="300" height="200"></canvas>
                     </div>
                 </div>
-
-
-            </div>
         </div>
 
 
@@ -76,28 +97,23 @@
 
 
         @if(!Auth::user()->parcel->isEmpty())
-            <div class="row">
-                <div class="col-4">
-                    <div class="parcels-status-box today">
-                        <h3>Today Parcels <span>{{$count_today_bookings}}</span></h3>
 
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="parcels-status-box weekly">
-                        <h3>Weekly Parcels <span>{{$count_weekly_bookings}}</span></h3>
-
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="parcels-status-box monthly">
-                        <h3>Monthly Parcels <span>{{$count_monthly_bookings}}</span></h3>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-12">
                     <h2 class="dashboard-heading">PARCELS</h2>
+                    <form method="POST" id="search-form" class="form-inline" role="form">
+
+                        <div class="form-group">
+                            <label for="name">From</label>
+                            <input type="text" autocomplete="off" class="form-control" name="from" id="from" placeholder="search From">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">To</label>
+                            <input type="text" autocomplete="off" class="form-control" name="to" id="to" placeholder="search To">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
                     <div class="table-responsive">
                         <table id="parcels_table" class="table table-bordered table-striped">
                             <thead>

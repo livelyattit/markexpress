@@ -10,10 +10,12 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="{{asset("assets/css/bootstrap.min.css")}}" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/datatables.min.css"/>
     <link rel="stylesheet" href="{{asset("assets/css/owl.carousel.css")}}" />
     <link rel="stylesheet" href="{{asset("assets/css/fa.css")}}" />
     <link rel="stylesheet" href="{{asset("assets/css/dropzone.min.css")}}" />
+    <link rel="stylesheet" href="{{asset("assets/css/chart.css")}}" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset("assets/css/style.css?ver" . time())}}" />
     <link rel="stylesheet" href="{{asset("assets/css/responsive.css")}}" />

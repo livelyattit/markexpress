@@ -6,6 +6,7 @@ use App\Addresslog;
 use App\Parcel;
 use App\Test;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -23,11 +24,21 @@ class TestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        echo env('APP_ENV');
-        return ;
+        if($request->has('from') && $request->has('to')){
+
+            $from = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('from') . "00:00:00")->format('Y-m-d H:i:s');
+            $to = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('to'). "00:00:00")->format('Y-m-d H:i:s');
+
+        echo $from;
+        echo $to;
+        }
+
+
+        return;
+
 
         $response = Http::get('https://cod.callcourier.com.pk/api/CallCourier/GetTackingHistory?cn=03032-01-010607575');
 
