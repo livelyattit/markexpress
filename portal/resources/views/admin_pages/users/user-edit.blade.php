@@ -134,7 +134,7 @@
                                 @isset($user_details->personalData->bill_file_name)
                                     <div class="verification-uploaded">
                                         <h4>User Uploaded Bill Copy</h4>
-                                        <img class="verification-img" src="{{route('content',
+                                        <img class="verification-img" src="{{route('content-customer',
                                  ['authid'=>$user_details->id,
                                  'location'=>'JP7gRq00',
                                     'filename'=>$user_details->personalData->bill_file_name
@@ -155,7 +155,7 @@
                                 @isset($user_details->personalData->cnic_file_name)
                                     <div class="verification-uploaded">
                                         <h4>Your Uploaded Cnic Copy</h4>
-                                        <img class="verification-img" src="{{route('content',
+                                        <img class="verification-img" src="{{route('content-customer',
                                      ['authid'=>$user_details->id,
                                      'location'=>'lL3MgYsS',
                                         'filename'=>$user_details->personalData->cnic_file_name

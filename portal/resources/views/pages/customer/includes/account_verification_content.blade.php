@@ -21,6 +21,17 @@
                 </div>
 
                 <div class="row">
+                    <div class="col">
+                        @if(Session::has('success'))
+                    <div class="alert alert-success">{{Session::get('success')}}</div>
+                        @endif
+
+                        @if(Session::has('error'))
+                    <div class="alert alert-danger">{{Session::get('error')}}</div>
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-6">
                         @isset(Auth::user()->personalData->bill_file_name)
                             <div class="verification-uploaded">
@@ -64,9 +75,9 @@
                     <div class="col-12">
                         <div class="text-center verification-proceed-button-wrapper">
                             @if(Auth::user()->originality_verified == 0)
-                                <form id="customer-verification-proceed-form" method="post" action="{{route('customer-verification-proceed')}}">
+                                <form onsubmit=" var cc = document.querySelector('.btn-in-submit');cc.setAttribute('disabled', 'disabled');cc.value='Please Wait..'" id="customer-verification-proceed-form" method="post" action="{{route('customer-verification-proceed')}}">
                                     @csrf
-                                    <button class="btn btn-success btn-round btn-in-submit" type="submit">Proceed to Next Step</button>
+                                    <input type="submit" class="btn btn-success btn-round btn-in-submit" value="Proceed to Next Step" />
                                     <div class="form-message"></div>
                                 </form>
                             @endif

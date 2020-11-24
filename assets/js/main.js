@@ -215,73 +215,73 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    $("#customer-verification-proceed-form").submit(function (e) {
+    // $("#customer-verification-proceed-form").submit(function (e) {
 
-        e.preventDefault();
+    //     e.preventDefault();
 
-        let form = $(this);
-        let clicked_button = form.find('.btn-in-submit');
-        let form_message = form.find('.form-message');
+    //     let form = $(this);
+    //     let clicked_button = form.find('.btn-in-submit');
+    //     let form_message = form.find('.form-message');
 
-        $.ajax({
+    //     $.ajax({
 
-            type: 'POST',
-            dataType: 'JSON',
-            data: form.serialize(),
-            url: '/customer/proceed-verification',
-            beforeSend: function () {
+    //         type: 'POST',
+    //         dataType: 'JSON',
+    //         data: form.serialize(),
+    //         url: '/customer/proceed-verification',
+    //         beforeSend: function () {
 
-                clicked_button
-                    .attr('disabled', 'disabled')
-                    .addClass('enabled');
-                clicked_button.text('Please Wait..');
+    //             clicked_button
+    //                 .attr('disabled', 'disabled')
+    //                 .addClass('enabled');
+    //             clicked_button.text('Please Wait..');
 
-            },
-            success: function (result, status, xhr) {
+    //         },
+    //         success: function (result, status, xhr) {
 
-                console.log(result);
-                setTimeout(function () {
+    //             console.log(result);
+    //             setTimeout(function () {
 
-                    let redirect_url = result.data.redirect_url;
+    //                 let redirect_url = result.data.redirect_url;
 
-                    form_message
-                        .removeClass('error')
-                        .addClass('success')
-                        .text(result.data.message);
+    //                 form_message
+    //                     .removeClass('error')
+    //                     .addClass('success')
+    //                     .text(result.data.message);
 
-                    console.log(redirect_url);
-                    clicked_button
-                        .removeAttr('disabled')
-                        .removeClass('enabled');
+    //                 console.log(redirect_url);
+    //                 clicked_button
+    //                     .removeAttr('disabled')
+    //                     .removeClass('enabled');
 
-                    window.location.href = redirect_url;
-
-
-                }, 1200);
-            },
-            error: function (xhr, status, error) {
-
-                console.log(xhr);
-                console.log(status);
-                console.log(error);
-
-                setTimeout(function () {
-                    clicked_button
-                        .removeAttr('disabled')
-                        .removeClass('enabled');
-
-                    clicked_button.text('Proceed to verify');
-
-                }, 1200);
+    //                 window.location.href = redirect_url;
 
 
-            },
-            complete: function () {
+    //             }, 1200);
+    //         },
+    //         error: function (xhr, status, error) {
 
-            }
+    //             console.log(xhr);
+    //             console.log(status);
+    //             console.log(error);
 
-        });
-    });
+    //             setTimeout(function () {
+    //                 clicked_button
+    //                     .removeAttr('disabled')
+    //                     .removeClass('enabled');
+
+    //                 clicked_button.text('Proceed to verify');
+
+    //             }, 1200);
+
+
+    //         },
+    //         complete: function () {
+
+    //         }
+
+    //     });
+    // });
 
 
     // jQuery
