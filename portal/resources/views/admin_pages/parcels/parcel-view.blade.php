@@ -194,6 +194,9 @@
                             </thead>
                             <tbody>
                             @foreach($response_courier as $courier)
+                                @php
+                                $transaction_date =  \Carbon\Carbon::parse($courier['TransactionDate'])->format('d-m-Y H:i:s');
+                                @endphp
                                 <tr>
                                     <td>{{$courier['ConsignmentNo']}}</td>
                                     <td>{{$courier['ConsigneeName']}}</td>
@@ -202,7 +205,7 @@
                                     <td>{{$courier['ContactNo']}}</td>
                                     <td>{{$courier['ShipperName']}}</td>
                                     <td>{{$courier['ShipperAddress']}}</td>
-                                    <td>{{$courier['TransactionDate']}}</td>
+                                    <td>{{$transaction_date}}</td>
                                     <td>{{$courier['OperationDesc']}}</td>
                                     <td>{{$courier['ProcessDescForPortal']}}</td>
                                     <td>{{$courier['ReceiverName']}}</td>

@@ -59,20 +59,31 @@ class CustomerController extends UserController
             'The Bank of Punjab.' => 'The Bank of Punjab.',
             'UBL - United Bank Limited.' => 'UBL - United Bank Limited.',
         ];
-        $count_today_bookings = Parcel::where('user_id', Auth::user()->id)->whereDate('created_at', Carbon::today())->count();
+        $dashboard['count_today_bookings'] = Parcel::where('user_id', Auth::user()->id)->whereDate('created_at', Carbon::today())->count();
 
-        $count_weekly_bookings = Parcel::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(Carbon::MONDAY), Carbon::now()->endOfWeek(Carbon::SUNDAY)])->count();
+        $dashboard['count_weekly_bookings'] = Parcel::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(Carbon::MONDAY), Carbon::now()->endOfWeek(Carbon::SUNDAY)])->count();
 
-        $count_monthly_bookings = Parcel::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+        $dashboard['count_monthly_bookings'] = Parcel::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+
+
+        $dashboard['weekly_bookings'] = Parcel::where('user_id', Auth::user()->id)
+            ->whereBetween('created_at', [Carbon::now()->startOfWeek(Carbon::MONDAY), Carbon::now()->endOfWeek(Carbon::SUNDAY)])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+        $overall_parcels_data = [];
+
+        $dashboard['parcels_created'] = Parcel::where('user_id', Auth::user()->id)->count();
+
+
 
         return view('pages.customer.dashboard', [
             'body_class' => $body_class,
             'page_title' => $page_title,
             'cities' => $cities,
             'banks' => $banks,
-            'count_today_bookings' => $count_today_bookings,
-            'count_weekly_bookings' => $count_weekly_bookings,
-            'count_monthly_bookings' => $count_monthly_bookings,
+            'dashboard' =>$dashboard,
         ]);
     }
 

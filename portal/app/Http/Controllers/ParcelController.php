@@ -12,6 +12,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
+use Doctrine\DBAL\Exception\ConnectionException;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class ParcelController extends Controller
@@ -156,7 +158,7 @@ class ParcelController extends Controller
 
 
         $city = City::find($input['consignee_city']);
-        $cash_handling_amount = 0;
+        $cash_handling_amount = NULL;
         $cash_handling_message = '';
         if ($input['cod_amount'] >= 5000) {
             $cash_handling_amount = ($input['cod_amount'] * 1) / 100; //1 percent amount if charges exceeds 5000
@@ -202,12 +204,41 @@ class ParcelController extends Controller
     {
         if (Auth::user()->id == $parcel->user_id) {
 
-            $data = Parcel::with(['status' => function ($query) {
+            $parcel_details = Parcel::with(['status' => function ($query) {
                 return $query->orderBy('status_id', 'asc');
             }, 'city'])->find($parcel->id);
 
+            $tracking_number = $parcel_details->assigned_tracking_number;
+            $response_to_show = '';
+            if(!empty($tracking_number)){
+                try{
+                    $url ='https://cod.callcourier.com.pk/api/CallCourier/GetTackingHistory?cn=' . $tracking_number;
+                    $response_tracking = Http::get($url);
+                    if($response_tracking->status() == '200'){
+                        //$response_to_show = json_decode($response_tracking->json(), true);
+                        $response_to_show = $response_tracking->json();
+                    }
+                    else{
+                        $response_to_show = 'Error in tracking call courier with cn no. <strong class="text-dark">' . $tracking_number . '</strong>';
+                    }
+
+                }
+                catch (ConnectionException $e){
+
+                    $response_to_show = 'Could not connect to Call Courier. Message: <span class="text-dark">' . $e->getMessage() . '</span>';
+                }
+
+            }
+//        echo "<pre>";
+//        print_r($response_tracking->json());
+//        echo "</pre>";
+
+
+
+
             return view('pages.customer.parcel-show', [
-                'parcel' => $data,
+                'parcel' => $parcel_details,
+                'response_courier'=>$response_to_show,
             ]);
         } else {
             return redirect()->route('home');
