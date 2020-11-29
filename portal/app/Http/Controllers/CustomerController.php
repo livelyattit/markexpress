@@ -74,9 +74,98 @@ class CustomerController extends UserController
 
         $overall_parcels_data = [];
 
-        $dashboard['parcels_created'] = Parcel::where('user_id', Auth::user()->id)->count();
+        $parcels = Parcel::with('status')->where('user_id', Auth::user()->id)
+        ->get();
 
+        // foreach($dashboard['parcels_created'] as $ss){
+        //     echo $ss->id .'aa'  . "<br>";
+        //     foreach($ss->status as $vv){
+        //         echo $vv->pivot->status_id . 'bb' . "<br>";
+        //     }
+        // }
+        //dd($dashboard['parcels_created']);
 
+        $count_parcel_created = 0;
+        $count_parcel_picked = 0;
+        $count_parcel_delivery_in_process = 0;
+        $count_parcel_delivered_payment_in_process = 0;
+        $count_parcel_delivered = 0;
+        $count_parcel_undelivered = 0;
+        $count_parcel_reattempt = 0;
+        $count_parcel_return_in_process = 0;
+        $count_parcel_returned = 0;
+
+        foreach($parcels as $parcel){
+
+            foreach($parcel->status as $status){
+
+                $status_id = $status->pivot->status_id;
+
+                if($status_id == Parcel::SHIPMENT_CREATED){
+
+                    $count_parcel_created++;
+
+                }
+
+                if($status_id == Parcel::SHIPMENT_PICKED){
+
+                    $count_parcel_picked++;
+
+                }
+
+                if($status_id == Parcel::DELIVERY_IN_PROCESS){
+
+                    $count_parcel_delivery_in_process++;
+
+                }
+
+                if($status_id == Parcel::DELIVERED_PAYMENT_IN_PROCESS){
+
+                    $count_parcel_delivered_payment_in_process++;
+
+                }
+
+                if($status_id == Parcel::DELIVERED){
+
+                    $count_parcel_delivered++;
+
+                }
+
+                if($status_id == Parcel::UNDELIVERED){
+
+                    $count_parcel_undelivered++;
+
+                }
+
+                if($status_id == Parcel::REATTEMPT){
+
+                    $count_parcel_reattempt++;
+
+                }
+
+                if($status_id == Parcel::RETURN_IN_PROCESS){
+
+                    $count_parcel_return_in_process++;
+
+                }
+
+                if($status_id == Parcel::RETURNED){
+
+                    $count_parcel_returned++;
+
+                }
+            }
+        }
+
+        $dashboard['count_parcels_created'] = $count_parcel_created;
+        $dashboard['count_parcels_picked'] = $count_parcel_picked;
+        $dashboard['count_parcels_delivery_in_process'] = $count_parcel_delivery_in_process;
+        $dashboard['count_parcels_delivered_payment_in_process'] = $count_parcel_delivered_payment_in_process;
+        $dashboard['count_parcels_delivered'] = $count_parcel_delivered;
+        $dashboard['count_parcels_undelivered'] = $count_parcel_undelivered;
+        $dashboard['count_parcels_reattempt'] = $count_parcel_reattempt;
+        $dashboard['count_parcels_return_in_process'] = $count_parcel_return_in_process;
+        $dashboard['count_parcels_returned'] = $count_parcel_returned;
 
         return view('pages.customer.dashboard', [
             'body_class' => $body_class,

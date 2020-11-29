@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Parcel extends Model
 {
+
+    const SHIPMENT_CREATED = 1;
+    const SHIPMENT_PICKED = 2;
+    const DELIVERY_IN_PROCESS = 3;
+    const DELIVERED_PAYMENT_IN_PROCESS = 4;
+    const DELIVERED = 5;
+    const UNDELIVERED = 6;
+    const REATTEMPT = 7;
+    const RETURN_IN_PROCESS = 8;
+    const RETURNED = 9;
+
     protected $fillable = [
         'user_id',
         'addresslog_id',

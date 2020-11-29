@@ -431,8 +431,8 @@ $("#form-upload-bill").dropzone({
                 name: 'amount',
             },
             {
-                data: 't_basic_charges',
-                name: 't_basic_charges',
+                data: 'total_delivery_amount',
+                name: 'total_delivery_amount',
             },
             {
                 data: 'view',
@@ -681,6 +681,30 @@ $("#form-upload-bill").dropzone({
 
     $('#to').datepicker({
         dateFormat:"dd-mm-yy"
+    });
+
+
+    // $('#users b').animate({
+    //     counter: 260
+    // }, {
+    //     duration: 1000,
+    //     easing: 'swing',
+    //     step: function(now) {
+    //         $(this).text(Math.ceil(now));
+    //     },
+    //     complete: update_users_count
+    // });
+
+    $('.shipments').each(function () {
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).data('shipments')
+        }, {
+            duration: 700,
+            easing: 'linear',
+            step: function (now) {
+                $(this).find('h4').text( (Math.ceil(now) < 10 ? '0' : '') + Math.ceil(now) );
+            }
+        });
     });
 
 });

@@ -1111,10 +1111,10 @@ form.form-in .alert.alert-danger {
 
 h2.dashboard-heading {
   text-align: left;
-  margin-bottom: 20px;
-  font-size: 20px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
   font-weight: 800;
-  color: rgb(52, 58, 64);
+  color: #757575;
 }
 
 section#dashboard-parcels .intro-section {
@@ -1125,10 +1125,10 @@ section#dashboard-parcels .intro-section {
 div#parcels_table_wrapper {
   background: #fff;
   padding: 20px 0;
-  border: 1px solid rgb(244, 247, 250);
+  /* border: 1px solid rgb(244, 247, 250); */
 }
 
-h2.dashboard-heading:after {content: "";position: relative;border-bottom: 3px solid rgb(94, 178, 8);display: block;width: 100px;}
+h2.dashboard-heading:after {content: "";position: relative;border-bottom: 3px solid rgb(94, 178, 8);display: block;width: 100px;opacity: 00;}
 
 .verification-proceed-button-wrapper {max-width: 510px;margin: 40px auto 30px;}
 
@@ -1696,7 +1696,7 @@ section#dashboard-upperinfo h3 {
   font-weight: 600;
   font-style: normal;
   font-family: 'Open Sans', sans-serif;
-  color: rgb(52, 58, 64);
+  color: #757575;
   font-size: 19px;
 }
 section#dashboard-upperinfo h3 strong {
@@ -1706,8 +1706,9 @@ section#dashboard-upperinfo h3 strong {
 .parcels-status-box h5 {
   display: inline-block;
   background: #f3f3f3;
-  padding: 5px 6px;
-  color: #2f2f2f;
+  padding: 7px 6px;
+  color: #717171;
+  font-size: 1rem;
   width: 90%;
 }
 
@@ -1750,7 +1751,7 @@ ul.weekly-parcels-status li a {
     background: #f3f3f3;
     width: 100%;
     padding: 8px;
-    color: #2e6694;
+    color: #62636f;
     font-weight: 600;
     transition: 0.2s all;
     font-size: 13px;
@@ -1761,4 +1762,125 @@ ul.weekly-parcels-status li a:after {content: "";display: table;clear: both;}
 ul.weekly-parcels-status li a:hover {
     background: #13418d;
     color: #fff;
+}
+
+
+
+div#dashboard_counters {
+  padding-bottom: 40px;
+}
+
+div#dashboard_counters .shipments {
+    background: #fff;
+    padding: 15px 15px 8px;
+    border: 1px solid red;
+    border-radius: 12px 0;
+}
+
+div#dashboard_counters .shipments-created {
+    border-color: #ffd547;
+}
+
+div#dashboard_counters .shipments-picked {
+    border-color: #ffb3e8;
+}
+
+div#dashboard_counters .shipments-dip {
+    border-color: #3d8ed4;
+}
+
+div#dashboard_counters .shipments-dpip {
+    border-color: #a9a765;
+}
+
+div#dashboard_counters .shipments-dd {
+    border-color: #83ff35;
+}
+
+div#dashboard_counters .shipments-ud {
+    border-color: #b1b1b1;
+}
+
+div#dashboard_counters .shipments-ra {
+    border-color: #8760ff;
+}
+
+div#dashboard_counters .shipments-rip {
+    border-color: #2ea892;
+}
+
+div#dashboard_counters .shipments-rd {
+    border-color: #ff5f5f;
+}
+
+div#dashboard_counters .shipments h6 {
+  font-weight: 700;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  line-height: 16px;
+  color: #6f6f6f;
+}
+
+div#dashboard_counters .shipments h4 {
+  font-style: italic;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #6f6f6f;
+}
+
+div#dashboard_counters .shipments-created h4 {
+    color: #ffc500;
+}
+
+div#dashboard_counters .shipments-picked h4 {
+    color: #ffb3e8;
+}
+
+div#dashboard_counters .shipments-dip h4 {
+    color: #3d8ed4;
+}
+
+div#dashboard_counters .shipments-dpip h4 {
+    color: #a9a765;
+}
+
+div#dashboard_counters .shipments-dd h4 {
+    color: #83ff35;
+}
+
+div#dashboard_counters .shipments-ud h4 {
+    color: #b1b1b1;
+}
+
+div#dashboard_counters .shipments-ra h4 {
+    color: #8760ff;
+}
+
+div#dashboard_counters .shipments-rip h4 {
+    color: #2ea892;
+}
+
+div#dashboard_counters .shipments-rd h4 {
+    color: #ff5f5f;
+}
+
+.parcel-welcome-header h6 {
+    color: #969696;
+}
+
+.parcel-welcome-header h1 {
+    color: #757575;
+    text-transform: u;
+}
+
+.parcels-table {margin-top: -50px;}
+
+form#search-form {
+  display: flex;
+  position: relative;
+  top: 50px;
+  left: 0;
 }
