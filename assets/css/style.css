@@ -1768,54 +1768,54 @@ ul.weekly-parcels-status li a:hover {
 
 
 
-div#dashboard_counters {
+div#dashboard-counters {
   padding-bottom: 40px;
 }
 
-div#dashboard_counters .shipments {
+div#dashboard-counters .shipments {
     background: #fff;
     padding: 15px 15px 8px;
     border: 2px solid #c1c1c1;
     border-radius: 12px 0;
 }
 
-div#dashboard_counters .shipments-created {
+div#dashboard-counters .shipments-created {
     border-color: #ffd547;
 }
 
-div#dashboard_counters .shipments-picked {
+div#dashboard-counters .shipments-picked {
     border-color: #ffb3e8;
 }
 
-div#dashboard_counters .shipments-dip {
+div#dashboard-counters .shipments-dip {
     border-color: #3d8ed4;
 }
 
-div#dashboard_counters .shipments-dpip {
+div#dashboard-counters .shipments-dpip {
     border-color: #a9a765;
 }
 
-div#dashboard_counters .shipments-dd {
+div#dashboard-counters .shipments-dd {
     border-color: #83ff35;
 }
 
-div#dashboard_counters .shipments-ud {
+div#dashboard-counters .shipments-ud {
     border-color: #b1b1b1;
 }
 
-div#dashboard_counters .shipments-ra {
+div#dashboard-counters .shipments-ra {
     border-color: #8760ff;
 }
 
-div#dashboard_counters .shipments-rip {
+div#dashboard-counters .shipments-rip {
     border-color: #2ea892;
 }
 
-div#dashboard_counters .shipments-rd {
+div#dashboard-counters .shipments-rd {
     border-color: #ff5f5f;
 }
 
-div#dashboard_counters .shipments h6 {
+div#dashboard-counters .shipments h6 {
   font-weight: 700;
   text-transform: capitalize;
   font-size: 0.8rem;
@@ -1824,7 +1824,7 @@ div#dashboard_counters .shipments h6 {
   color: #6f6f6f;
 }
 
-div#dashboard_counters .shipments h4 {
+div#dashboard-counters .shipments h4 {
   font-style: italic;
   font-weight: 800;
   text-transform: uppercase;
@@ -1833,39 +1833,39 @@ div#dashboard_counters .shipments h4 {
   color: #6f6f6f;
 }
 
-div#dashboard_counters .shipments-created h4 {
+div#dashboard-counters .shipments-created h4 {
     color: #ffc500;
 }
 
-div#dashboard_counters .shipments-picked h4 {
+div#dashboard-counters .shipments-picked h4 {
     color: #ffb3e8;
 }
 
-div#dashboard_counters .shipments-dip h4 {
+div#dashboard-counters .shipments-dip h4 {
     color: #3d8ed4;
 }
 
-div#dashboard_counters .shipments-dpip h4 {
+div#dashboard-counters .shipments-dpip h4 {
     color: #a9a765;
 }
 
-div#dashboard_counters .shipments-dd h4 {
+div#dashboard-counters .shipments-dd h4 {
     color: #83ff35;
 }
 
-div#dashboard_counters .shipments-ud h4 {
+div#dashboard-counters .shipments-ud h4 {
     color: #b1b1b1;
 }
 
-div#dashboard_counters .shipments-ra h4 {
+div#dashboard-counters .shipments-ra h4 {
     color: #8760ff;
 }
 
-div#dashboard_counters .shipments-rip h4 {
+div#dashboard-counters .shipments-rip h4 {
     color: #2ea892;
 }
 
-div#dashboard_counters .shipments-rd h4 {
+div#dashboard-counters .shipments-rd h4 {
     color: #ff5f5f;
 }
 
@@ -1895,4 +1895,40 @@ table.dataTable td, table.dataTable th {
     font-size: 13px;
     padding: 0.5rem;
     vertical-align: middle;
+}
+
+.dashboard-menu-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    max-width: 500px;
+    width: auto;
+}
+
+ul.dashboard-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul.dashboard-menu li {
+    margin-right: 18px;
+}
+
+ul.dashboard-menu li a {
+    background: #f3f3f3;
+    padding: 10px 15px;
+    border-radius: 6px;
+    color: rgb(130 130 130 / 66%);
+    font-weight: 700;
+    border: 1px solid rgb(248, 254, 249);
+    transition: 0.2s ease;
+    text-decoration: underline;
+}
+
+ul.dashboard-menu li a:hover {
+    color: #0baf01;
+    /* text-decoration: none; */
 }

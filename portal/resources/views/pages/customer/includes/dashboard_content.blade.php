@@ -12,6 +12,13 @@
             </div>
 
         </div>
+        <div class="dashboard-menu-wrapper">
+            <ul class="dashboard-menu">
+            <li><a href="{{route('parcel.create')}}">Add Shipment</a></li>
+
+            <li><a href="#dashboard-shipments">All Shipments</a></li>
+            </ul>
+        </div>
         <div class="intro-section">
             @if(Session::has('success'))
             <div class="alert alert-success">
@@ -85,7 +92,7 @@
             </div>
         </div>
 
-        <div id="dashboard_counters">
+        <div id="dashboard-counters">
             <div class="row">
                 <div class="col">
                     <h2 class="dashboard-heading">SHIPMENT COUNTERS</h2>
@@ -192,38 +199,40 @@
 
     @if(!Auth::user()->parcel->isEmpty())
 
-    <div class="row">
-        <div class="col-12">
-            <h2 class="dashboard-heading">SHIPMENTS</h2>
-            <div class="parcels-table">
-                <form method="POST" id="search-form" class="form-inline" role="form">
+    <div id="dashboard-shipments">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="dashboard-heading">SHIPMENTS</h2>
+                <div class="parcels-table">
+                    <form method="POST" id="search-form" class="form-inline" role="form">
 
-                    <div class="form-group mr-2">
-                        <input type="text" autocomplete="off" class="form-control" name="from" id="from"
-                            placeholder="Search From">
-                    </div>
-                    <div class="form-group mr-2">
-                        <input type="text" autocomplete="off" class="form-control" name="to" id="to"
-                            placeholder="Search To">
-                    </div>
+                        <div class="form-group mr-2">
+                            <input type="text" autocomplete="off" class="form-control" name="from" id="from"
+                                placeholder="Search From">
+                        </div>
+                        <div class="form-group mr-2">
+                            <input type="text" autocomplete="off" class="form-control" name="to" id="to"
+                                placeholder="Search To">
+                        </div>
 
-                    <button type="submit" class="btn btn-danger">Search</button>
-                </form>
-                <div class="table-responsive">
-                    <table id="parcels_table" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Created On</th>
-                                <th>Parcel No.</th>
-                                <th>Current Status</th>
-                                <th>Consignee</th>
-                                <th>City</th>
-                                <th>Cod Amount</th>
-                                <th>Total Delivery Charges</th>
-                                <th>View</th>
-                            </tr>
-                        </thead>
-                    </table>
+                        <button type="submit" class="btn btn-danger">Search</button>
+                    </form>
+                    <div class="table-responsive">
+                        <table id="parcels_table" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Created On</th>
+                                    <th>Parcel No.</th>
+                                    <th>Current Status</th>
+                                    <th>Consignee</th>
+                                    <th>City</th>
+                                    <th>Cod Amount</th>
+                                    <th>Total Delivery Charges</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
