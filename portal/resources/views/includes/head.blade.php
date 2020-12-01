@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="{{asset("assets/css/style.css?ver" . time())}}" />
     <link rel="stylesheet" href="{{asset("assets/css/responsive.css")}}" />
 
+
+    <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+
 <!--  browser campatibel css files-->
 <!--[if lt IE 9]>
 <script src="{{asset('assets/js/html5shiv.js')}}"></script>

@@ -1011,11 +1011,11 @@ span.logo-blue {
 }
 
 section#dashboard-addresslog .container {
-  background: rgba(245, 255, 244, 0.5803921568627451);
+  background: rgb(234 234 234 / 58%);
   padding-top: 100px;
   padding-bottom: 70px;
   text-align: center;
-  border: 1px solid rgb(157, 225, 153);
+  /* border: 1px solid rgb(157, 225, 153); */
   border-radius: 6px;
   position: relative;
 }
@@ -1278,10 +1278,12 @@ section#dashboard-addresslog.parcel-show .container {
 }
 
 section#dashboard-addresslog.parcel-show h3 {
-  font-size: 24px;
-  font-weight: 700;
-  color: rgb(52, 58, 64);
-  margin-bottom: 10px;
+  
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #757575;
 }
 
 
@@ -1516,13 +1518,13 @@ section#dashboard-addresslog.parcel-show h3 {
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-time > span:first-child {
   font-size: 14px;
   font-weight: bold;
-  color: rgb(52, 58, 64);
+  color:#757575;
 }
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-time > span:last-child {
   font-size: 12px;
   font-weight: 600;
-  color: rgb(52, 58, 64);
+  color:#757575;
 }
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon {
@@ -1653,22 +1655,22 @@ section#dashboard-addresslog.parcel-show h3 {
 .parcel-show h4 {
   margin-bottom: 30px;
   font-size: 20px;
-  font-weight: 600;
-  font-family: 'Open sans', sans-serif;
-  color: rgb(80, 124, 74);
+  font-weight: 700;
+  color: #636363;
+  text-align: center;
 }
 
 .parcel-info-wrapper {
   background: #fff;
   padding: 14px 16px;
   margin-bottom: 30px;
-  border: 1px solid rgb(157, 225, 153);
+  border: 2px solid rgb(157, 225, 153);
   border-radius: 7px;
 }
 
 .parcel-info-wrapper h5 {
   font-weight: 700;
-  color: rgb(52, 58, 64);
+  color: #757575;
 }
 
 .parcel-info-wrapper ul li span {
@@ -1697,7 +1699,7 @@ section#dashboard-upperinfo h3 {
   font-style: normal;
   font-family: 'Open Sans', sans-serif;
   color: #757575;
-  font-size: 19px;
+  font-size: 17px;
 }
 section#dashboard-upperinfo h3 strong {
   font-weight: 700;
@@ -1773,7 +1775,7 @@ div#dashboard_counters {
 div#dashboard_counters .shipments {
     background: #fff;
     padding: 15px 15px 8px;
-    border: 1px solid red;
+    border: 2px solid #c1c1c1;
     border-radius: 12px 0;
 }
 
@@ -1867,8 +1869,9 @@ div#dashboard_counters .shipments-rd h4 {
     color: #ff5f5f;
 }
 
-.parcel-welcome-header h6 {
+.parcel-welcome-header h6, .weekly-parcels-status-wrapper h6 {
     color: #969696;
+    font-weight: 700;
 }
 
 .parcel-welcome-header h1 {
@@ -1883,4 +1886,13 @@ form#search-form {
   position: relative;
   top: 50px;
   left: 0;
+  width: 50%;
+  height: 40px;
+  z-index: 9999;
+}
+
+table.dataTable td, table.dataTable th {
+    font-size: 13px;
+    padding: 0.5rem;
+    vertical-align: middle;
 }

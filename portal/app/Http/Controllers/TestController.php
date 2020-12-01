@@ -27,14 +27,23 @@ class TestController extends Controller
     public function index(Request $request)
     {
 
-        if($request->has('from') && $request->has('to')){
+        $now = Carbon::now();
+        echo $now->year;
+        echo $now->month;
+        echo $now->day;
 
-            $from = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('from') . "00:00:00")->format('Y-m-d H:i:s');
-            $to = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('to'). "00:00:00")->format('Y-m-d H:i:s');
+        echo "<br>";
+        echo Carbon::parse('2020-01-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00');
+        //echo $now->weekOfYear;
 
-        echo $from;
-        echo $to;
-        }
+        // if($request->has('from') && $request->has('to')){
+
+        //     $from = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('from') . "00:00:00")->format('Y-m-d H:i:s');
+        //     $to = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('to'). "00:00:00")->format('Y-m-d H:i:s');
+
+        // echo $from;
+        // echo $to;
+        // }
 
 
         return;

@@ -25,7 +25,7 @@
             @include('pages.customer.includes.account_confirmation_content')
         @elseif(Auth::user()->originality_verified == 3)
             @include('pages.customer.includes.dashboard_content')
-            @include('includes.popup-edit-address-log')
+            {{-- @include('includes.popup-edit-address-log') --}}
         @endif
 
     </div>

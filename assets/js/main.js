@@ -13,15 +13,15 @@ jQuery(document).ready(function ($) {
     });
 
     $('.select-js').select2({
-        placeholder: function(){
+        placeholder: function () {
             $(this).data('placeholder');
         }
     });
 
 
-    function inWords (num) {
-        var a = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
-        var b = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+    function inWords(num) {
+        var a = ['', 'one ', 'two ', 'three ', 'four ', 'five ', 'six ', 'seven ', 'eight ', 'nine ', 'ten ', 'eleven ', 'twelve ', 'thirteen ', 'fourteen ', 'fifteen ', 'sixteen ', 'seventeen ', 'eighteen ', 'nineteen '];
+        var b = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
         if ((num = num.toString()).length > 9) return 'overflow';
         n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
         if (!n) return; var str = '';
@@ -33,7 +33,7 @@ jQuery(document).ready(function ($) {
         return str;
     }
 
-    $(".fn-number").keyup(function(){
+    $(".fn-number").keyup(function () {
         $(".fn-number-words").html(inWords($(this).val()));
     });
 
@@ -62,8 +62,8 @@ jQuery(document).ready(function ($) {
                 clicked_button.find('.loader').show();
 
                 form_message
-                        .removeClass('success error')
-                        .html('');
+                    .removeClass('success error')
+                    .html('');
 
             },
             success: function (result, status, xhr) {
@@ -142,9 +142,9 @@ jQuery(document).ready(function ($) {
                 clicked_button.find('.loader').show();
 
                 form_message
-                        .removeClass('success error')
-                        .html('');
-                 form
+                    .removeClass('success error')
+                    .html('');
+                form
                     .find('.form-field-status')
                     .html('');
 
@@ -179,7 +179,7 @@ jQuery(document).ready(function ($) {
                 console.log(error);
 
                 let response_message = xhr.responseJSON.message;
-                let response_errors =xhr.responseJSON.errors;
+                let response_errors = xhr.responseJSON.errors;
 
                 setTimeout(function () {
                     clicked_button
@@ -195,17 +195,17 @@ jQuery(document).ready(function ($) {
                         .removeClass('success')
                         .addClass('error');
 
-                        console.log(response_errors);
+                    console.log(response_errors);
 
-                        $.each(response_errors, function(i, item){
+                    $.each(response_errors, function (i, item) {
 
-                            form
+                        form
                             .find('.form-field-' + i)
-                            .html('<div class="error">' +item + '</div>');
-                            console.log(i);
-                            console.log(item);
+                            .html('<div class="error">' + item + '</div>');
+                        console.log(i);
+                        console.log(item);
 
-                        })
+                    })
 
                 }, 1200);
             },
@@ -285,51 +285,47 @@ jQuery(document).ready(function ($) {
 
 
     // jQuery
-$("#form-upload-bill").dropzone({
-     url: "/customer/file-upload-bill" ,
-     acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: false,
-            uploadMultiple: false,
-            maxFiles: 1,
-            maxFilesize: 2, // MB
-            //timeout: 5000,
-            success: function(file, response) 
-            {
-                console.log(file);
-                console.log(response);
-            },
-            error: function(file, response)
-            {
-                $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
-                console.log(file);
-                console.log(response);
-               return false;
-            }
-    });
-
-    $("#form-upload-cnic").dropzone({
-        url: "/customer/file-upload-cnic" ,
+    $("#form-upload-bill").dropzone({
+        url: "/customer/file-upload-bill",
         acceptedFiles: ".jpeg,.jpg,.png,.gif",
         addRemoveLinks: false,
         uploadMultiple: false,
         maxFiles: 1,
         maxFilesize: 2, // MB
-               //timeout: 5000,
-               success: function(file, response) 
-               {
-                   console.log(file);
-                   console.log(response);
-               },
-               error: function(file, response)
-               {
-                   $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
-                   console.log(file);
-                   console.log(response);
-                   return false;
-               }
-       });
+        //timeout: 5000,
+        success: function (file, response) {
+            console.log(file);
+            console.log(response);
+        },
+        error: function (file, response) {
+            $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
+            console.log(file);
+            console.log(response);
+            return false;
+        }
+    });
 
-    var addresslog_datatable =  $('#addresslog_table').DataTable({
+    $("#form-upload-cnic").dropzone({
+        url: "/customer/file-upload-cnic",
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        addRemoveLinks: false,
+        uploadMultiple: false,
+        maxFiles: 1,
+        maxFilesize: 2, // MB
+        //timeout: 5000,
+        success: function (file, response) {
+            console.log(file);
+            console.log(response);
+        },
+        error: function (file, response) {
+            $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
+            console.log(file);
+            console.log(response);
+            return false;
+        }
+    });
+
+    var addresslog_datatable = $('#addresslog_table').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -364,8 +360,8 @@ $("#form-upload-bill").dropzone({
             },
             {
                 data: 'city',
-                render:function(data, type, row){
-                    if(data){
+                render: function (data, type, row) {
+                    if (data) {
                         return data.city_name + ' ( ' + data.delivery_time + ' )';
                     }
 
@@ -386,7 +382,7 @@ $("#form-upload-bill").dropzone({
         ]
     });
 
-    var parcels_datatable =  $('#parcels_table').DataTable({
+    var parcels_datatable = $('#parcels_table').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -397,13 +393,13 @@ $("#form-upload-bill").dropzone({
         bAutoWidth: true,
         ajax: {
             url: "/customer/parcel/all-parcels",
-           // type: "POST",
+            // type: "POST",
             data: function (d) {
                 d.from = $('input[name=from]').val();
                 d.to = $('input[name=to]').val();
-            }   
+            }
         },
-        order: [[ 0, "desc" ]],
+        order: [[0, "desc"]],
         columns: [
             {
                 data: 'created_at',
@@ -442,7 +438,7 @@ $("#form-upload-bill").dropzone({
         ]
     });
 
-    $('#search-form').on('submit', function(e) {
+    $('#search-form').on('submit', function (e) {
         parcels_datatable.draw();
         e.preventDefault();
         console.log($(this).serialize());
@@ -457,20 +453,20 @@ $("#form-upload-bill").dropzone({
         $.ajax({
             type: 'GET',
             dataType: 'html',
-            url: '/address-log/'+addresslog_id,
-            beforeSend:function(){
+            url: '/address-log/' + addresslog_id,
+            beforeSend: function () {
                 preloader_loader.toggleClass('show');
             },
-            success:function(data){
-              //  console.log(data);
+            success: function (data) {
+                //  console.log(data);
                 setTimeout(function () {
                     preloader_loader.toggleClass('show');
                     addresslog_modal.find('.js-content').html(data);
                     addresslog_modal.modal('toggle');
-                },1200);
+                }, 1200);
 
             },
-            error:function(){}
+            error: function () { }
         });
     });
 
@@ -485,8 +481,8 @@ $("#form-upload-bill").dropzone({
             type: 'PUT',
             dataType: 'json',
             url: url,
-            data:form.serialize(),
-            beforeSend:function(){
+            data: form.serialize(),
+            beforeSend: function () {
                 preloader_loader.toggleClass('show');
                 form
                     .find('.form-field-status')
@@ -521,7 +517,7 @@ $("#form-upload-bill").dropzone({
                 console.log(error);
 
                 let response_message = xhr.responseJSON.message;
-                let response_errors =xhr.responseJSON.errors;
+                let response_errors = xhr.responseJSON.errors;
 
                 setTimeout(function () {
                     preloader_loader.toggleClass('show');
@@ -537,11 +533,11 @@ $("#form-upload-bill").dropzone({
                         .html(response_message);
 
 
-                    $.each(response_errors, function(i, item){
+                    $.each(response_errors, function (i, item) {
 
                         form
                             .find('.form-field-' + i)
-                            .html('<div class="error">' +item + '</div>');
+                            .html('<div class="error">' + item + '</div>');
                         console.log(i);
                         console.log(item);
 
@@ -549,7 +545,7 @@ $("#form-upload-bill").dropzone({
 
                 }, 1200);
             },
-            complete:function(xhr, status){
+            complete: function (xhr, status) {
                 addresslog_datatable.ajax.reload();
             }
         });
@@ -573,24 +569,24 @@ $("#form-upload-bill").dropzone({
                 }
             },
             callback: function (result) {
-                if(result == true){
+                if (result == true) {
                     $.ajax({
                         type: 'DELETE',
                         dataType: 'json',
-                        url: '/address-log/'+addresslog_id,
-                        beforeSend:function(){
+                        url: '/address-log/' + addresslog_id,
+                        beforeSend: function () {
                             preloader_loader.toggleClass('show');
                         },
-                        success:function(data){
+                        success: function (data) {
                             console.log(data);
                             setTimeout(function () {
                                 preloader_loader.toggleClass('show');
 
                                 addresslog_datatable.ajax.reload();
-                            },1200);
+                            }, 1200);
 
                         },
-                        error:function(){}
+                        error: function () { }
                     });
                 }
 
@@ -608,7 +604,7 @@ $("#form-upload-bill").dropzone({
             type: 'POST',
             dataType: 'html',
             data: {
-                consignee_id:consignee_id,
+                consignee_id: consignee_id,
             },
             url: '/parcel/get-consignee',
             beforeSend: function () {
@@ -633,54 +629,104 @@ $("#form-upload-bill").dropzone({
 
         });
 
-    })
-
-
-    var ctx = $('#myChart');
-
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
     });
 
+
+    function initChart() {
+
+        var ctx = $('#myChart');
+
+        $.ajax({
+
+            type: 'GET',
+            dataType: 'json',
+            url: '/customer/parcels-chart',
+            beforeSend: function () {
+
+            },
+            success: function (result, status, xhr) {
+
+                console.log(result);
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Januray', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        datasets: [{
+                            label: 'YEARLY SHIPMENTS SUMMARY',
+                            //data: [12, 19, 3, 5, 2, 3],
+                            data: result,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: false,
+                            text: '<h6>Chart.js Horizontal Bar Chart</h6>'
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    stepSize: 1,
+                                }
+                            }]
+                        }
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+
+
+            },
+            complete: function () {
+
+            }
+
+        });
+    }
+
+    initChart();
+
+
     $('#from').datepicker({
-        dateFormat:"dd-mm-yy"
+        dateFormat: "dd-mm-yy"
     });
 
     $('#to').datepicker({
-        dateFormat:"dd-mm-yy"
+        dateFormat: "dd-mm-yy"
     });
 
 
@@ -696,13 +742,13 @@ $("#form-upload-bill").dropzone({
     // });
 
     $('.shipments').each(function () {
-        $(this).prop('Counter',0).animate({
+        $(this).prop('Counter', 0).animate({
             Counter: $(this).data('shipments')
         }, {
             duration: 700,
             easing: 'linear',
             step: function (now) {
-                $(this).find('h4').text( (Math.ceil(now) < 10 ? '0' : '') + Math.ceil(now) );
+                $(this).find('h4').text((Math.ceil(now) < 10 ? '0' : '') + Math.ceil(now));
             }
         });
     });

@@ -75,7 +75,7 @@ class CustomerController extends UserController
         $overall_parcels_data = [];
 
         $parcels = Parcel::with('status')->where('user_id', Auth::user()->id)
-        ->get();
+            ->get();
 
         // foreach($dashboard['parcels_created'] as $ss){
         //     echo $ss->id .'aa'  . "<br>";
@@ -95,64 +95,55 @@ class CustomerController extends UserController
         $count_parcel_return_in_process = 0;
         $count_parcel_returned = 0;
 
-        foreach($parcels as $parcel){
+        foreach ($parcels as $parcel) {
 
-            foreach($parcel->status as $status){
+            foreach ($parcel->status as $status) {
 
                 $status_id = $status->pivot->status_id;
 
-                if($status_id == Parcel::SHIPMENT_CREATED){
+                if ($status_id == Parcel::SHIPMENT_CREATED) {
 
                     $count_parcel_created++;
-
                 }
 
-                if($status_id == Parcel::SHIPMENT_PICKED){
+                if ($status_id == Parcel::SHIPMENT_PICKED) {
 
                     $count_parcel_picked++;
-
                 }
 
-                if($status_id == Parcel::DELIVERY_IN_PROCESS){
+                if ($status_id == Parcel::DELIVERY_IN_PROCESS) {
 
                     $count_parcel_delivery_in_process++;
-
                 }
 
-                if($status_id == Parcel::DELIVERED_PAYMENT_IN_PROCESS){
+                if ($status_id == Parcel::DELIVERED_PAYMENT_IN_PROCESS) {
 
                     $count_parcel_delivered_payment_in_process++;
-
                 }
 
-                if($status_id == Parcel::DELIVERED){
+                if ($status_id == Parcel::DELIVERED) {
 
                     $count_parcel_delivered++;
-
                 }
 
-                if($status_id == Parcel::UNDELIVERED){
+                if ($status_id == Parcel::UNDELIVERED) {
 
                     $count_parcel_undelivered++;
-
                 }
 
-                if($status_id == Parcel::REATTEMPT){
+                if ($status_id == Parcel::REATTEMPT) {
 
                     $count_parcel_reattempt++;
-
                 }
 
-                if($status_id == Parcel::RETURN_IN_PROCESS){
+                if ($status_id == Parcel::RETURN_IN_PROCESS) {
 
                     $count_parcel_return_in_process++;
-
                 }
 
-                if($status_id == Parcel::RETURNED){
+                if ($status_id == Parcel::RETURNED) {
 
                     $count_parcel_returned++;
-
                 }
             }
         }
@@ -172,8 +163,132 @@ class CustomerController extends UserController
             'page_title' => $page_title,
             'cities' => $cities,
             'banks' => $banks,
-            'dashboard' =>$dashboard,
+            'dashboard' => $dashboard,
         ]);
+    }
+
+    public function parcelsChart(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $chart = [];
+            $now = Carbon::now();
+            $current_year =  $now->year;
+
+            $chart[0] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-01-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-01-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[1] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-02-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-02-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[2] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-03-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-03-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[3] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-04-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-04-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+
+            $chart[4] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-05-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-05-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[5] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-06-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-06-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[6] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-07-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-07-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[7] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-08-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-08-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[8] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-09-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-09-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[9] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-10-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-10-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[10] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-11-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-11-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+            $chart[11] = Parcel::where('user_id', Auth::user()->id)
+                ->whereBetween(
+                    'created_at',
+                    [
+                        Carbon::parse($current_year . '-12-01 00:00:00')->startOfMonth()->format('Y-m-d 00:00:00'),
+                        Carbon::parse($current_year . '-12-01 00:00:00')->endOfMonth()->format('Y-m-d 00:00:00')
+                    ]
+                )->count();
+
+
+                return response()->json($chart,200);
+        }
+
+        return response()->json(['Error'=>'unauthorized'],400);
     }
 
     public function proceedBusinessInformation(Request $request)

@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="parcel-info-wrapper">
-                            <h5>CONSIGNEE DETAILS</h5>
+                            <h5>Consignee Details</h5>
                             <ul>
                                 <li><span>Consignee:</span> <strong>{{$parcel->consignee_name}}</strong></li>
                                 <li><span>Name:</span> <strong>{{$parcel->consignee_name}}</strong></li>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-6">
                         <div class="parcel-info-wrapper">
-                            <h5>SHIPMENT DETAILS    </h5>
+                            <h5>Shipment Details</h5>
                             <ul>
                                 @if ($parcel->weight != NULL)
                                     <li><span>Weight:</span> <strong>{{$parcel->weight}}kg</strong></li>
