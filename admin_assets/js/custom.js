@@ -218,6 +218,17 @@ var users_datatable =  $('#users_table').DataTable({
     ]
 });
 
+
+
+$('#from').datepicker({
+    dateFormat: "dd-mm-yy"
+});
+
+$('#to').datepicker({
+    dateFormat: "dd-mm-yy"
+});
+
+
 var parcels_datatable =  $('#parcels_table').DataTable({
     processing: true,
     serverSide: true,
@@ -234,14 +245,19 @@ var parcels_datatable =  $('#parcels_table').DataTable({
     // },
     ajax: {
         url: "/parcel/all",
+        data: function (d) {
+            d.from = $('input[name=from]').val();
+            d.to = $('input[name=to]').val();
+        }
     },
+    order: [[0, "desc"]],
     columns: [
         {
-            data: 'shipment_created',
+            data: 'created_at',
             name: 'created_at'
         },
         {
-            data: 'parcel_no',
+            data: 'assigned_parcel_number',
             name: 'assigned_parcel_number'
         },
         {
@@ -304,29 +320,18 @@ var parcels_datatable =  $('#parcels_table').DataTable({
             name:'parcel_status_change',
             orderable: false,
         },
-        // {
-        //     data: 'consignee_alias',
-        //     name: 'consignee_alias'
-        // },
-        //
-        // {
-        //     data: 'consignee_city',
-        //     name: 'consignee_city',
-        // },
-        // {
-        //     data: 'cod_amount',
-        //     name: 'cod_amount',
-        // },
-        // {
-        //     data: 'delivery_charges',
-        //     name: 'delivery_charges',
-        // },
         {
             data: 'view',
             name: 'view',
             orderable: false
         },
     ]
+});
+
+$('#search-form').on('submit', function (e) {
+    parcels_datatable.draw();
+    e.preventDefault();
+    console.log($(this).serialize());
 });
 
 // Tooltips

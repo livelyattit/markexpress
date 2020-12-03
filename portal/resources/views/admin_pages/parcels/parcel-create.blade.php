@@ -22,11 +22,10 @@
                         <form novalidate method="post" action="{{route('admin-parcel', 'create')}}" class="needs-validation">
                             @csrf
                             <div class="form-row">
-                                <div class="col-md-12">
-                                    <h5 class="text-dark mt-4 mb-3"><strong>ADDRESSLOG FIELDS</strong></h5>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         @empty($user_details)
-                                            <span class="d-block">Select Account</span>
+                                            {{-- <span class="d-block">Select Account</span> --}}
                                             <select name="user_account" required="required" data-placeholder="Select Account" id="ajax-accounts" class="js-states form-control">
                                                 <option value=""></option>
                                             </select>
@@ -42,18 +41,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Address Alias</label>
-                                        <input readonly required name="consignee_alias" value="{{'generated-' . time()}}"  type="text" placeholder="e.g Consignee Name"  class="form-control">
-                                        @if($errors->has('consignee_alias'))
-                                            <div class="d-block invalid-feedback">
-                                                <span class="error">{{ $errors->first('consignee_alias') }}</span>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Consignee Name</label>
                                         <input required name="consignee_name" value="{{old('consignee_name')}}"   type="text" placeholder="Full Name"  class="form-control">
@@ -64,20 +52,20 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Consignee Contact</label>
-                                        <input required name="consignee_number" value="{{old('consignee_number')}}"   type="tel" placeholder="e.g 03111234567"  class="form-control">
-                                        @if($errors->has('consignee_number'))
+                                        <input required name="consignee_contact" value="{{old('consignee_contact')}}"   type="tel" placeholder="e.g 03111234567"  class="form-control">
+                                        @if($errors->has('consignee_contact'))
                                             <div class="d-block invalid-feedback">
-                                                <span class="error">{{ $errors->first('consignee_number') }}</span>
+                                                <span class="error">{{ $errors->first('consignee_contact') }}</span>
                                             </div>
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <span class="d-block">City (With Delivery Time)</span>
+                                        {{-- <span class="d-block">City (With Delivery Time)</span> --}}
                                         <select data-placeholder="Select City" required name="consignee_city"   class="form-control select-js">
                                             <option value="" style="display: none"></option>
                                             @foreach($cities as $city)
@@ -106,8 +94,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Nearby Location (Optional)</label>
-                                        <input  name="consignee_nearby_address" value="{{old('consignee_nearby_address')}}"  type="text" placeholder="Any nearby location if necessary"  class="form-control">
+                                        <label>Nearby Location</label>
+                                        <input required  name="consignee_nearby_address" value="{{old('consignee_nearby_address')}}"  type="text" placeholder="Any nearby location if necessary"  class="form-control">
                                         @if($errors->has('consignee_nearby_address'))
                                             <div class="d-block invalid-feedback">
                                                 <span class="error">{{ $errors->first('consignee_nearby_address') }}</span>
@@ -117,8 +105,6 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="parcel-fields-wrapper">
-                                        <hr>
-                                        <h5 class="text-dark mt-4 mb-3"><strong>PARCEL FIELDS</strong></h5>
                                         <div class="form-group">
                                             <label>Cod Amount</label>
                                             <input autocomplete="off" required name="cod_amount" value="{{old('cod_amount')}}"   type="number" placeholder="Enter Amount e.g 1000"  class="form-control fn-number">
@@ -129,8 +115,8 @@
                                                 </div>
                                             @endif
                                         </div>
-                                        <div class="optional-fields-wrapper">
-                                            <h6 class="text-dark mt-4 mb-3"><strong>OPTIONAL FIELDS</strong></h6>
+                                        <div class="optional-fields-wrapper mt-5">
+                                            <h6 class="text-dark"><strong>OPTIONAL FIELDS</strong></h6>
                                             <div class="row form-group">
                                                 <div class="col-12">
                                                     <label>Basic Charges</label>

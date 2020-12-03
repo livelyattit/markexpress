@@ -24,6 +24,19 @@
                             </div>
                         @endif
                             <div class="table-container">
+                                <form method="POST" id="search-form" class="form-inline" role="form">
+
+                                    <div class="form-group mr-2">
+                                        <input type="text" autocomplete="off" class="form-control" name="from" id="from"
+                                            placeholder="Search From">
+                                    </div>
+                                    <div class="form-group mr-2">
+                                        <input type="text" autocomplete="off" class="form-control" name="to" id="to"
+                                            placeholder="Search To">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-danger">Search</button>
+                                </form>
                                 <div class="table-responsive">
                                     <table  id="parcels_table" class="text-center table table-striped table-hover display actions">
                                         <thead>

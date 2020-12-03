@@ -86,12 +86,13 @@ class AdminController extends Controller
             case 'all':
                 if($request->ajax()){
                     //datatable results
-                    return $parcel_obj->allParcels();
+                    return $parcel_obj->allParcels($request);
                 }
                 return view('admin_pages.parcels.parcels');
                 break;
             case 'create':
                 if($request->isMethod('post')){
+                    // dd($request->all());
                     return $parcel_obj->createEditParcel($request->all());
                 }
 

@@ -37,12 +37,11 @@ class ParcelController extends Controller
 
     public function allParcels(Request $request){
 
-        $data = Parcel::with('status', 'city')->where('user_id', Auth::user()->id)->get();
+        //$data = Parcel::with('status', 'city')->where('user_id', Auth::user()->id);
 
-        $pp = $request->all();
-        //dd($pp);
+        //$pp = $request->all();
 
-        //if ($request->ajax()) {
+        if ($request->ajax()) {
             $data = Parcel::with('status', 'city')->where('user_id', Auth::user()->id);
             return DataTables::of($data)
                 //                ->addColumn('shipment_created',  function($data){
@@ -74,24 +73,24 @@ class ParcelController extends Controller
                 ->editColumn('created_at', function ($user) {
                     return $user->created_at ? with(new Carbon($user->created_at))->format('d-m-Y') : '';
                 })
-                ->filterColumn('created_at', function ($query, $keyword) {
+                // ->filterColumn('created_at', function ($query, $keyword) {
 
 
-                    // if(preg_match("/november/i", $keyword))
-                    // {
-                    //     $keyword = 11;
-                    // }
+                //     // if(preg_match("/november/i", $keyword))
+                //     // {
+                //     //     $keyword = 11;
+                //     // }
 
-                    // if(preg_match("/december/i", $keyword))
-                    // {
-                    //     $keyword = 12;
-                    // }
+                //     // if(preg_match("/december/i", $keyword))
+                //     // {
+                //     //     $keyword = 12;
+                //     // }
 
-                    // Log::info($keyword);
-                    $query
-                        //->select("MONTHNAME(STR_TO_DATE(".$keyword.", '%m')")
-                        ->whereRaw("DATE_FORMAT(created_at,'%d-%m-%Y') like ?", ["%$keyword%"]);
-                })
+                //     // Log::info($keyword);
+                //     $query
+                //         //->select("MONTHNAME(STR_TO_DATE(".$keyword.", '%m')")
+                //         ->whereRaw("DATE_FORMAT(created_at,'%d-%m-%Y') like ?", ["%$keyword%"]);
+                // })
                 ->filter(function ($query) use ($request) {
                     if ($request->get('from') && $request->get('to')) {
 
@@ -107,10 +106,10 @@ class ParcelController extends Controller
                     }
 
 
-                })
+                }, true)
                 ->rawColumns(['view'])
                 ->make(true);
-        //}
+        }
 
     }
 
@@ -143,6 +142,8 @@ class ParcelController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input, [
+            'consignee_city'=>'required|not_in:0|numeric|min:1|max:465',
+            'consignee_nearby_address'=>'required',
             'weight' => 'sometimes|nullable|numeric|min:1|max:50',
             'length' => 'sometimes|nullable|numeric|min:1|max:150',
             'width' => 'sometimes|nullable|numeric|min:1|max:150',

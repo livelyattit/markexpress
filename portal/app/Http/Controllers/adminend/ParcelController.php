@@ -23,31 +23,49 @@ use DataTables;
 
 class ParcelController extends Controller
 {
-    public  function allParcels(){
+    public  function allParcels($request){
             //$data = Addresslog::where('user_id', Auth::user()->id)->get();
             $data = Parcel::with( 'user','status');
+
+            // foreach($data->status as $st){
+            //     echo $st->status;
+            // }
+            // $statuses = Status::all();
+            // foreach ($statuses as $status){
+            //     echo $status->status;
+            // }
+            //dd($statuses);
+
             return DataTables::of($data)
 
-                ->addColumn('shipment_created',  function($data){
-                    return $data->created_at ? with(new Carbon($data->created_at))->format('Y-m-d') : '';
-                })
-                ->addColumn('parcel_no', function($data){
-                    return  $data->assigned_parcel_number;
-                })
-//                ->addColumn('cn_no', function($data){
-//                    return  $data->assigned_tracking_number;
-//                })
-//                ->addColumn('current_status', function($data){
-//                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
-//                    return empty($dd) ? 'No data' : $dd->status;
-//
-//                })
+            // ->editColumn('created_at', function ($user) {
+            //     return $user->created_at ? with(new Carbon($user->created_at))->format('d-m-Y') : '';
+            // })
+            // ->filterColumn('created_at', function ($query, $keyword) {
+
+
+            //     // if(preg_match("/november/i", $keyword))
+            //     // {
+            //     //     $keyword = 11;
+            //     // }
+
+            //     // if(preg_match("/december/i", $keyword))
+            //     // {
+            //     //     $keyword = 12;
+            //     // }
+
+            //     // Log::info($keyword);
+            //     $query
+            //         //->select("MONTHNAME(STR_TO_DATE(".$keyword.", '%m')")
+            //         ->whereRaw("DATE_FORMAT(created_at,'%d-%m-%Y') like ?", ["%$keyword%"]);
+            // })
                 ->addColumn('parcel_status_change', function($data){
                     $statuses = Status::all();
                     $select = '<label class="d-flex">Change Status</label><select class="parcel-status-change form-control">';
                     //$select .='<option style="display: none" value="">Change Status</option>';
-                    $dd  = $data->status()->latest('parcel_status.updated_at')->first();
+                    $dd  = $data->status()->latest('parcel_status.created_at')->first();
                     $selected = '';
+                    $disabled = '';
                     foreach ($statuses as $status){
                         if($status->status == $dd->status){
                             $selected = 'selected';
@@ -61,27 +79,32 @@ class ParcelController extends Controller
                     return $select  ;
 
                 })
-                /*->addColumn('consignee_alias', function($data){
-                    $data_decoded = json_decode($data->binded_addresslog, true);
-                    return $data_decoded['addresslog_info']['consignee_alias'] ;
-                })
-                ->addColumn('consignee_city',  function($data){
-                    $data_decoded = json_decode($data->binded_addresslog, true);
-                    //return $data_decoded['addresslog_info']['consignee_address'] ;
-                    return $data_decoded['city']['city_name'] ;
-                })
-                ->addColumn('cod_amount',  function($data){
 
-                    return "PKR " .  number_format($data->amount, 1, '.', ',');
-                })
-                ->addColumn('delivery_charges',  function($data){
-                    $charges = 250;
-                    return "PKR " .  number_format($charges, 1, '.', ',');
-                })*/
                 ->addColumn('view', function($data){
                     $button = '<a href="'.route('admin-parcel', ['view',$data->id ]).'" class="p-1 btn-view-user btn btn-outline-warning btn-sm btn-icon full-width"><span class="material-icons">remove_red_eye</span></a>';
                     return $button;
                 })
+
+                ->editColumn('created_at', function ($user) {
+                    return $user->created_at ? with(new Carbon($user->created_at))->format('d-m-Y') : '';
+                })
+
+                ->filter(function ($query) use ($request) {
+                    if ($request->get('from') && $request->get('to')) {
+
+                        $from = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('from') . "00:00:00")->format('Y-m-d H:i:s');
+                        $to = Carbon::createFromFormat('d-m-Y H:i:s', $request->get('to'). "23:59:59")->format('Y-m-d H:i:s');
+
+                        //$from = $request->get('from');
+                        //$to = $request->get('to');
+
+                        //$query->where('consignee_name', '=', 'kashif raees');
+
+                         $query->whereBetween('created_at', [$from, $to]);
+                    }
+
+
+                }, true)
                 ->rawColumns(['view', 'parcel_status_change'])
                 ->make(true);
 
@@ -185,12 +208,12 @@ class ParcelController extends Controller
 
         }
 
-        //addresslog creation
+        //parcel creation
         $validator = Validator::make($inputs,[
             'user_account'=>'required|exists:App\User,id',
             //'consignee_alias'=>'required|unique:addresslogs,consignee_alias,NULL,id,user_id,'. Auth::user()->id,
             'consignee_name'=>'required|max:190',
-            'consignee_number'=>['required', new PhoneNumber()],
+            'consignee_contact'=>['required', new PhoneNumber()],
             'consignee_city'=>'required|not_in:0',
             'consignee_address'=>'required|max:100',
             'consignee_nearby_address'=>'max:100',
@@ -206,7 +229,7 @@ class ParcelController extends Controller
             't_cash_handling_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
             't_packing_charges'=>'sometimes|nullable|numeric|min:1|max:9900000',
         ], [
-            'consignee_alias.unique'=>'Alias already taken in your address log.',
+            //'consignee_alias.unique'=>'Alias already taken in your address log.',
         ] );
         if($validator->fails()){
             return back()
@@ -214,33 +237,16 @@ class ParcelController extends Controller
                 ->withInput($inputs);
         }
 
-        $address_log = Addresslog::create([
-            'user_id'=>$inputs['user_account'],
-            'city_id'=>$inputs['consignee_city'],
-            'consignee_alias'=>$inputs['consignee_alias'],
-            'consignee_name'=>$inputs['consignee_name'],
-            'consignee_contact'=>$inputs['consignee_number'],
-            'consignee_address'=>$inputs['consignee_address'],
-            'consignee_nearby_address'=>$inputs['consignee_nearby_address'],
-            'created_by'=>'is_admin'
-        ]);
-
-        $binded_address = Addresslog::find($address_log->id)->toArray();
-        $binded_city = Addresslog::find($address_log->id)->city->toArray();
-
-        $ff = [
-            'addresslog_info'=>$binded_address,
-            'city'=>$binded_city,
-        ];
-
         $parcel = Parcel::create([
             'user_id'=>$inputs['user_account'],
-            'addresslog_id'=>$address_log->id,
             'assigned_parcel_number'=>null,
-            'binded_addresslog'=>json_encode($ff),
-            'current_last_status'=>'shipment created',
+            'city_id' => $inputs['consignee_city'],
+            'consignee_name' => $inputs['consignee_name'],
+            'consignee_contact' => $inputs['consignee_contact'],
+            'consignee_address' => $inputs['consignee_address'],
+            'consignee_nearby_address' => $inputs['consignee_nearby_address'],
+            'current_last_status' => 'shipment created',
             'amount'=>$inputs['cod_amount'],
-            //'t_basic_charges'=>$binded_city['initial_weight_price'],
             't_basic_charges'=>$inputs['t_basic_charges'],
             't_booking_charges'=>$inputs['t_booking_charges'],
             't_cash_handling_charges'=>$inputs['t_cash_handling_charges'],

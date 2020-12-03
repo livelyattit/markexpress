@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Parcel;
+use Illuminate\Support\Facades\Auth;
 
 class ParcelObserver
 {
@@ -14,20 +15,29 @@ class ParcelObserver
      */
     public function created(Parcel $parcel)
     {
-        $amount = ($parcel->amount != NULL) ? $parcel->amount : 0;
-        $basic_charges = ($parcel->t_basic_charges != NULL) ? $parcel->t_basic_charges : 0;
-        $booking_charges = ($parcel->t_booking_charges != NULL) ? $parcel->t_booking_charges : 0;
-        $cash_handling_charges = ($parcel->t_cash_handling_charges != NULL) ? $parcel->t_cash_handling_charges : 0;
-        $packing_charges = ($parcel->t_packing_charges != NULL) ? $parcel->t_packing_charges : 0;
+        if(Auth::check()){
+            if(Auth::user()->role->name == 'customer'){
+
+                $amount = ($parcel->amount != NULL) ? $parcel->amount : 0;
+                $basic_charges = ($parcel->t_basic_charges != NULL) ? $parcel->t_basic_charges : 0;
+                $booking_charges = ($parcel->t_booking_charges != NULL) ? $parcel->t_booking_charges : 0;
+                $cash_handling_charges = ($parcel->t_cash_handling_charges != NULL) ? $parcel->t_cash_handling_charges : 0;
+                $packing_charges = ($parcel->t_packing_charges != NULL) ? $parcel->t_packing_charges : 0;
 
 
-        $total_charges = $basic_charges + $booking_charges + $cash_handling_charges + $packing_charges;
-        $remaining_charges = $amount - $total_charges;
+                $total_charges = $basic_charges + $booking_charges + $cash_handling_charges + $packing_charges;
+                $remaining_charges = $amount - $total_charges;
 
 
-        $parcel->total_delivery_amount = $total_charges;
-        $parcel->remaining_amount = $remaining_charges;
-        $parcel->save();
+                $parcel->total_delivery_amount = $total_charges;
+                $parcel->remaining_amount = $remaining_charges;
+                $parcel->save();
+
+            }
+            else{
+                //admin work
+            }
+        }
     }
 
     /**

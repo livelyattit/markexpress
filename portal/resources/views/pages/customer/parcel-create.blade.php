@@ -29,6 +29,9 @@
                                 </div>
                             @endif
                             <h3>CREATE PARCEL</h3>
+                            @if($errors->$errors->any())
+                                <span class="alert alert-danger">Please Check Errors below</span>
+                            @endif
                             <form onsubmit=" var cc = document.querySelector('.btn-in-submit');cc.setAttribute('disabled', 'disabled');cc.value='Please Wait..'" id="parcel-create-form" class="parcel-form form-in" action="{{route('parcel.store')}}" method="post">
                                 @csrf
                                 <div class="form-group">
