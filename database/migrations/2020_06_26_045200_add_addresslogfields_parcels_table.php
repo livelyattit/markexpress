@@ -23,7 +23,7 @@ class AddAddresslogfieldsParcelsTable extends Migration
             $table->string('consignee_nearby_address')->nullable()->after('consignee_address');
 
 
-            $table->foreign('city_id')->references('id')->on('cities')->constrained()->cascadeOnDelete();
+            // $table->foreign('city_id')->references('id')->on('cities')->constrained()->cascadeOnDelete();
         });
     }
 
@@ -38,7 +38,7 @@ class AddAddresslogfieldsParcelsTable extends Migration
 
             DB::statement('SET FOREIGN_KEY_CHECKS = 0'); //this is also valid
             $table->text('binded_addresslog')->nullable();
-            $table->dropForeign('parcels_city_id_foreign');
+            // $table->dropForeign('parcels_city_id_foreign');
             $table->dropColumn('city_id');
             $table->dropColumn('consignee_name');
             $table->dropColumn('consignee_contact');

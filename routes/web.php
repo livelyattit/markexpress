@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::domain(env('ADMIN_URL'))->group(base_path('routes/admin.php'));
 
-Route::domain(env('SITE_URL'))->group(function() {
+// Route::domain(env('SITE_URL'))->group(function() {
 
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/about', 'HomeController@about')->name('about');
@@ -60,16 +60,16 @@ Route::domain(env('SITE_URL'))->group(function() {
         Route::post('/parcel/get-consignee', 'ParcelController@getConsignee')->name('parcel-get-consignee');
     });
 
-});
+// });
 
 
 Auth::routes();
 
 
 
-Route::group(['prefix' => 'developer'], function () {
-    Voyager::routes();
-});
+// Route::group(['prefix' => 'developer'], function () {
+//     Voyager::routes();
+// });
 
 
 

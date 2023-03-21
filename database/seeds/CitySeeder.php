@@ -480,6 +480,7 @@ $cities = array(
     462 => array('city_name' => 'ZAFARWAL', 'delivery_time' => '5-6 DAYS','initial_weight_limit'=>2, 'initial_weight_price'=>250,'additional_weight_price'=>160),
     463 => array('city_name' => 'ZAHIR PIR', 'delivery_time' => '5-6 DAYS','initial_weight_limit'=>2, 'initial_weight_price'=>250,'additional_weight_price'=>160),
     464 => array('city_name' => 'ZHOB', 'delivery_time' => '6-7 DAYS','initial_weight_limit'=>2, 'initial_weight_price'=>250,'additional_weight_price'=>160),
+    465 => array('city_name' => 'No City', 'delivery_time' => '0 DAYS','initial_weight_limit'=>0, 'initial_weight_price'=>0,'additional_weight_price'=>0),
 );
 
         $cc=0;
