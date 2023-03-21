@@ -36,6 +36,6 @@ class CnicNumber implements Rule
      */
     public function message()
     {
-        return 'Invalid Cnic Number. Use the above pattern';
+        return 'Invalid Cnic Number. Please write with hyphens.<br>e.g XXXXX-XXXXXXX-X';
     }
 }

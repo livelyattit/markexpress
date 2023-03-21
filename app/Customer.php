@@ -13,8 +13,10 @@ class Customer extends User
     {
         parent::boot();
 
-        static::addGlobalScope(function ($query) {
-            $query->where('role_id', '=', '3' ); //3 is for customer
+        $customer_role = Role::query()->where('name', 'customer')->firstOrFail();
+
+        static::addGlobalScope(function ($query) use ($customer_role) {
+            $query->where('role_id', '=', $customer_role->id ); //2 is for customer
         });
     }
 

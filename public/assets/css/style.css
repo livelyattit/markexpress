@@ -1,4 +1,4 @@
-/* 
+/*
 
 font-family: 'Nunito', sans-serif;
 font-family: 'Open Sans', sans-serif;
@@ -846,7 +846,7 @@ section#dashboard-verification .container {
   background: #f5fff494;
   padding-top: 70px;
   padding-bottom: 40px;
-  text-align: center;
+  /* text-align: center; */
   border: 1px solid #9de199;
   border-radius: 6px;
   position: relative;
@@ -864,6 +864,7 @@ section#dashboard-verification h2 {
   color: rgb(52, 58, 64);
   text-transform: capitalize;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 section#dashboard-verification .verification-note {
@@ -958,15 +959,14 @@ form#customer-verification-proceed-form button {height: 50px;padding: 10px;width
 }
 
 .verification-uploaded-note li {
-  color: rgb(75, 181, 67);
-  font-size: 14px;
-  font-weight: 600;
-  padding-bottom: 5px;
-  text-align: left;
+    color: rgb(0, 0, 0);
+    font-size: 19px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    text-align: left;
 }
 
-.verification-uploaded-note h4 {
-  font-size: 21px;
+.verification-uploaded-note h3 {
   line-height: 29px;
   color: rgb(75, 181, 67);
   font-weight: 600;
@@ -1278,7 +1278,7 @@ section#dashboard-addresslog.parcel-show .container {
 }
 
 section#dashboard-addresslog.parcel-show h3 {
-  
+
     text-align: left;
     margin-bottom: 10px;
     font-size: 1.3rem;
@@ -1734,7 +1734,7 @@ ul.weekly-parcels-status .current-status {
   text-transform: capitalize;
 }
 
-ul.weekly-parcels-status:after {content: "";display: table;clear: both;}  
+ul.weekly-parcels-status:after {content: "";display: table;clear: both;}
 
 ul.weekly-parcels-status li {
     list-style: none;

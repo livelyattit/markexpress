@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
+Route::prefix('admin')->group(base_path('routes/admin.php'));
 // Route::domain(env('ADMIN_URL'))->group(base_path('routes/admin.php'));
 
 // Route::domain(env('SITE_URL'))->group(function() {

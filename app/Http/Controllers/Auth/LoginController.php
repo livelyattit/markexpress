@@ -81,7 +81,7 @@ class LoginController extends Controller
                 case 'customer':
                     $redirect_location = route('customer-dashboard');
                     break;
-                case 'owner':
+                case 'admin':
                     $redirect_location = route('admin-dashboard');
                     break;
                 default:

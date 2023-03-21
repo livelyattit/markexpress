@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Role;
 use App\Rules\CnicNumber;
 use App\Rules\PhoneNumber;
 use App\User;
@@ -56,16 +57,19 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', new PhoneNumber],
-            'cnic' => ['required', new CnicNumber, 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ],
+        return Validator::make(
+            $data,
             [
-                'cnic.unique'=>'Cnic is already associated to some other account.'
-            ]);
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'mobile' => ['required', new PhoneNumber],
+                'cnic' => ['required', new CnicNumber, 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ],
+            [
+                'cnic.unique' => 'Cnic is already associated to some other account.'
+            ]
+        );
     }
 
     /**
@@ -76,19 +80,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-                $pp= new User();
-                $pp->refresh();
-                $num = $pp->generateAccountCode();
+        $pp = new User();
+        $pp->refresh();
+        $num = $pp->generateAccountCode();
+
+        $customer_role = Role::query()->where('name', 'customer')->firstOrFail();
 
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'account_code'=> $num,
+            'account_code' => $num,
             'mobile' => $data['mobile'],
             'cnic' => $data['cnic'],
-            'address'=>$data['address'],
-            'role_id'=>3, // 3 is for customer for now
-            'originality_verified'=> 0, // 0 means not verified by the admin
+            'address' => $data['address'],
+            'role_id' => $customer_role->id , // 2 is for customer for now
+            'originality_verified' => 0, // 0 means not verified by the admin
             'password' => Hash::make($data['password']),
         ]);
     }
@@ -125,23 +131,23 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-         $this->guard()->login($user);
+        $this->guard()->login($user);
 
         // if ($response = $this->registered($request, $user)) {
         //     return $response;
         // }
 
         return $request->wantsJson()
-                    ? response()->json([
-                        'data'=>
-                        [
-                            'status'=>'success',
-                             'message'=>'User Registered.',
-                             'redirect_url' => $this->redirectPath()
+            ? response()->json([
+                'data' =>
+                [
+                    'status' => 'success',
+                    'message' => 'User Registered.',
+                    'redirect_url' => $this->redirectPath()
 
-                        ]
-                    ])
-                    : redirect()->intended($this->redirectPath());
+                ]
+            ])
+            : redirect()->intended($this->redirectPath());
     }
 
 
@@ -151,8 +157,8 @@ class RegisterController extends Controller
         $body_class = 'page-register';
         $page_title = 'Register';
         return view('auth.register', [
-            'body_class'=>$body_class,
-            'page_title'=>$page_title,
+            'body_class' => $body_class,
+            'page_title' => $page_title,
         ]);
     }
 }

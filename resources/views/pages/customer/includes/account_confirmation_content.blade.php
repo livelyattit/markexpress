@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="verification-uploaded-note">
-                                <h4><strong>ThankYou!</strong> We successfully got your data. </h4>
-                                <ol>
+                                <h3 class="mb-4"><strong>ThankYou!</strong> We successfully got your data. </h3>
+                                <ol class="pl-4">
                                     <li>Mark Express is registered with <strong>FBR</strong>. For security reasons we need to ensure that we are working with valid customers.</li>
                                     <li>The purpose of the collected data is to retain the originality of our new and existing customers.</li>
                                     <li>The collected data will not be used anywhere for any reason by Mark Express.</li>

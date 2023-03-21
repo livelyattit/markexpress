@@ -31,14 +31,14 @@ class AdminController extends Controller
     }
 
 
-    public function user($action, $id = null, $form_name=null, Request $request){
+    public function user(Request $request, $action, $id = null, $form_name=null){
         $user_obj = new UserAdmin();
         switch ($action){
             case 'all':
                 if($request->ajax()){
                     //datatable results
                     return $user_obj->allUsers();
-                }
+               }
                 return view('admin_pages.users.users');
             break;
             case 'create':
@@ -77,17 +77,17 @@ class AdminController extends Controller
     }
 
 
-    public function parcel($action, $id = null, $form_name=null, Request $request){
+    public function parcel(Request $request, $action, $id = null, $form_name=null){
         //the id param in this method is used for two purposes
         // 1 - to create the parcel we pass user id from user to directly select that user, from user section to create parcel
         //2 - to edit the parcel we pass the parcel id from parcel section to edit parcel
         $parcel_obj = new ParcelAdmin();
         switch ($action){
             case 'all':
-                if($request->ajax()){
+               if($request->ajax()){
                     //datatable results
                     return $parcel_obj->allParcels($request);
-                }
+               }
                 return view('admin_pages.parcels.parcels');
                 break;
             case 'create':

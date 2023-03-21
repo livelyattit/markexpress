@@ -10,7 +10,7 @@
     </div>
 </div>
 <div class="alpha-app">
-    @if(Auth::check() && Auth::user()->role->name == 'owner')
+    @if(Auth::check() && Auth::user()->role->name == 'admin')
         @include('admin_includes.header')
     @endif
 

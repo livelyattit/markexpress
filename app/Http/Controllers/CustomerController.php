@@ -337,7 +337,7 @@ class CustomerController extends UserController
         $inputs = $request->all();
         $user_id = isset($inputs['user_id']) ? $inputs['user_id'] : Auth::user()->id;
 
-        $user_details = Customer::find($user_id);
+        $user_details = Customer::findorFail($user_id);
 
         $validator = Validator::make($inputs, [
             'file' => 'max:2000|mimes:jpeg,png,doc,docs,pdf',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\adminend;
 use App\Accountdetail;
 use App\Customer;
 use App\Http\Controllers\Controller;
+use App\Role;
 use App\Rules\CnicNumber;
 use App\Rules\PhoneNumber;
 use App\User;
@@ -19,9 +20,10 @@ use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
     public  function allUsers(){
+        $customer_role = Role::query()->where('name', '=', 'customer')->firstOrFail();
         $data = User::with(['originality','role'=>function($query){
           //  return $query->where('name', 'customer');
-        }])->where('role_id', '=',3)->get();
+        }])->where('role_id', '=', $customer_role->id)->get();
         return DataTables::of($data)
             ->addColumn('created_on', function($data){
                 return $data->created_at->format('d-F-Y') ;
@@ -48,6 +50,7 @@ class UserController extends Controller
         if($id != null){
             $user = User::find($id);
         }
+        $customer_role = Role::query()->where('name', 'customer')->firstOrFail();
 
         switch ($form_name){
             case 'basic_details':
@@ -74,7 +77,7 @@ class UserController extends Controller
                             'mobile' => isset($inputs['mobile']) ? $inputs['mobile'] :  NULL,
                             'cnic' => isset($inputs['cnic']) ? $inputs['cnic'] :  NULL,
                             'address'=> isset($inputs['address']) ? $inputs['address'] :  NULL,
-                            'role_id'=>3, // 3 is for customer for now
+                            'role_id'=>$customer_role->id, // 2 is for customer for now
                             'originality_verified'=> isset($inputs['originality_verified']) ? $inputs['originality_verified'] :  0,
                             'password' => !empty($inputs['password']) ?  Hash::make($inputs['password']) : $user->password ,
                         ]

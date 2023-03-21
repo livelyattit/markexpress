@@ -22,7 +22,7 @@
                         <form novalidate method="post" action="{{route('admin-parcel', 'create')}}" class="needs-validation">
                             @csrf
                             <div class="form-row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         @empty($user_details)
                                             {{-- <span class="d-block">Select Account</span> --}}
@@ -35,13 +35,13 @@
                                                 </div>
                                             @endif
                                         @else
-                                            <h3>Account: {{$user_details->account_code}}<span class="text-primary"> | </span>{{$user_details->name}}<span class="text-primary"> | </span>{{$user_details->email}}</h3>
+                                            <h3 class="mb-5">Account: {{$user_details->account_code}}<span class="text-primary"> | </span>{{$user_details->name}}<span class="text-primary"> | </span>{{$user_details->email}}</h3>
                                             <input type="hidden" name="user_account" value="{{$user_details->id}}">
                                         @endempty
 
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Consignee Name</label>
                                         <input required name="consignee_name" value="{{old('consignee_name')}}"   type="text" placeholder="Full Name"  class="form-control">

@@ -22,6 +22,18 @@ use Illuminate\Support\Facades\Route;
         return redirect(route('login'));
     });
 
+
+    Route::get('/test', function(){
+
+        echo file_exists(storage_path('app/public/users_bills/42201-1254400-7-1679383091-Screenshot 2023-03-21 at 7.49.46 AM.png'));
+
+       echo storage_path('app/public/users_bills');
+
+    });
+
+
+
+
     Route::get('login', 'AdminLoginController@showLoginForm')->name('login');
 
     Route::post('login/owner', 'AdminLoginController@login')->name('admin-owner-login');

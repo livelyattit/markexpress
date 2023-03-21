@@ -79,7 +79,7 @@ $("#form-login").submit(function (e) {
         type: 'POST',
         dataType: 'JSON',
         data: form.serialize(),
-        url: '/login/owner',
+        url: './login/owner',
         beforeSend: function () {
 
             clicked_button
@@ -157,7 +157,7 @@ var users_datatable =  $('#users_table').DataTable({
     responsive:false,
     bAutoWidth: false,
     ajax: {
-        url: "/user/all",
+        url: "./all",
     },
     columns: [
         {
@@ -244,7 +244,7 @@ var parcels_datatable =  $('#parcels_table').DataTable({
     //     leftColumns: 2
     // },
     ajax: {
-        url: "/parcel/all",
+        url: "./all",
         data: function (d) {
             d.from = $('input[name=from]').val();
             d.to = $('input[name=to]').val();
