@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::domain(env('ADMIN_URL'))->group(base_path('routes/admin.php'));
+// Route::domain(env('ADMIN_URL'))->group(base_path('routes/admin.php'));
 
 // Route::domain(env('SITE_URL'))->group(function() {
 
@@ -67,9 +67,9 @@ Auth::routes();
 
 
 
-// Route::group(['prefix' => 'developer'], function () {
-//     Voyager::routes();
-// });
+Route::group(['prefix' => 'developer'], function () {
+    Voyager::routes();
+});
 
 
 
