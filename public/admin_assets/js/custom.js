@@ -21,7 +21,7 @@ $('#ajax-accounts').select2({
     },
     minimumInputLength:2,
     ajax: {
-        url: '/ajax/customers',
+        url: '../ajax/customers',
         dataType: 'json',
         delay: 250,
         processResults: function (data) {
