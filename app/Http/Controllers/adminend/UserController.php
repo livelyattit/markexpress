@@ -148,7 +148,7 @@ class UserController extends Controller
             'mobile' => $inputs['mobile'],
             'cnic' => $inputs['cnic'],
             'address'=>$inputs['address'],
-            'role_id'=>3, // 3 is for customer for now
+            'role_id'=>$customer_role->id, // 2 is for customer for now
             'originality_verified'=> 0, // 0 means not verified by the admin
             'password' => Hash::make($inputs['password']),
         ]);
